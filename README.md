@@ -5,13 +5,13 @@ This repository contains the source code used by Group D03 while performing rese
 
 ## Authors
 The following people have contributed to this project:
-*Mathieu Van der Straeten
-*Igor Pszczolkowski
-*Benjamin Slijper
-*Wouter Offringa
-*Tiago Moreira da Fonte Fonseca Teles
-*Philip Vaartjes
-*Karthikeyan Parameswaran
+* Mathieu Van der Straeten
+* Igor Pszczolkowski
+* Benjamin Slijper
+* Wouter Offringa
+* Tiago Moreira da Fonte Fonseca Teles
+* Philip Vaartjes
+* Karthikeyan Parameswaran
 
 ## License
 The source code in this repository is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
