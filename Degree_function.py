@@ -2,40 +2,52 @@
 import numpy as np
 
 def node_degree(weight_matrix):
-    #expected input of OD_pair_list is lists in a list
     
     #expected input of weight matrix is a square matrix
     #column represents origin, row represents destination
 
     transposed_weight_matrix = np.transpose(weight_matrix)
 
-    degree = []
-    in_degree = []
-    out_degree = []
+    #get in degree
+    in_degree_list = np.count_nonzero(transposed_weight_matrix, axis=1)
 
-    for i in range(len(weight_matrix):
+    #get out degree
+    out_degree_list = np.count_nonzero(weight_matrix, axis=1)
+
+    #get total degree
+
+    degree_list = []
+    
+    for i in range(len(weight_matrix)):
+        row = weight_matrix[i]
+        row[i] = 0
         
-        '''in degree = sum of all nonzero in a column of the weight matrix'''
-        Incoming = [transposed_weight_matrix[i]]
-        Incoming[i] = 0
+        column = transposed_weight_matrix[i]
+        column[i] = 0
 
-        #find number of nonzero entries
-        in_degree.append(np.count_nonzero(Incoming))
-
-
-        '''out degree = sum of all nonzero entries in a row of weight matrix'''
-        Outgoing = [weight_matrix[i]]
-        Outgoing[i] = 0
-
-        #find number of nonzero entries          
-        out_degree.append(np.count_nonzero(Outgoing))
-
-
-        '''Degree = number off all different airports to have direct edge to an airport'''
-        degree_check = []
-        for j in range(len(Incoming)):
-            degree_check.append(Incoming[j]*Outgoing[j])
-
-        degree.append(np.count_nonzero(degree_check))
+        degree_check = row+column
+        degree_list.append(np.count_nonzero(degree_check))
+        
                    
-    return degree, in_degree, out_degree
+    return out_degree_list, in_degree_list, degree_list
+
+
+def average_degree(degree_list):
+    
+    total = sum(degree_list)
+
+    av_degree = total/len(degree_list)
+
+    return av_degree
+
+#Testing
+
+array = np.array([[0,3,10,0,5,0],[3,3,0,0,5,6],[0,0,0,0,0,0],[1,3,10,4,5,3],[0,3,10,5,5,0],[0,0,0,0,5,0]])
+
+out_degree_list, in_degree_list, degree_list = node_degree(array)
+
+print(out_degree_list, '\n',in_degree_list, '\n',degree_list)
+
+av_deg = average_degree(degree_list)
+print(av_deg)
+
