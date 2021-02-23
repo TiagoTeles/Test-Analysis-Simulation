@@ -22,7 +22,7 @@ def is_number(s):
 
 
 
-# == Filter 1 a == # 
+# == Filter 1 a == #  
 # Split the data into full rows and incomplete rows
 
 rows, n1, t = [], 0, 0
