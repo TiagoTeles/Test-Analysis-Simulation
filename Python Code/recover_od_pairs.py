@@ -4,6 +4,8 @@
 
 # Results in a list with OD pairs: [[LFPG, EHAM], [EHAM, LFPG], ... ]
 
+# In its current state, it could take up to 2 hours to process 400000 flights.
+
 
 import numpy as np
 from get_missing import missing, complete, eu_ports
@@ -27,7 +29,7 @@ exceptions = 0
 
 start = time.time()  # For timing the program
 
-for i in range(1000):
+for i in range(1000):  # When doing the entire list, change 1000 to len(missing)
     if sieve[i]:  # The sieve in action
         flight_number = missing[i][0]
 
