@@ -4,7 +4,7 @@
 
 # Results in a list with OD pairs: [[LFPG, EHAM], [EHAM, LFPG], ... ]
 
-# In its current state, it could take up to 2 hours to process 400000 flights.
+# In the worst case, it could take up to 2 hours to process 400000 flights.
 
 
 import numpy as np
