@@ -1,5 +1,6 @@
 # Imports
 import csv
+import time
 
 """
 This script filters out flights that do not belong in the data analysis. The
@@ -10,10 +11,19 @@ criteria for inclusion are the following:
 
 The input .CSV file has the following structure:
 Callsign, Flight Number, Transponder Code, A/C Registration, Type Code,
-Origin, Destination, First Seen, Last Seen, Day,
-Latitude_1, Longitude_1, Altitude_1, Latitude_2, Longitude_2, Altitude_2 
+Origin, Destination, First Seen, Last Seen, Day, Latitude_1, Longitude_1,
+Altitude_1, Latitude_2, Longitude_2, Altitude_2
 """
 
+# Proposed Workflow:
+# This Script:
+# Remove unnecessary data
+# Remove flights w/o origin and destination or numbers in ICAO code
+# Set incomplete flights aside
+#
+# Another script (Wait for complete OD Pairs):
+# Remove non-european flights
+# Sort intercontinental and domestic flights
 
 # == Set-up == #
 inputFile = 'Unfiltered'  # Input filename
@@ -71,7 +81,6 @@ for i in range(len(u_rows)):
             or is_number(u_rows[i][1][3]) or is_number(u_rows[i][0][3]):
         n3 = n3 + 1
         faulty.append(i)
-        print(u_rows[i])
 
 faulty.reverse()  # Might seem odd but this has an important reason, ask me if interested
 for entry in faulty:
