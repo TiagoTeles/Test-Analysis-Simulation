@@ -20,10 +20,8 @@ Altitude_1, Latitude_2, Longitude_2, Altitude_2
 # Remove unnecessary data
 # Remove flights w/o origin and destination or numbers in ICAO code
 # Set incomplete flights aside
-#
-# Another script (Wait for complete OD Pairs):
-# Remove non-european flights
-# Sort intercontinental and domestic flights
+# Remove non-european flights from complete flights
+# Export complete.csv and incomplete.csv
 
 # == Set-up == #
 inputFile = 'Unfiltered'  # Input filename
