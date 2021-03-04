@@ -53,7 +53,7 @@ for row in csv_f:
     
     test = test + 1
 
-    if test == 1000000:
+    if test == 1000:
         break
 end = time.time()
 
