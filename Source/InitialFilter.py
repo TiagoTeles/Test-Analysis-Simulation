@@ -8,6 +8,11 @@
 filename1 = 'FebruaryInput'     # Input filename
 filename2 = 'You_Should_Change_This'    # Output filename
 
+"""  # INPUT ORDER #
+callsign, number, icao24, registration, typecode,
+origin, destination, firstseen, lastseen, day,
+latitude_1, longitude_1, altitude_1, latitude_2,longitude_2,altitude_2 """
+
 import csv
 f = open(filename1 + '.csv')
 csv_f = csv.reader(f)
