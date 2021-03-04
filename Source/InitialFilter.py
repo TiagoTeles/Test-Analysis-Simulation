@@ -6,7 +6,7 @@ This script filters out flights that do not belong in the data analysis. The
 criteria for inclusion are the following:
 - Has Origin or Destination
 - Origin or Destination are in Europe (ICAO E, B or L) # Doesn't this make the first step obsolete?
-- First four digits of Callsign and Flight Number do not contain a number # Why, ex: KLM644, KL644
+- Origin or Destinations ICAO codes do not contain a number
 
 The input .CSV file has the following structure:
 Callsign, Flight Number, Transponder Code, A/C Registration, Type Code,
@@ -71,6 +71,7 @@ for i in range(len(u_rows)):
             or is_number(u_rows[i][1][3]) or is_number(u_rows[i][0][3]):
         n3 = n3 + 1
         faulty.append(i)
+        print(u_rows[i])
 
 faulty.reverse()  # Might seem odd but this has an important reason, ask me if interested
 for entry in faulty:
