@@ -1,24 +1,28 @@
+# Imports
 import csv
 
-# = = = = = = = = = = #
-#  Initial Filter v1  #
-# = = = = = = = = = = #
+"""
+This script filters out flights that do not belong in the data analysis. The
+criteria for inclusion are the following:
+- Has Origin or Destination
+- Origin or Destination are in Europe (ICAO E, B or L) # Doesn't this make the first step obsolete?
+- First four digits of Callsign and Flight Number do not contain a number # Why, ex: KLM644, KL644
+
+The input .CSV file has the following structure:
+Callsign, Flight Number, Transponder Code, A/C Registration, Type Code,
+Origin, Destination, First Seen, Last Seen, Day,
+Latitude_1, Longitude_1, Altitude_1, Latitude_2, Longitude_2, Altitude_2 
+"""
 
 
 # == Set-up == #
-
-filename1 = 'Unfiltered'  # Input filename
-filename2 = 'You_Should_Change_This'  # Output filename
-
-"""  # INPUT ORDER #
-callsign, number, icao24, registration, typecode,
-origin, destination, firstseen, lastseen, day,
-latitude_1, longitude_1, altitude_1, latitude_2,longitude_2,altitude_2 """
+inputFile = 'Unfiltered'  # Input filename
+outputFile = 'You_Should_Change_This'  # Output filename
 
 
-f = open(filename1 + '.csv')
+f = open(inputFile + '.csv')
 csv_f = csv.reader(f)
-print("Filtering '" + filename1 + "'\n")
+print("Filtering '" + inputFile + "'\n")
 
 
 def is_number(s):
@@ -75,10 +79,11 @@ print("Filter 3: " + str(n3) + " lines contain a number and were deleted")
 print("\nFiltering complete")
 
 # == Exporting == #
-
+'''
 with open(filename2 + '.csv', 'w') as f:
     thewriter = csv.writer(f)
     thewriter.writerow(["source", "target"])
     for i in range(len(u_rows)):
         thewriter.writerow([rows[i][0], rows[i][1]])
 print("Exported a file with " + str(len(u_rows)) + " entries called '" + filename2 + "'")
+'''
