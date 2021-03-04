@@ -58,11 +58,13 @@ print("Filter 2: " + str(n1-n2) + " lines had no link to European airports and w
 
 faulty, n3 = [], 0
 for i in range(len(u_rows)):
-    if is_number(u_rows[i][1][2]) or is_number(u_rows[i][0][2]) or is_number(u_rows[i][1][0]) or is_number(u_rows[i][0][0]) or is_number(u_rows[i][1][1]) or is_number(u_rows[i][0][1]) or is_number(u_rows[i][1][3]) or is_number(u_rows[i][0][3]):
+    if is_number(u_rows[i][1][2]) or is_number(u_rows[i][0][2]) or is_number(u_rows[i][1][0])\
+        or is_number(u_rows[i][0][0]) or is_number(u_rows[i][1][1]) or is_number(u_rows[i][0][1]) \
+            or is_number(u_rows[i][1][3]) or is_number(u_rows[i][0][3]):
         n3 = n3 + 1
         faulty.append(i)
 
-faulty.reverse() # Might seem odd but this has an important reason, ask me if interested
+faulty.reverse()  # Might seem odd but this has an important reason, ask me if interested
 for entry in faulty:
     u_rows.pop(entry)
 print("Filter 3: " + str(n3) + " lines contain a number and were deleted")
@@ -77,4 +79,3 @@ with open(filename2 + '.csv', 'w') as f:
     for i in range(len(u_rows)):
         thewriter.writerow([rows[i][0], rows[i][1]])
 print("Exported a file with " + str(len(u_rows)) + " entries called '" + filename2 + "'")
-
