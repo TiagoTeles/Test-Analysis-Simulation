@@ -1,6 +1,5 @@
 # Imports
 import csv
-import time
 
 """
 This script filters out flights that do not belong in the data analysis. The
@@ -24,11 +23,12 @@ Altitude_1, Latitude_2, Longitude_2, Altitude_2
 # Export complete.csv and incomplete.csv
 
 # == Set-up == #
-inputFile = 'Unfiltered'  # Input filename
-outputFile = 'You_Should_Change_This'  # Output filename
+assetDir = __file__[0:-16] + "Assets/"
+inputFile = "Unfiltered"  # Input filename
+outputFile = "You_Should_Change_This"  # Output filename
 
 
-f = open(inputFile + '.csv')
+f = open(assetDir + inputFile + '.csv')
 csv_f = csv.reader(f)
 print("Filtering '" + inputFile + "'\n")
 
@@ -47,7 +47,7 @@ def is_number(s):
 
 rows, n1, t = [], 0, 0
 for row in csv_f:
-    t = t + 1
+    t += 1
     if row[5] != "" and row[6] != "":
         rows.append(row)
     else:
