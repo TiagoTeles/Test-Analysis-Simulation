@@ -1,6 +1,6 @@
 import numpy as np
 import csv
-import gzip
+import time
 
 #get file directories
 f1 = 'C:/Users/mathi/OneDrive/Bureaublad/Project2/2019/flightlist_20190101_20190131' #input filename
@@ -16,7 +16,7 @@ csv_f2 = csv.reader(f_2)
 
 #print(f_2)
 
-
+lines = []
 #get list of airliners code
 cargo = []
 for row in csv_f2:
@@ -27,29 +27,39 @@ print(cargo)
 
 
 #set counters
+start = time.time()
 number = 0
 deleted = 0
 
-test = 0
 for row in csv_f:
-    
+    lines.append(row)
+
     for code in cargo:
         
         #check if airliner codes match
         if row[0][0:3] == code:
             #delete entry still write
-
+            lines.remove(row)
 
             #count deleted
             deleted = deleted + 1
         else:
             continue
-
+    #Keep total number of flights counter up to date
     number = number +1
-    test = test + 1
+    
+#Testing the code
+##    if number%10 ==0:
+##        print(number)
 
-    if test == 1000:
+
+#Maximum iteration number for testing
+    if number == 1000:
         break
+    
+end = time.time()
 
-print(deleted)
+print(deleted, ' flights deleted out of ',number,' evaluated.')
+#print(lines)
 
+print('Runtime = ',end-start)
