@@ -23,7 +23,7 @@ Altitude_1, Latitude_2, Longitude_2, Altitude_2
 # Export complete.csv and incomplete.csv
 
 # == Set-up == #
-assetDir = __file__[0:-16] + "Assets/"
+assetDir = __file__[0:-23] + "Assets/"
 inputFile = "Unfiltered"  # Input filename
 outputFile = "You_Should_Change_This"  # Output filename
 
