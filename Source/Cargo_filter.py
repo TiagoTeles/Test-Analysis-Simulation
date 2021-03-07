@@ -31,9 +31,9 @@ start = time.time()
 number = 0
 deleted = 0
 
-test = 0
 for row in csv_f:
     lines.append(row)
+
     for code in cargo:
         
         #check if airliner codes match
@@ -45,16 +45,18 @@ for row in csv_f:
             deleted = deleted + 1
         else:
             continue
-
+    #Keep total number of flights counter up to date
     number = number +1
-
-    if number%10 ==0:
-        print(number)
     
-    test = test + 1
+#Testing the code
+##    if number%10 ==0:
+##        print(number)
 
-    if test == 1000:
+
+#Maximum iteration number for testing
+    if number == 1000:
         break
+    
 end = time.time()
 
 print(deleted, ' flights deleted out of ',number,' evaluated.')
