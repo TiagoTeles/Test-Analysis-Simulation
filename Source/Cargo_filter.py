@@ -38,7 +38,7 @@ for row in csv_f:
         
         #check if airliner codes match
         if row[0][0:3] == code:
-            #delete entry still write
+            #delete entry 
             lines.remove(row)
 
             #count deleted
@@ -54,12 +54,12 @@ for row in csv_f:
 
 
 #Maximum iteration number for testing
-    if number == 1000:
+    if number == 15000:
         break
     
 end = time.time()
 
-print(deleted, ' flights deleted out of ',number,' evaluated.')
+print(deleted, ' cargo flights deleted out of ',number,' total evaluated.')
 #print(lines)
 
-print('Runtime = ',end-start)
+print('Runtime for cargo filter = ',end-start)
