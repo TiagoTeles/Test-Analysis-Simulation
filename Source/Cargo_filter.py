@@ -23,7 +23,9 @@ for row in csv_f2:
     for i in range(len(row)):
         cargo.append(row[i])
 
-print(cargo)
+cargo_set = set(cargo)
+
+print(cargo_set)
 
 
 #set counters
@@ -33,22 +35,19 @@ deleted = 0
 
 for row in csv_f:
     lines.append(row)
-
-    for code in cargo:
-        
-        #check if airliner codes match
-        if row[0][0:3] == code:
-            #delete entry 
-            lines.remove(row)
-
-            #count deleted
-            deleted = deleted + 1
-        else:
-            continue
+    
     #Keep total number of flights counter up to date
     number = number +1
-    
+
+    if row[0][0:3] in cargo_set:
+
+        lines.remove(row)
+
+        deleted = deleted + 1
+            
+
 #Testing the code
+        
 ##    if number%10 ==0:
 ##        print(number)
 
