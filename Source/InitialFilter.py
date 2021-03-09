@@ -1,5 +1,6 @@
 # Imports
 import csv
+import time
 
 """
 This script filters out flights that do not belong in the data analysis. The
@@ -22,14 +23,21 @@ Altitude_1, Latitude_2, Longitude_2, Altitude_2
 # Remove non-european flights from complete flights
 # Export complete.csv and incomplete.csv
 
+
+
+
 # == Set-up == #
+start_time = time.time()
+
 assetDir = __file__[0:-23] + "Assets/"
-inputFile = "Unfiltered"  # Input filename
+inputFile = "C:/Users/mathi/OneDrive/Bureaublad/Project2/2019/flightlist_20190101_20190131"  # Input filename
 outputFile = "You_Should_Change_This"  # Output filename
 Cargofile = "Cargo" #Cargo flight code csv
 
+#C:/Users/mathi/OneDrive/Bureaublad/Project2/2019/flightlist_20190101_20190131
 
-f = open(assetDir + inputFile + '.csv')
+
+f = open(inputFile + '.csv')
 csv_f = csv.reader(f)
 print("Filtering '" + inputFile + "'\n")
 
@@ -59,21 +67,38 @@ for row in csv_f:
 del (rows[0])  # Deletes the first line
 print("Filter 1: " + str(n1) + " out of " + str(t) + " lines are invalid and were deleted")
 
+
+
+
+
 # == Filter 2 == #
-# Delete all entries not starting with E, B or L
+# Delete all entries not starting with E, B or L / Origin = destination
 
 #print(len(rows))
 
+check = set(['E','B','L'])
+    
+
 u_rows, n2 = [], 0
 for i in range(len(rows)):
-    if rows[i][1][0] == "E" or rows[i][1][0] == "B" or rows[i][1][0] == "L" \
-            or rows[i][2][0] == "E" or rows[i][2][0] == "B" or rows[i][2][0] == "L":
+    
+    #check for occurence of E, B or L and check if origin is different than destination
+    if ((rows[i][1][0] in check) or (rows[i][2][0] in check)) and (rows[i][1] != rows[i][2]):
         n2 = n2 + 1
         u_rows.append(rows[i])
+
+        
+
+    
 print("Filter 2: " + str(len(rows) - n2) + " lines had no link to European airports and were deleted")
 
+
+
+
+
+
 # == Filter 3 == #
-# Delete all entries containing a number
+# Delete all entries that contain a number as leading character 
 
 #print(len(u_rows))
 
@@ -88,7 +113,13 @@ for i in range(len(u_rows)):
 faulty.reverse()  # Might seem odd but this has an important reason, ask me if interested
 for entry in faulty:
     u_rows.pop(entry)
+
 print("Filter 3: " + str(n3) + " lines contain a number and were deleted")
+
+
+
+
+
 
 
 # == Filter 4 ==#
@@ -125,16 +156,31 @@ wrong.reverse()  # Might seem odd but this has an important reason, ask me if in
 for entry in wrong:
     u_rows.pop(entry)
 
-print('Filter 4: ', deleted, ' cargo flights deleted out of ',number,' remaining flights.')
+print('Filter 4:', deleted, ' cargo flights deleted out of ',number,' remaining flights.')
+print("\nTotal flights left:", len(u_rows))
 print("\nFiltering complete")
 
 
+end_time = time.time()
+
+print('Runtime of all filters = ', end_time - start_time, 's')
+
+
+
+
+
+
+
 # == Exporting == #
-'''
+#Choose the filename2 for exporting
+
+filename2 = 'test_doc'
+
 with open(filename2 + '.csv', 'w') as f:
     thewriter = csv.writer(f)
-    thewriter.writerow(["source", "target"])
+    thewriter.writerow(["callsign", "origin", "destination"])
     for i in range(len(u_rows)):
-        thewriter.writerow([rows[i][0], rows[i][1]])
+        thewriter.writerow([u_rows[i][0], u_rows[i][1], u_rows[i][2]])
+        
 print("Exported a file with " + str(len(u_rows)) + " entries called '" + filename2 + "'")
-'''
+
