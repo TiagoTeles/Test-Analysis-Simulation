@@ -15,20 +15,7 @@ Origin, Destination, First Seen, Last Seen, Day, Latitude_1, Longitude_1,
 Altitude_1, Latitude_2, Longitude_2, Altitude_2
 """
 
-<<<<<<< HEAD
-# Proposed Workflow:
-# This Script:
-# Remove unnecessary data
-# Remove flights w/o origin and destination or numbers in ICAO code
-# Set incomplete flights aside
-# Remove non-european flights from complete flights
-# Export complete.csv and incomplete.csv
 
-
-
-
-=======
->>>>>>> 8fef78bb4cdca03f22a03918699604f8432981f6
 # == Set-up == #
 start_time = time.time()
 
