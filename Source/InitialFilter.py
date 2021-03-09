@@ -176,9 +176,9 @@ interFlightList = []
 
 for flight in flightList:
     if flight[1] in airportSet and flight[2] in airportSet:
-        euFlightList.append(flightList[i])
+        euFlightList.append(flight)
     else:
-        interFlightList.append(flightList[i])
+        interFlightList.append(flight)
 
 # Create .CSV with European flights
 with open(assetDir + europeanFlightsDir , 'w') as f:
