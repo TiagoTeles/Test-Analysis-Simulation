@@ -6,7 +6,7 @@ import time
 This script filters out flights that do not belong in the data analysis. The
 criteria for inclusion are the following:
 - Has Origin or Destination
-- Origin or Destination are in Europe (ICAO E, B or L) # Doesn't this make the first step obsolete?
+- Origin or Destination are in Europe (ICAO E, B or L)
 - Origin or Destinations ICAO codes do not contain a number
 
 The input .CSV file has the following structure:
@@ -15,6 +15,7 @@ Origin, Destination, First Seen, Last Seen, Day, Latitude_1, Longitude_1,
 Altitude_1, Latitude_2, Longitude_2, Altitude_2
 """
 
+<<<<<<< HEAD
 # Proposed Workflow:
 # This Script:
 # Remove unnecessary data
@@ -26,6 +27,8 @@ Altitude_1, Latitude_2, Longitude_2, Altitude_2
 
 
 
+=======
+>>>>>>> 8fef78bb4cdca03f22a03918699604f8432981f6
 # == Set-up == #
 start_time = time.time()
 
