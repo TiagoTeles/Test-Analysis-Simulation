@@ -20,7 +20,7 @@ Altitude_1, Latitude_2, Longitude_2, Altitude_2
 start_time = time.time()
 
 assetDir = __file__[0:-23] + "Assets/"
-inputFile = "C:/Users/TeleT/Downloads/Flight Data/2019/flightlist_20190101_20190131"  # Input filename
+inputFile = "C:/Users/mathi/OneDrive/Bureaublad/Project2/2019/flightlist_20190101_20190131"  # Input filename
 outputFile = "You_Should_Change_This"  # Output filename
 Cargofile = "Cargo" #Cargo flight code csv
 
@@ -77,24 +77,28 @@ print("Filter 1: " + str(n1) + " out of " + str(t) + " lines are invalid and wer
 u_rows, n2 = [], 0
     
 number = 0
+total = len(rows)
+
 airportSet = set(airportList)
 faulty = []
 for i in range(len(rows)):
-    #Keep total number of 
-    
     civilEu = airportSet
 
     if (rows[i][1] in civilEu or rows[i][2] in civilEu) and rows[i][1] != rows[i][2]:
         u_rows.append(rows[i])
-
+        number += 1
 
 for i in range(len(u_rows)):
     if (u_rows[i][1][0] in set(["B", "E", "L"]) and u_rows[i][1] not in civilEu) or (u_rows[i][2][0] in set(["B", "E", "L"]) and u_rows[i][2] not in civilEu):
             faulty.append(i)
+            number -= 1
 
 faulty.reverse()
 for entry in faulty:
     u_rows.pop(entry)
+
+
+print("Filter 2:", total - number, " flights not passing through Europe were deleted")
 
 # == Filter 3 == #
 # Delete all entries that contain a number as leading character 
@@ -160,15 +164,45 @@ end_time = time.time()
 print('Runtime of all filters = ', end_time - start_time, 's')
 
 
+
+# == Filter 5 == #
+# Separate EU and intercontinental flights
+
+EU_flights = []
+Inter_flights = []
+
+for i in range(len(u_rows)):
+    if ((u_rows[i][1][0] in set(["B", "E", "L"])) and (u_rows[i][2][0] in set(["B", "E", "L"]))):
+        EU_flights.append(u_rows[i])
+    else:
+        Inter_flights.append(u_rows[i])
+        
+
 # == Exporting == #
 #Choose the filename2 for exporting
 
 filename2 = 'test_doc'
+filename3 = 'EU_flights_2019_Jan' #Change month
+filename4 = 'Inter_flights_2019_Jan' #Change month
 
 with open(filename2 + '.csv', 'w') as f:
     thewriter = csv.writer(f)
     thewriter.writerow(["callsign", "origin", "destination"])
     for i in range(len(u_rows)):
         thewriter.writerow([u_rows[i][0], u_rows[i][1], u_rows[i][2]])
+
+with open(filename3 + '.csv', 'w') as g:
+    thewriter = csv.writer(g)
+    thewriter.writerow(["callsign", "origin", "destination"])
+    for i in range(len(u_rows)):
+        thewriter.writerow([u_rows[i][0], u_rows[i][1], u_rows[i][2]])
+
+with open(filename4 + '.csv', 'w') as h:
+    thewriter = csv.writer(h)
+    thewriter.writerow(["callsign", "origin", "destination"])
+    for i in range(len(u_rows)):
+        thewriter.writerow([u_rows[i][0], u_rows[i][1], u_rows[i][2]])
         
 print("Exported a file with " + str(len(u_rows)) + " entries called '" + filename2 + "'")
+print("Exported a file with " + str(len(EU_flights)) + " entries called '" + filename3 + "'")
+print("Exported a file with " + str(len(Inter_flights)) + " entries called '" + filename4 + "'")
