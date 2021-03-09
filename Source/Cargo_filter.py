@@ -4,7 +4,7 @@ import time
 
 #get file directories
 f1 = 'C:/Users/mathi/OneDrive/Bureaublad/Project2/2019/flightlist_20190101_20190131' #input filename
-f2 = 'C:/Users/mathi/OneDrive/Documenten/GitHub/Test-Analysis-Simulation/Assets/Cargo' #cargo icao airlines list
+f2 = __file__[0:-23] + '/Assets/Cargo' #cargo icao airlines list
 
 
 #open files
