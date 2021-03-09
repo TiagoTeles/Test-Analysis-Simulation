@@ -20,7 +20,7 @@ Altitude_1, Latitude_2, Longitude_2, Altitude_2
 start_time = time.time()
 
 assetDir = __file__[0:-23] + "Assets/"
-inputFile = "C:/Users/mathi/OneDrive/Bureaublad/Project2/2019/flightlist_20190101_20190131"  # Input filename
+inputFile = "C:/Users/TeleT/Downloads/Flight Data/2019/flightlist_20190101_20190131"  # Input filename
 outputFile = "You_Should_Change_This"  # Output filename
 Cargofile = "Cargo" #Cargo flight code csv
 
@@ -30,6 +30,16 @@ Cargofile = "Cargo" #Cargo flight code csv
 f = open(inputFile + '.csv')
 csv_f = csv.reader(f)
 print("Filtering '" + inputFile + "'\n")
+
+airportFile = open(assetDir + "Airports" + '.csv', encoding="utf8")
+airportCSV = csv.reader(airportFile)
+
+airportList = []
+
+for airport in airportCSV:
+    airportList.append(airport[1])
+
+del(airportList[0])
 
 
 def is_number(s):
@@ -59,60 +69,32 @@ print("Filter 1: " + str(n1) + " out of " + str(t) + " lines are invalid and wer
 
 
 
-
-
 # == Filter 2 == #
 # Delete all entries not starting with E, B or L / Origin = destination
 
 #print(len(rows))
 
-check1 = set(['E','B','L','U'])
-
-check2 = set(['UK', 'UM']) #add
-
-check3 = set(['LL']) #exclude Israel
-
-check4 = set(['ET']) #military exclude
-
-check5 = set(['LFVM', 'LFVP']) #exclude
-
-
-
-
-
 u_rows, n2 = [], 0
-for i in range(len(rows)):
     
-    #check for occurence of E, B or L and check if origin is different than destination
-    if ((rows[i][1][0] in check1) or (rows[i][2][0] in check1)) and (rows[i][1] != rows[i][2]):
-        n2 = n2 + 1
+number = 0
+airportSet = set(airportList)
+faulty = []
+for i in range(len(rows)):
+    #Keep total number of 
+    
+    civilEu = airportSet
+
+    if (rows[i][1] in civilEu or rows[i][2] in civilEu) and rows[i][1] != rows[i][2]:
         u_rows.append(rows[i])
 
 
-    
-##        #delete military / israel
-##        if ((u_rows[i][1][0:2] in check3) and (u_rows[i][2][0:2] not in check1)) or ((u_rows[i][2][0:2] in check3) and (u_rows[i][1][0:2] not in check1)) \
-##           or ((u_rows[i][1][0:2] in check3) and (u_rows[i][2][0:2] in check3)) or ((u_rows[i][1][0:2] in check4) or (u_rows[i][2][0:2] in check4)):
-##            u_rows.remove(u_rows[i])
-##
-##
-##        #Delete special cases
-##        if ((u_rows[i][1][0:5] in check5) and (u_rows[i][2][0:5] in check5)):
-##            u_rows.remove(u_rows[i])
-        
+for i in range(len(u_rows)):
+    if (u_rows[i][1][0] in set(["B", "E", "L"]) and u_rows[i][1] not in civilEu) or (u_rows[i][2][0] in set(["B", "E", "L"]) and u_rows[i][2] not in civilEu):
+            faulty.append(i)
 
-        
-    
-
-        
-
-    
-print("Filter 2: " + str(len(rows) - n2) + " lines had no link to European airports and were deleted")
-
-
-
-
-
+faulty.reverse()
+for entry in faulty:
+    u_rows.pop(entry)
 
 # == Filter 3 == #
 # Delete all entries that contain a number as leading character 
@@ -132,11 +114,6 @@ for entry in faulty:
     u_rows.pop(entry)
 
 print("Filter 3: " + str(n3) + " lines contain a number and were deleted")
-
-
-
-
-
 
 
 # == Filter 4 ==#
@@ -183,11 +160,6 @@ end_time = time.time()
 print('Runtime of all filters = ', end_time - start_time, 's')
 
 
-
-
-
-
-
 # == Exporting == #
 #Choose the filename2 for exporting
 
@@ -200,4 +172,3 @@ with open(filename2 + '.csv', 'w') as f:
         thewriter.writerow([u_rows[i][0], u_rows[i][1], u_rows[i][2]])
         
 print("Exported a file with " + str(len(u_rows)) + " entries called '" + filename2 + "'")
-
