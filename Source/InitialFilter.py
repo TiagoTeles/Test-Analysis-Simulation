@@ -5,7 +5,7 @@ import csv
 This script filters out flights that do not belong in the data analysis. The
 criteria for inclusion are the following:
 - Has Origin or Destination
-- Origin or Destination are in Europe (ICAO E, B or L) # Doesn't this make the first step obsolete?
+- Origin or Destination are in Europe (ICAO E, B or L)
 - Origin or Destinations ICAO codes do not contain a number
 
 The input .CSV file has the following structure:
@@ -13,14 +13,6 @@ Callsign, Flight Number, Transponder Code, A/C Registration, Type Code,
 Origin, Destination, First Seen, Last Seen, Day, Latitude_1, Longitude_1,
 Altitude_1, Latitude_2, Longitude_2, Altitude_2
 """
-
-# Proposed Workflow:
-# This Script:
-# Remove unnecessary data
-# Remove flights w/o origin and destination or numbers in ICAO code
-# Set incomplete flights aside
-# Remove non-european flights from complete flights
-# Export complete.csv and incomplete.csv
 
 # == Set-up == #
 assetDir = __file__[0:-23] + "Assets/"
