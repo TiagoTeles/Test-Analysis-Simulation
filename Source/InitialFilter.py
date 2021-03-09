@@ -76,16 +76,43 @@ print("Filter 1: " + str(n1) + " out of " + str(t) + " lines are invalid and wer
 
 #print(len(rows))
 
-check = set(['E','B','L'])
-    
+check1 = set(['E','B','L','U'])
+
+check2 = set(['UK', 'UM']) #add
+
+check3 = set(['LL']) #exclude Israel
+
+check4 = set(['ET']) #military exclude
+
+check5 = set(['LFVM', 'LFVP']) #exclude
+
+
+
+
 
 u_rows, n2 = [], 0
 for i in range(len(rows)):
     
     #check for occurence of E, B or L and check if origin is different than destination
-    if ((rows[i][1][0] in check) or (rows[i][2][0] in check)) and (rows[i][1] != rows[i][2]):
+    if ((rows[i][1][0] in check1) or (rows[i][2][0] in check1)) and (rows[i][1] != rows[i][2]):
         n2 = n2 + 1
         u_rows.append(rows[i])
+
+
+    
+##        #delete military / israel
+##        if ((u_rows[i][1][0:2] in check3) and (u_rows[i][2][0:2] not in check1)) or ((u_rows[i][2][0:2] in check3) and (u_rows[i][1][0:2] not in check1)) \
+##           or ((u_rows[i][1][0:2] in check3) and (u_rows[i][2][0:2] in check3)) or ((u_rows[i][1][0:2] in check4) or (u_rows[i][2][0:2] in check4)):
+##            u_rows.remove(u_rows[i])
+##
+##
+##        #Delete special cases
+##        if ((u_rows[i][1][0:5] in check5) and (u_rows[i][2][0:5] in check5)):
+##            u_rows.remove(u_rows[i])
+        
+
+        
+    
 
         
 
