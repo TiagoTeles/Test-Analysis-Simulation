@@ -1,101 +1,91 @@
-#importing relevant packages
+## ---------- Imports ---------- ##
 import numpy as np
 import time
 import csv
 
-# ----- Setting up the files ----- #
+"""
+This script imports the relevant data from .CSV files, converts it to lists 
+and creates directed adjacency and weight matrices from those lists.
 
-# Define file locations
-# Input
+The Flights.CSV file has the following structure:
+Callsign, Origin, Destination
 
-GitDir = __file__[0:-19]
-AssetDir = GitDir + "Assets/"
-Dir2019 = GitDir + "2019_Filtered/"
-Dir2020  = GitDir + "2020_Filtered/"
+The Airports.CSV file has the following structure:
+Size, ICAO Code, IATA Code, Name, Latitude, Longitude, Country
+"""
 
-airportDir = "Airports.csv"     # .CSV containing list of EU airports
-FlightFile = "EU_flights_2019_01.csv"
+## ---------- Function Definitions ---------- ##
+def getMatrices(flightList, airportList):
+    # ----- Defining the function to find adjacency matrix and weight matrix ----- #
+    """ Constructs directed adjacency and weight matrices from the data provided.
+        THe row index corresponds to index of the origin airport, the column index
+        corresponds to the destination airport.
 
+    Arguments:
+        flightList {List} -- List of flights to be considered
+        airportList {List} -- List of airports to be considered
+
+    Returns:
+        ndarray -- Adjacency matrix
+        ndarray -- Weight matrix
+    """
+
+    # Create empty matrices
+    n = len(airportList)
+    adjacencyMatrix = np.zeros((n, n), int)
+    weightMatrix = np.zeros((n, n), int)
+    
+    # Iterate over flights
+    for flight in flightList:
+        if flight != []:
+            # Determine indices
+            originIndex = airportList.index(str(flight[1]))
+            destinationIndex = airportList.index(str(flight[2]))
+        
+            # Update matrices
+            adjacencyMatrix[originIndex][destinationIndex] = 1
+            weightMatrix[originIndex][destinationIndex] += 1
+
+    return adjacencyMatrix, weightMatrix
+
+
+## ---------- Main Program ---------- ##
+
+# Define directories
+gitDir = __file__[0:-19]
+assetDir = gitDir + "Assets/"
+dir2019 = gitDir + "2019_Filtered/"
+dir2020  = gitDir + "2020_Filtered/"
+
+# Define input file name
+airportDir = "Airports.csv"             # .CSV containing list of EU airports
+FlightFile = "EU_flights_2019_01.csv"   # .CSV containing list of filtered flights
 
 # Open files
-flightsFile = open(Dir2019 + FlightFile, encoding="utf8")
-airportFile = open(AssetDir + airportDir, encoding="utf8")
-
+flightsFile = open(dir2019 + FlightFile, encoding="utf8")
+airportFile = open(assetDir + airportDir, encoding="utf8")
 
 # Read files
 flightsCSV = csv.reader(flightsFile)
 airportCSV = csv.reader(airportFile)
 
+# Convert flight database from .CSV to List
+flightList = []
+for flight in flightsCSV:
+    flightList.append(flight)
 
-# Convert CSV to List
-# Airports
-AirportList = []
+del (flightList[0]) # Remove legend
+
+# Convert airport codes from .CSV to List
+airportList = []
 for airport in airportCSV:
-    AirportList.append(str(airport[1]))
+    airportList.append(str(airport[1]))
 
-del (AirportList[0])     # Remove legend
+del (airportList[0]) # Remove legend
 
+# Calculate Matrices
+startTime = time.time()
+getMatrices(flightList, airportList)[0]
 
-
-
-
-
-
-
-
-
-
-# ----- Defining the function to find adjacency matrix and weight matrix ----- #
-
-
-def get_adjacency_weight(CSVfile, AirportList):
-    #Create empty square matrices for adjacency and weight
-
-    adjacency_matrix = np.zeros((len(AirportList),len(AirportList)))
-    weight_matrix = np.zeros((len(AirportList),len(AirportList)))
-
-    #Setting up directed edges
-    #entry on a row = origin
-    #entry on a column = destination
-
-    '''Example:
-       1 2 3
-    1 [0,1,0]
-    2 [0,0,0]
-    3 [1,0,1]
-    --> airport 1 has a flight with destination airport 2
-    --> airport 3 has a flight with destination airport 1
-    '''
-
-    startTime = time.time()
-    run = 0
-    i = 0
-    
-    for flight in CSVfile:
-        
-        #All even entries are just empty
-        if i == 0 or ((i%2) != 0):
-            i = i + 1
-        
-        else:
-            Origin = AirportList.index(str(flight[1]))
-            Destination = AirportList.index(str(flight[2]))
-
-            adjacency_matrix[Origin][Destination] = 1
-            weight_matrix[Origin][Destination] += 1
-            
-            i = i + 1
-            run += 1
-
-    #print(adjacency_matrix)
-    #print(weight_matrix)
-
-    runTime = time.time() - startTime
-    print("Runtime of get_adjacency_weight function is:", round(runTime, 1), "s")
-    return adjacency_matrix, weight_matrix
-
-
-get_adjacency_weight(flightsCSV, AirportList)
-
-
-
+# Print runtime
+print("Runtime:", round(time.time() - startTime, 1), "s")
