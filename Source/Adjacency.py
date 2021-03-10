@@ -59,10 +59,10 @@ dir2020  = gitDir + "2020_Filtered/"
 
 # Define input file name
 airportDir = "Airports.csv"             # .CSV containing list of EU airports
-FlightFile = "EU_flights_2019_01.csv"   # .CSV containing list of filtered flights
+flightFile = "EU_flights_2019_01.csv"   # .CSV containing list of filtered flights
 
 # Open files
-flightsFile = open(dir2019 + FlightFile, encoding="utf8")
+flightsFile = open(dir2019 + flightFile, encoding="utf8")
 airportFile = open(assetDir + airportDir, encoding="utf8")
 
 # Read files
