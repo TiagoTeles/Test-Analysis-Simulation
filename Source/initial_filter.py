@@ -13,6 +13,7 @@ Origin, Destination, First Seen, Last Seen, Day, Latitude_1, Longitude_1,
 Altitude_1, Latitude_2, Longitude_2, Altitude_2
 """
 
+
 # ---------- Imports ---------- #
 import csv
 import time
