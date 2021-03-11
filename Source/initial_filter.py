@@ -19,7 +19,7 @@ import csv
 import time
 
 
-# ---------- Function definitions ---------- ##
+# ---------- Function definitions ---------- #
 def contains_number(string):
     """ Checks if input contains a number
 
