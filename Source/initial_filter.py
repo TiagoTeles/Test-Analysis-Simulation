@@ -65,7 +65,7 @@ DIR_2020 = GIT_DIR + "2020_Filtered/"
 MIS_DIR = GIT_DIR + "Missing_Flights/"
 
 # Define input file names
-# flightsDir = "C:/Users/mathi/OneDrive/Bureaublad/Project2/2019/flightlist_20190101_20190131.csv"
+# FLIGHT_DIR = "C:/Users/mathi/OneDrive/Bureaublad/Project2/2019/flightlist_20190101_20190131.csv"
 FLIGHT_DIR = "C:/Users/TeleT/Downloads/Flight Data/2019/flightlist_20190101_20190131.csv"   # Tiago
 AIRPORT_DIR = "Airports.csv"     # .CSV containing list of EU airports
 CARGO_DIR = "Cargo.csv"          # .CSV containing list of cargo airlines
