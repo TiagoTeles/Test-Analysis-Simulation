@@ -55,7 +55,7 @@ def is_military_eu(icao_code, letter_set, airport_database):
 
 
 # ---------- Main Program ---------- #
-startTime = time.time()
+start_time = time.time()
 
 # Define directories
 GIT_DIR = __file__[0:-24]
@@ -77,146 +77,146 @@ SORTED_FLIGHT_DIR = "Sorted_flights_2019_01.csv"
 MISSING_FLIGHT_DIR = "Missing_flights_2019_01.csv"
 
 # Open files
-flightsFile = open(FLIGHT_DIR, encoding="utf8")
-airportFile = open(ASSET_DIR + AIRPORT_DIR, encoding="utf8")
-cargoFlights = open(ASSET_DIR + CARGO_DIR, encoding="utf8")
+flight_file = open(FLIGHT_DIR, encoding="utf8")
+airport_file = open(ASSET_DIR + AIRPORT_DIR, encoding="utf8")
+cargo_file = open(ASSET_DIR + CARGO_DIR, encoding="utf8")
 
 # Read files
-flightsCSV = csv.reader(flightsFile)
-airportCSV = csv.reader(airportFile)
-cargoCSV = csv.reader(cargoFlights)
+flight_csv = csv.reader(flight_file)
+airport_csv = csv.reader(airport_file)
+cargo_csv = csv.reader(cargo_file)
 
 # Convert flight database from .CSV to List
-flightList = []
-for flight in flightsCSV:
+flight_list = []
+for flight in flight_csv:
     del flight[1:5]     # Remove items after Callsign and before Origin
     del flight[3:12]    # Remove items after Destination
-    flightList.append(flight)
+    flight_list.append(flight)
 
-del flightList[0]       # Remove legend
+del flight_list[0]       # Remove legend
 
 # Convert airport codes from .CSV to List
-airportList = []
-for airport in airportCSV:
-    airportList.append(airport[1])
+airport_list = []
+for airport in airport_csv:
+    airport_list.append(airport[1])
 
-del airportList[0]              # Remove legend
-airportSet = set(airportList)   # Convert to Set
+del airport_list[0]              # Remove legend
+airportSet = set(airport_list)   # Convert to Set
 
 # Convert cargo codes from .CSV to List
 cargoList = []
-for cargoCode in cargoCSV:
+for cargoCode in cargo_csv:
     for i in range(len(cargoCode)):
         cargoList.append(cargoCode[i])
 
 cargoSet = set(cargoList)   # Convert to Set
 
-print("Total number of flights before sorting: ", len(flightList), "\n")
+print("Total number of flights before sorting: ", len(flight_list), "\n")
 
 
 # ---------- Filters ---------- #
 # Filter 1 - Check for Origin and Destination
-resultList = []
-missingList = []
-for flight in flightList:
+result_list = []
+missing_list = []
+for flight in flight_list:
     if flight[1] != "" and flight[2] != "":
-        resultList.append(flight)
+        result_list.append(flight)
     else:
-        missingList.append(flight)
+        missing_list.append(flight)
 
-print("Filter 1:", len(flightList) - len(resultList), " flights had no origin or destination")
-flightList = resultList     # Reset process
+print("Filter 1:", len(flight_list) - len(result_list), " flights had no origin or destination")
+flight_list = result_list     # Reset process
 
 
 # Filter 2 - Check if airports are distinct and in Europe
-resultList = []
+result_list = []
 
-for flight in flightList:
+for flight in flight_list:
     if (flight[1] in airportSet or flight[2] in airportSet) and (flight[1] != flight[2]):
-        resultList.append(flight)
+        result_list.append(flight)
 
-print("Filter 2:", len(flightList) - len(resultList), " flights had no airport in Europe")
-flightList = resultList     # Reset process
+print("Filter 2:", len(flight_list) - len(result_list), " flights had no airport in Europe")
+flight_list = result_list     # Reset process
 
 
 # Filter 3 - Check if not military
-resultList = []
+result_list = []
 
-for flight in flightList:
+for flight in flight_list:
     if (is_military_eu(flight[1], ['B', 'E', 'L'], airportSet) is False and
             is_military_eu(flight[2], ['B', 'E', 'L'], airportSet) is False):
-        resultList.append(flight)
+        result_list.append(flight)
 
-print("Filter 3:", len(flightList) - len(resultList), " flights were from a military base in europe")
-flightList = resultList     # Reset process
+print("Filter 3:", len(flight_list) - len(result_list), " flights were from a military base in europe")
+flight_list = result_list     # Reset process
 
 
 # Filter 4 - Check if Origin or Destination contain a number
-resultList = []
+result_list = []
 
-for flight in flightList:
+for flight in flight_list:
     if contains_number(flight[1]) is False and contains_number(flight[2]) is False:
-        resultList.append(flight)
+        result_list.append(flight)
 
-print("Filter 4:", len(flightList) - len(resultList), " flights had a number in the origin or destination")
-flightList = resultList     # Reset process
+print("Filter 4:", len(flight_list) - len(result_list), " flights had a number in the origin or destination")
+flight_list = result_list     # Reset process
 
 
 # Filter 5 - Check if flight is from a cargo airline
-resultList = []
+result_list = []
 
-for flight in flightList:
+for flight in flight_list:
 
     if flight[0][0:3] not in cargoSet:
-        resultList.append(flight)
+        result_list.append(flight)
 
-print("Filter 5:", len(flightList) - len(resultList), " flights were from a cargo airline\n")
-flightList = resultList     # Reset process
+print("Filter 5:", len(flight_list) - len(result_list), " flights were from a cargo airline\n")
+flight_list = result_list     # Reset process
 
 
 # ---------- Exporting ---------- #
-print("Total number of flights after sorting: ", len(flightList))
-print("Runtime of all filters:", round(time.time() - startTime, 1), "s\n")
+print("Total number of flights after sorting: ", len(flight_list))
+print("Runtime of all filters:", round(time.time() - start_time, 1), "s\n")
 
-euFlightList = []
-interFlightList = []
+eu_flight_list = []
+inter_flight_list = []
 
-for flight in flightList:
+for flight in flight_list:
     if flight[1] in airportSet and flight[2] in airportSet:
-        euFlightList.append(flight)
+        eu_flight_list.append(flight)
     else:
-        interFlightList.append(flight)
+        inter_flight_list.append(flight)
 
 # Create .CSV with European flights
 with open(DIR_2019 + EUROPEAN_FLIGHT_DIR, 'w') as f:
-    thewriter = csv.writer(f)
-    thewriter.writerow(["Callsign", " Origin", " Destination"])
-    for row in euFlightList:
-        thewriter.writerow(row)
+    the_writer = csv.writer(f)
+    the_writer.writerow(["Callsign", " Origin", " Destination"])
+    for row in eu_flight_list:
+        the_writer.writerow(row)
 
 # Create .CSV with intercontinental flights
 with open(DIR_2019 + INTER_FLIGHT_DIR, 'w') as g:
-    thewriter = csv.writer(g)
-    thewriter.writerow(["Callsign", " Origin", " Destination"])
-    for row in interFlightList:
-        thewriter.writerow(row)
+    the_writer = csv.writer(g)
+    the_writer.writerow(["Callsign", " Origin", " Destination"])
+    for row in inter_flight_list:
+        the_writer.writerow(row)
 
 # Create .CSV with all filtered flights
 with open(DIR_2019 + SORTED_FLIGHT_DIR, 'w') as h:
-    thewriter = csv.writer(h)
-    thewriter.writerow(["Callsign", " Origin", " Destination"])
-    for row in flightList:
-        thewriter.writerow(row)
+    the_writer = csv.writer(h)
+    the_writer.writerow(["Callsign", " Origin", " Destination"])
+    for row in flight_list:
+        the_writer.writerow(row)
 
 # Create .CSV with all missing flights
 with open(MIS_DIR + MISSING_FLIGHT_DIR, 'w') as h:
-    thewriter = csv.writer(h)
-    thewriter.writerow(["Callsign", " Origin", " Destination"])
-    for row in missingList:
-        thewriter.writerow(row)
+    the_writer = csv.writer(h)
+    the_writer.writerow(["Callsign", " Origin", " Destination"])
+    for row in missing_list:
+        the_writer.writerow(row)
 
 # Print information about exported files
-print("Exported a file with " + str(len(euFlightList)) + " entries in \"" + DIR_2019 + EUROPEAN_FLIGHT_DIR + "\"")
-print("Exported a file with " + str(len(interFlightList)) + " entries in \"" + DIR_2019 + INTER_FLIGHT_DIR + "\"")
-print("Exported a file with " + str(len(flightList)) + " entries in \"" + DIR_2019 + SORTED_FLIGHT_DIR + "\"")
-print("Exported a file with " + str(len(missingList)) + " entries in \"" + DIR_2019 + MISSING_FLIGHT_DIR + "\"\n")
+print("Exported a file with " + str(len(eu_flight_list)) + " entries in \"" + DIR_2019 + EUROPEAN_FLIGHT_DIR + "\"")
+print("Exported a file with " + str(len(inter_flight_list)) + " entries in \"" + DIR_2019 + INTER_FLIGHT_DIR + "\"")
+print("Exported a file with " + str(len(flight_list)) + " entries in \"" + DIR_2019 + SORTED_FLIGHT_DIR + "\"")
+print("Exported a file with " + str(len(missing_list)) + " entries in \"" + DIR_2019 + MISSING_FLIGHT_DIR + "\"\n")
