@@ -7,8 +7,6 @@ from Degree_function import node_degree, average_degree
 from Adjacency import getMatrices
 
 
-
-
 # Define directories
 gitDir = __file__[0:-14]
 assetDir = gitDir + "Assets/"
@@ -17,10 +15,10 @@ dir2020  = gitDir + "2020_Filtered/"
 
 # Define input file name
 airportDir = "Airports.csv"             # .CSV containing list of EU airports
-flightFile = "EU_flights_2019_05.csv"   # .CSV containing list of filtered flights
+flightFile = "EU_flights_2020_04.csv"   # .CSV containing list of filtered flights
 
 # Open files
-flightsFile = open(dir2019 + flightFile, encoding="utf8")
+flightsFile = open(dir2020 + flightFile, encoding="utf8")
 airportFile = open(assetDir + airportDir, encoding="utf8")
 
 # Read files
@@ -57,23 +55,18 @@ for i in range(len(degree_list)):
 
 zero_els = len(degree_list) - np.count_nonzero(degree_list)
 
-#print(weight)
-#print(degree_list)
-print(av_degree)
-#print(len(degree_list))
-#print(zero_els)
-
 
 occurence = []
-for i in range(300):
-    occurence.append((np.count_nonzero(degree_list == i)/len(airportList)))
-xx = range(300)
+for i in range(1, 300):
+    occurence.append((np.count_nonzero(degree_list > i)))
+xx = range(1, 300)
 
-plt.plot(xx,occurence)
+occurence_1 = []
+for i in range(1, 300):
+    occurence_1.append((np.count_nonzero(degree_list == i)))
+
+plt.plot(xx,occurence, ".")
+plt.plot(xx,occurence_1, ".")
 plt.yscale("log")
 plt.xscale("log")
 plt.show()
-
-
-
-
