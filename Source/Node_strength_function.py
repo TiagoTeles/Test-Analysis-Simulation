@@ -1,4 +1,14 @@
-# Node strength
+"""
+This script imports the relevant data from .CSV file, converts it to lists,
+and uses the weight matrix to create calculate the node strengths.
+
+The Flights.CSV file has the following structure:
+Callsign, Origin, Destination
+
+
+"""
+
+# ----- Imports ----- #
 
 import numpy as np
 import time
@@ -7,8 +17,20 @@ import csv
 from Adjacency import getMatrices
 
 
-def get_Node_strength(weightMatrix):
 
+# ----- Function Definition ----- #
+def get_Node_strength(weightMatrix):
+    # ----- Defining the function to find the node strengths ----- #
+    """ Constructs a list with node strengths from the data provided.
+        The index of a specific entry of the node strength list corresponds to the
+        same entry with that index in the node (airport) list.
+
+    Arguments:
+        weightMatrix {n-n matrix formed by np.arrays} -- Weight matrix of network
+        
+    Returns:
+        list -- node_strength
+    """
     node_strength = []
     
     for row in weightMatrix:
