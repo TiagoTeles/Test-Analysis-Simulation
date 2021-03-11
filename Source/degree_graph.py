@@ -8,18 +8,18 @@ from Adjacency import getMatrices
 
 
 # Define directories
-gitDir = __file__[0:-14]
-assetDir = gitDir + "Assets/"
-dir2019 = gitDir + "2019_Filtered/"
-dir2020  = gitDir + "2020_Filtered/"
+GITDIR = __file__[0:-14]
+ASSETDIR = GITDIR + "Assets/"
+DIR2019 = GITDIR + "2019_Filtered/"
+DIR2020  = GITDIR + "2020_Filtered/"
 
 # Define input file name
-airportDir = "Airports.csv"             # .CSV containing list of EU airports
-flightFile = "EU_flights_2020_04.csv"   # .CSV containing list of filtered flights
+AIRPORTDIR = "Airports.csv"             # .CSV containing list of EU airports
+FLIGHTFILE = "EU_flights_2020_04.csv"   # .CSV containing list of filtered flights
 
 # Open files
-flightsFile = open(dir2020 + flightFile, encoding="utf8")
-airportFile = open(assetDir + airportDir, encoding="utf8")
+flightsFile = open(DIR2020 + FLIGHTFILE, encoding="utf8")
+airportFile = open(ASSETDIR + AIRPORTDIR, encoding="utf8")
 
 # Read files
 flightsCSV = csv.reader(flightsFile)
