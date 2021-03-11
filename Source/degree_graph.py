@@ -1,5 +1,6 @@
 """
-TODO
+Plots a graph of the degree distribution of a given network. The
+network is defined by the .CSV files imported.
 """
 
 # ---------- Imports ---------- #
@@ -7,7 +8,7 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 
-from Degree_function import node_degree, average_degree
+from degree_function import node_degree, average_degree
 from adjacency import get_matrices
 
 
@@ -51,6 +52,7 @@ adjacency, weight = get_matrices(flight_list)
 out_degree_list, in_degree_list, diff_links_list, degree_list = node_degree(weight)
 av_degree = average_degree(degree_list)
 
+# Number of airports with degree zero ???
 zero_els = len(degree_list) - np.count_nonzero(degree_list)
 
 # Calculate probability P(K=i)
