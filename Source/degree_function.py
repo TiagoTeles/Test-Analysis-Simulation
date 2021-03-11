@@ -1,8 +1,8 @@
-'''
+"""
 This script determines all the in-degree, out-degree, and total degree
 distributions of a network. It also determines the number of distinct
 edges each node is connected to.
-'''
+"""
 
 # ---------- Imports ---------- #
 import numpy as np
