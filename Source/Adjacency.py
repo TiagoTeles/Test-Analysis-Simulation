@@ -15,7 +15,7 @@ Size, ICAO Code, IATA Code, Name, Latitude, Longitude, Country
 """
 
 ## ---------- Function Definitions ---------- ##
-def getMatrices(flightList, airportList):
+def getMatrices(flightList):
     # ----- Defining the function to find adjacency matrix and weight matrix ----- #
     """ Constructs directed adjacency and weight matrices from the data provided.
         THe row index corresponds to index of the origin airport, the column index
@@ -31,20 +31,32 @@ def getMatrices(flightList, airportList):
     """
 
     # Create empty matrices
-    n = len(airportList)
+    used_airports = []
+    for flight in flightList:
+        used_airports.append(flight[1])
+        used_airports.append(flight[2])
+    airportset = set(used_airports)
+    print(len(airportset))
+    
+    airports = list(airportset)
+    airports.sort()
+    
+    print(len(airports))
+    print(airports)
+    
+    n = len(airports)
     adjacencyMatrix = np.zeros((n, n), int)
     weightMatrix = np.zeros((n, n), int)
     
     # Iterate over flights
     for flight in flightList:
-        if flight != []:
-            # Determine indices
-            originIndex = airportList.index(str(flight[1]))
-            destinationIndex = airportList.index(str(flight[2]))
+        # Determine indices
+        originIndex = airports.index(str(flight[1]))
+        destinationIndex = airports.index(str(flight[2]))
         
-            # Update matrices
-            adjacencyMatrix[originIndex][destinationIndex] = 1
-            weightMatrix[originIndex][destinationIndex] += 1
+        # Update matrices
+        adjacencyMatrix[originIndex][destinationIndex] = 1
+        weightMatrix[originIndex][destinationIndex] += 1
 
     return adjacencyMatrix, weightMatrix
 
@@ -58,16 +70,13 @@ dir2019 = gitDir + "2019_Filtered/"
 dir2020  = gitDir + "2020_Filtered/"
 
 # Define input file name
-airportDir = "Airports.csv"             # .CSV containing list of EU airports
 flightFile = "EU_flights_2019_01.csv"   # .CSV containing list of filtered flights
 
 # Open files
 flightsFile = open(dir2019 + flightFile, encoding="utf8")
-airportFile = open(assetDir + airportDir, encoding="utf8")
 
 # Read files
 flightsCSV = csv.reader(flightsFile)
-airportCSV = csv.reader(airportFile)
 
 # Convert flight database from .CSV to List
 flightList = []
@@ -76,18 +85,10 @@ for flight in flightsCSV:
 
 del (flightList[0]) # Remove legend
 
-# Convert airport codes from .CSV to List
-airportList = []
-for airport in airportCSV:
-    airportList.append(str(airport[1]))
-
-del (airportList[0]) # Remove legend
 
 # Calculate Matrices
 startTime = time.time()
-#print(getMatrices(flightList, airportList))
-
-print(airportList)
+adjacency, weight = getMatrices(flightList)
 
 # Print runtime
 print("Runtime:", round(time.time() - startTime, 1), "s")
