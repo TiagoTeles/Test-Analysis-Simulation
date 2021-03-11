@@ -85,7 +85,7 @@ del (airportList[0]) # Remove legend
 
 # Calculate Matrices
 startTime = time.time()
-getMatrices(flightList, airportList)[0]
+getMatrices(flightList, airportList)
 
 # Print runtime
 print("Runtime:", round(time.time() - startTime, 1), "s")
