@@ -24,7 +24,6 @@ def get_matrices(flight_list):
 
     Arguments:
         flightList {List} -- List of flights to be considered
-        airportList {List} -- List of airports to be considered
 
     Returns:
         ndarray -- Adjacency matrix
