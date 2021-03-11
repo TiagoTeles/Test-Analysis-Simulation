@@ -24,7 +24,7 @@ def contains_number(string):
     """ Checks if input contains a number
 
     Arguments:
-        s {String}-- Argument to be checked
+        s {String} -- Argument to be checked
 
     Returns:
         Boolean -- True if value contains a number
