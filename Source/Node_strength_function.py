@@ -14,7 +14,7 @@ import numpy as np
 import time
 import csv
 
-from Adjacency import getMatrices
+from adjacency import get_matrices
 
 
 
@@ -64,7 +64,7 @@ del (flightList[0]) # Remove legend
 
 # Calculate Matrices
 startTime = time.time()
-adjacency, weight = getMatrices(flightList)
+adjacency, weight = get_matrices(flightList)
 
 strength = get_Node_strength(weight)
 print(strength)
