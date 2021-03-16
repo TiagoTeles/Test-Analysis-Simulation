@@ -91,10 +91,14 @@ cargo_csv = csv.reader(cargo_file)
 flight_list = []
 for flight in flight_csv:
     del flight[1:5]     # Remove items after Callsign and before Origin
-    del flight[3:12]    # Remove items after Destination
+    del flight[3:5]     # Remove items between Destination and Day
+    del flight[4:12]    # Remove items after Day
     flight_list.append(flight)
 
 del flight_list[0]       # Remove legend
+
+for row in flight_list:
+    row[3] = row[3][0:11]
 
 # Convert airport codes from .CSV to List
 airport_list = []
@@ -191,28 +195,28 @@ for flight in flight_list:
 # Create .CSV with European flights
 with open(DIR_2019 + EUROPEAN_FLIGHT_DIR, 'w', newline="") as f:
     the_writer = csv.writer(f)
-    the_writer.writerow(["Callsign", " Origin", " Destination"])
+    the_writer.writerow(["Callsign", " Origin", " Destination", "Day"])
     for row in eu_flight_list:
         the_writer.writerow(row)
 
 # Create .CSV with intercontinental flights
 with open(DIR_2019 + INTER_FLIGHT_DIR, 'w', newline="") as g:
     the_writer = csv.writer(g)
-    the_writer.writerow(["Callsign", " Origin", " Destination"])
+    the_writer.writerow(["Callsign", " Origin", " Destination", "Day"])
     for row in inter_flight_list:
         the_writer.writerow(row)
 
 # Create .CSV with all filtered flights
 with open(DIR_2019 + SORTED_FLIGHT_DIR, 'w', newline="") as h:
     the_writer = csv.writer(h)
-    the_writer.writerow(["Callsign", " Origin", " Destination"])
+    the_writer.writerow(["Callsign", " Origin", " Destination", "Day"])
     for row in flight_list:
         the_writer.writerow(row)
 
 # Create .CSV with all missing flights
 with open(MIS_DIR + MISSING_FLIGHT_DIR, 'w', newline="") as h:
     the_writer = csv.writer(h)
-    the_writer.writerow(["Callsign", " Origin", " Destination"])
+    the_writer.writerow(["Callsign", " Origin", " Destination", "Day"])
     for row in missing_list:
         the_writer.writerow(row)
 
@@ -221,3 +225,4 @@ print("Exported a file with " + str(len(eu_flight_list)) + " entries in \"" + DI
 print("Exported a file with " + str(len(inter_flight_list)) + " entries in \"" + DIR_2019 + INTER_FLIGHT_DIR + "\"")
 print("Exported a file with " + str(len(flight_list)) + " entries in \"" + DIR_2019 + SORTED_FLIGHT_DIR + "\"")
 print("Exported a file with " + str(len(missing_list)) + " entries in \"" + DIR_2019 + MISSING_FLIGHT_DIR + "\"\n")
+
