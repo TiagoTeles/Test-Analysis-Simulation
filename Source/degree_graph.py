@@ -52,6 +52,30 @@ adjacency, weight = get_matrices(flight_list)
 out_degree_list, in_degree_list, diff_links_list, degree_list = node_degree(weight)
 av_degree = average_degree(degree_list)
 
+#Get top 10
+'''Look into this, might not be consistent with the adjcacency code in terms of airport list'''
+#Possible solution: import the sorted airport list from the adjacency code
+#This is just to be consistent
+
+degree_list = list(degree_list)
+
+degree_sorted = sorted(degree_list)
+top_10 = degree_sorted[:-11:-1]
+
+top_10_index = []
+for i in top_10:
+    top_10_index.append(degree_list.index(i))
+
+top_10_airports = []
+
+for i in top_10_index:
+    top_10_airports.append(airport_list[i])
+
+print(top_10)
+print(top_10_airports)
+
+degree_list = np.array(degree_list)
+
 # Number of airports with degree zero ???
 zero_els = len(degree_list) - np.count_nonzero(degree_list)
 
