@@ -31,12 +31,24 @@ def get_Node_strength(weightMatrix):
     Returns:
         list -- node_strength
     """
-    node_strength = []
+    transposed = weightMatrix.transpose()
+    
+    in_node_strength = []
+    out_node_strength = []
     
     for row in weightMatrix:
-        node_strength.append(sum(row))
+        in_node_strength.append(sum(row))
 
-    return node_strength
+    for row in transposed:
+        out_node_strength.append(sum(row))
+
+
+    total_node_strength = []
+    
+    for i in range(len(in_node_strength)):
+        total_node_strength.append(in_node_strength[i] + out_node_strength[i])
+
+    return in_node_strength, out_node_strength, total_node_strength
 
 
 # Define directories
@@ -66,5 +78,7 @@ del (flightList[0]) # Remove legend
 startTime = time.time()
 adjacency, weight = get_matrices(flightList)
 
-strength = get_Node_strength(weight)
-print(strength)
+in_strength, out_strength, total_strength = get_Node_strength(weight)
+print(in_strength, '\n')
+print(out_strength, '\n')
+print(total_strength, '\n')
