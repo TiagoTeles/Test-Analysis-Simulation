@@ -28,6 +28,7 @@ def get_matrices(flight_list):
     Returns:
         ndarray -- Adjacency matrix
         ndarray -- Weight matrix
+        list    -- Sorted airport list
     """
 
     # Create empty matrices
@@ -55,7 +56,7 @@ def get_matrices(flight_list):
         adjacency_matrix[origin_index][destination_index] = 1
         weight_matrix[origin_index][destination_index] += 1
 
-    return adjacency_matrix, weight_matrix
+    return adjacency_matrix, weight_matrix, airports
 
 
 ## ---------- Main Program ---------- ##
@@ -86,7 +87,7 @@ if __name__ == "__main__":
 
     # Calculate Matrices
     start_time = time.time()
-    adjacency, weight = get_matrices(flight_list)
+    adjacency, weight, airports = get_matrices(flight_list)
 
     # Print matricies
     print("\n")
@@ -94,6 +95,7 @@ if __name__ == "__main__":
     print("\n")
     print(weight)
     print("\n")
+    print(airports)
 
     # Print runtime
     print("Runtime:", round(time.time() - start_time, 1), "s")
