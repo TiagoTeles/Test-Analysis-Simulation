@@ -7,6 +7,7 @@ network is defined by the .CSV files imported.
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 
 from degree_function import node_degree, average_degree
 from adjacency import get_matrices
@@ -21,10 +22,10 @@ DIR2020  = GITDIR + "2020_Filtered/"
 
 # Define input file name
 AIRPORTDIR = "Airports.csv"             # .CSV containing list of EU airports
-FLIGHTFILE = "EU_flights_2019_04.csv"   # .CSV containing list of filtered flights
+FLIGHTFILE = "EU_flights_2020_08.csv"   # .CSV containing list of filtered flights
 
 # Open files
-flightsFile = open(DIR2019 + FLIGHTFILE, encoding="utf8")
+flightsFile = open(DIR2020 + FLIGHTFILE, encoding="utf8")
 airportFile = open(ASSETDIR + AIRPORTDIR, encoding="utf8")
 
 # Read files
@@ -37,15 +38,6 @@ for flight in flight_csv:
     flight_list.append(flight)
 
 del flight_list[0] # Remove legend
-
-#Not needed since airports is exported as a list from get_matrices function
-
-### Convert airport codes from .CSV to List
-##airport_list = []
-##for airport in airport_csv:
-##    airport_list.append(str(airport[1]))
-##
-##del airport_list[0] # Remove legend
 
 # Calculate matrices
 adjacency, weight, airports = get_matrices(flight_list)
@@ -76,29 +68,47 @@ print(top_10_airports)
 degree_list = np.array(degree_list)
 
 # Number of airports with degree zero ???
-zero_els = len(degree_list) - np.count_nonzero(degree_list)
 
 # Calculate probability P(K=i)
 probability = []
-for i in range(1, 300):
-    probability.append((np.count_nonzero(degree_list == i)))
-xx = range(1, 300)
+for i in range(1, np.max(degree_list)):
+    probability.append((np.count_nonzero(degree_list == i))/len(airports))
+xx = range(1, np.max(degree_list))
 
 # Calculate probability P(K>i)
 cum_probability = []
-for i in range(1, 300):
-    cum_probability.append((np.count_nonzero(degree_list >= i)))
+for i in range(1, np.max(degree_list)):
+    cum_probability.append((np.count_nonzero(degree_list >= i))/len(airports))
+
+# Create a power law curve fit
+
+degree_list = list(degree_list)
+
+def fct(x, a, b):
+    return (x**-a)*np.exp(-x/b)
+
+degree_filtered = list(set(degree_list))
+
+x1 = np.arange(1,len(cum_probability)+1)
+popt, trash = curve_fit(fct, x1, cum_probability, maxfev=2000)
+a, b = popt
+
+power_law = fct(x1,a,b)
+
+degree_list = np.array(degree_list)
+
 
 # Create the plots
 #plt.plot(xx,probability, ".")
 plt.plot(xx,cum_probability, ".")
+plt.plot(x1,power_law, linestyle = "--")
 plt.yscale("log")
 plt.xscale("log")
 
 # Add legend and axis information
-plt.title(FLIGHTFILE)
+plt.title("cumulative degree distribution for " + FLIGHTFILE)
 plt.xlabel("Node degree, k")
-plt.ylabel("Cumulative probability, P(K(i)>k)")
+plt.ylabel("P(K(i)$\geqslant$k)")
 
 # Show the plots
 plt.show()
