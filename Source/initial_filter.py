@@ -66,16 +66,16 @@ DIR_2020 = GIT_DIR + "2020_Filtered/"
 MIS_DIR = GIT_DIR + "Missing_Flights/"
 
 # Define input file names
-FLIGHT_DIR = "C:/Users/mathi/OneDrive/Bureaublad/Project2/2020/flightlist_20200701_20200731.csv"
+FLIGHT_DIR = "C:/Users/mathi/OneDrive/Bureaublad/Project2/2020/flightlist_20200801_20200831.csv"
 # FLIGHT_DIR = "C:/Users/TeleT/Downloads/Flight Data/2019/flightlist_20190101_20190131.csv"   # Tiago
 AIRPORT_DIR = "Airports.csv"     # .CSV containing list of EU airports
 CARGO_DIR = "Cargo.csv"          # .CSV containing list of cargo airlines
 
 # Define output file names (Change month and year of outputfile name)
-EUROPEAN_FLIGHT_DIR = "EU_flights_2020_07.csv"
-INTER_FLIGHT_DIR = "Inter_flights_2020_07.csv"
-SORTED_FLIGHT_DIR = "Sorted_flights_2020_07.csv"
-MISSING_FLIGHT_DIR = "Missing_flights_2020_07.csv"
+EUROPEAN_FLIGHT_DIR = "EU_flights_2020_08.csv"
+INTER_FLIGHT_DIR = "Inter_flights_2020_08.csv"
+SORTED_FLIGHT_DIR = "Sorted_flights_2020_08.csv"
+MISSING_FLIGHT_DIR = "Missing_flights_2020_08.csv"
 
 # Open files
 flight_file = open(FLIGHT_DIR, encoding="utf8")
@@ -221,8 +221,8 @@ with open(MIS_DIR + MISSING_FLIGHT_DIR, 'w', newline="") as h:
         the_writer.writerow(row)
 
 # Print information about exported files
-print("Exported a file with " + str(len(eu_flight_list)) + " entries in \"" + DIR_2020 + EUROPEAN_FLIGHT_DIR + "\"")
-print("Exported a file with " + str(len(inter_flight_list)) + " entries in \"" + DIR_2020 + INTER_FLIGHT_DIR + "\"")
-print("Exported a file with " + str(len(flight_list)) + " entries in \"" + DIR_2020 + SORTED_FLIGHT_DIR + "\"")
-print("Exported a file with " + str(len(missing_list)) + " entries in \"" + DIR_2020 + MISSING_FLIGHT_DIR + "\"\n")
+print("Exported a file with " + str(len(eu_flight_list)) + " entries in \"" + DIR_2019 + EUROPEAN_FLIGHT_DIR + "\"")
+print("Exported a file with " + str(len(inter_flight_list)) + " entries in \"" + DIR_2019 + INTER_FLIGHT_DIR + "\"")
+print("Exported a file with " + str(len(flight_list)) + " entries in \"" + DIR_2019 + SORTED_FLIGHT_DIR + "\"")
+print("Exported a file with " + str(len(missing_list)) + " entries in \"" + DIR_2019 + MISSING_FLIGHT_DIR + "\"\n")
 

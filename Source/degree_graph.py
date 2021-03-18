@@ -21,10 +21,10 @@ DIR2020  = GITDIR + "2020_Filtered/"
 
 # Define input file name
 AIRPORTDIR = "Airports.csv"             # .CSV containing list of EU airports
-FLIGHTFILE = "EU_flights_2020_04.csv"   # .CSV containing list of filtered flights
+FLIGHTFILE = "EU_flights_2019_04.csv"   # .CSV containing list of filtered flights
 
 # Open files
-flightsFile = open(DIR2020 + FLIGHTFILE, encoding="utf8")
+flightsFile = open(DIR2019 + FLIGHTFILE, encoding="utf8")
 airportFile = open(ASSETDIR + AIRPORTDIR, encoding="utf8")
 
 # Read files
@@ -38,19 +38,42 @@ for flight in flight_csv:
 
 del flight_list[0] # Remove legend
 
-# Convert airport codes from .CSV to List
-airport_list = []
-for airport in airport_csv:
-    airport_list.append(str(airport[1]))
+#Not needed since airports is exported as a list from get_matrices function
 
-del airport_list[0] # Remove legend
+### Convert airport codes from .CSV to List
+##airport_list = []
+##for airport in airport_csv:
+##    airport_list.append(str(airport[1]))
+##
+##del airport_list[0] # Remove legend
 
 # Calculate matrices
-adjacency, weight = get_matrices(flight_list)
+adjacency, weight, airports = get_matrices(flight_list)
 
 # Calculate degrees
 out_degree_list, in_degree_list, diff_links_list, degree_list = node_degree(weight)
 av_degree = average_degree(degree_list)
+
+#Get top 10
+
+degree_list = list(degree_list)
+
+degree_sorted = sorted(degree_list)
+top_10 = degree_sorted[:-11:-1]
+
+top_10_index = []
+for i in top_10:
+    top_10_index.append(degree_list.index(i))
+
+top_10_airports = []
+
+for i in top_10_index:
+    top_10_airports.append(airports[i])
+
+print(top_10)
+print(top_10_airports)
+
+degree_list = np.array(degree_list)
 
 # Number of airports with degree zero ???
 zero_els = len(degree_list) - np.count_nonzero(degree_list)
@@ -67,7 +90,7 @@ for i in range(1, 300):
     cum_probability.append((np.count_nonzero(degree_list >= i)))
 
 # Create the plots
-plt.plot(xx,probability, ".")
+#plt.plot(xx,probability, ".")
 plt.plot(xx,cum_probability, ".")
 plt.yscale("log")
 plt.xscale("log")
