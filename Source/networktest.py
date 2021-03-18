@@ -8,9 +8,16 @@ import math
 """"Runtime"""
 start_time = time.time()
 
+GIT_DIR = __file__[0:-21]
+ASSET_DIR = GIT_DIR + "Assets/"
+DIR_2019 = GIT_DIR + "2019_Filtered/"
+DIR_2020  = GIT_DIR + "2020_Filtered/"
+FLIGHT_DIR = "EU_flights_2020_01.csv"
+AIRPORT_DIR = "Airports.csv"
+
 
 """Creating a graph from data"""
-data = pd.read_csv("EU_flights_2019_01 (1).csv")
+data = pd.read_csv(DIR_2020 + FLIGHT_DIR, usecols=[1,2])
 g0 = ig.Graph.DataFrame(edges=data,directed=True)
 
 
@@ -27,7 +34,8 @@ g.vs["name"] = g0.vs["name"]
 airports = []
 coords = []
 
-with open("airports.csv") as file:
+
+with open(ASSET_DIR + AIRPORT_DIR, encoding="utf8") as file:
     reader = csv.reader(file, delimiter = ",")
     i = 0
     for row in reader:
@@ -67,7 +75,6 @@ with open("airports.csv") as file:
 # print(g.es[822]["weight"])
 
 
-
 """Plotting the graph"""
 
 lout = coords
@@ -77,7 +84,7 @@ g.vs["label"] = g.vs["name"]
 
 visuals = {}
 visuals["vertex_size"] = [10 * math.log(g.degree(i)) for i in g.vs]
-visuals["edge_width"] = [int(weight)//4 for weight in g.es["weight"]]
+visuals["edge_width"] = [int(weight)//100 for weight in g.es["weight"]]
 visuals["edge_arrow_size"] = 0.5
 
 ig.plot(g, layout = lout, bbox = (5000,5000), **visuals)
