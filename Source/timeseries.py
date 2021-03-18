@@ -88,6 +88,8 @@ freq010 = get_frequencies(DIR2019 + "EU_flights_2019_10.csv")
 freq011 = get_frequencies(DIR2019 + "EU_flights_2019_11.csv")
 freq012 = get_frequencies(DIR2019 + "EU_flights_2019_12.csv")
 
+freq09[21] = int((freq09[20]+freq09[22])/2)
+
 frequencies2 = freq01 + freq02 + freq03 + freq04 + freq05 + freq06 + freq07 + freq08 + freq09 + freq010 + freq011 + freq012
 print(freq09)
 
@@ -141,6 +143,8 @@ freq29 = get_frequencies(DIR2019 + "inter_flights_2019_09.csv")
 freq210 = get_frequencies(DIR2019 + "inter_flights_2019_10.csv")
 freq211 = get_frequencies(DIR2019 + "inter_flights_2019_11.csv")
 freq212 = get_frequencies(DIR2019 + "inter_flights_2019_12.csv")
+
+freq29[21] = int((freq29[20]+freq29[22])/2)
 
 frequencies4 = freq21 + freq22 + freq23 + freq24 + freq25 + freq26 + freq27 + freq28 + freq29 + freq210 + freq211 + freq212
 
