@@ -12,7 +12,7 @@ GIT_DIR = __file__[0:-21]
 ASSET_DIR = GIT_DIR + "Assets/"
 DIR_2019 = GIT_DIR + "2019_Filtered/"
 DIR_2020  = GIT_DIR + "2020_Filtered/"
-FLIGHT_DIR = "EU_flights_2020_01.csv"
+FLIGHT_DIR = "EU_flights_2020_04.csv"
 AIRPORT_DIR = "Airports.csv"
 
 
@@ -42,7 +42,7 @@ with open(ASSET_DIR + AIRPORT_DIR, encoding="utf8") as file:
         for name in g.vs["name"]:
             if row[1] == name:
                 airports.append(row[1])
-                coords.append((float(row[-2]),-float(row[-3])))
+                coords.append((float(row[-2]),float(row[-3])))
                 i += 1
 
 
@@ -72,7 +72,15 @@ print(g.vs.select(_degree=g.maxdegree())["name"])
 bigedge = g.es.select(weight_gt = 100)
 print(len(bigedge))
 
+tuple_lst = []
+coords_lst = []
 
+for e in g.es:
+    if int(e["weight"]) > 100:
+        tuple_lst.append(e.tuple)
+
+for tp in tuple_lst:
+    coords_lst.append((coords[tp[0]], coords[tp[1]]))
 
 """Plotting the graph"""
 
