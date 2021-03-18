@@ -20,7 +20,7 @@ MAP_BOUNDS = (-35, 60, 25, 75)
 
 # Set projection
 ax = plt.axes(projection=cp.crs.Robinson())
-
+#PlateCarree
 # Set resolution
 ax.coastlines(resolution="50m")
 
@@ -38,11 +38,16 @@ ax.add_feature(cp.feature.LAKES, facecolor=COLOUR_OCEAN)
 
 # Display flights
 for edge in coords_lst:
-	coords_origin = edge[0] 
-	coords_destination = edge[1] 
+ 	coords_origin = edge[0] 
+ 	coords_destination = edge[1]
 
-	plt.plot((coords_origin[0], coords_destination[0]), (coords_origin[1], coords_destination[1])
-            , color = "Blue", linestyle='-', linewidth = 0.25, marker = ".", markersize = 5, transform=cp.crs.Geodetic())
+ 	plt.plot((coords_origin[0], coords_destination[0]), (coords_origin[1], coords_destination[1])
+             , color = "Red", linestyle='-', linewidth = 0.01, marker = ".", markersize = 1, transform=cp.crs.Geodetic())
+# coords_origin = (52.3676, 4.9041)
+# coords_destination = (38.7223, -9.1393)
 
+# plt.plot((coords_origin[1], coords_destination[1]), (coords_origin[0], coords_destination[0])
+#         , color = "Red", linestyle='-', transform=cp.crs.Geodetic())
 # Show map
 plt.show()
+

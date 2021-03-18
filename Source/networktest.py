@@ -12,7 +12,7 @@ GIT_DIR = __file__[0:-21]
 ASSET_DIR = GIT_DIR + "Assets/"
 DIR_2019 = GIT_DIR + "2019_Filtered/"
 DIR_2020  = GIT_DIR + "2020_Filtered/"
-FLIGHT_DIR = "EU_flights_2020_04.csv"
+FLIGHT_DIR = "EU_flights_2020_01.csv"
 AIRPORT_DIR = "Airports.csv"
 
 
@@ -76,7 +76,7 @@ tuple_lst = []
 coords_lst = []
 
 for e in g.es:
-    if int(e["weight"]) > 100:
+    if int(e["weight"]) > 0:
         tuple_lst.append(e.tuple)
 
 for tp in tuple_lst:
