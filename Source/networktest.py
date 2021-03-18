@@ -64,15 +64,14 @@ with open(ASSET_DIR + AIRPORT_DIR, encoding="utf8") as file:
 
 # for i in range(len(g.vs["name"])):
 #     print(g.vs[i].attributes(),g.degree(i))
-# print(g.vs.select(_degree=g.maxdegree())["name"])
+print(g.vs.select(_degree=g.maxdegree())["name"])
 
 # for j in range(len(g.es["weight"])):
 #     print(int(g.es[j]["weight"]))
 
-# bigedge = g.es.select(weight_gt = 3)
-# print(len(bigedge))
-# print(g.es[67]["weight"])
-# print(g.es[822]["weight"])
+bigedge = g.es.select(weight_gt = 100)
+print(len(bigedge))
+
 
 
 """Plotting the graph"""
@@ -87,7 +86,8 @@ visuals["vertex_size"] = [10 * math.log(g.degree(i)) for i in g.vs]
 visuals["edge_width"] = [int(weight)//100 for weight in g.es["weight"]]
 visuals["edge_arrow_size"] = 0.5
 
+
 ig.plot(g, layout = lout, bbox = (5000,5000), **visuals)
 
-""""Runtime"""
+"""Runtime"""
 print(time.time() - start_time)
