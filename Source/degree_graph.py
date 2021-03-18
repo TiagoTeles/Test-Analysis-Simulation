@@ -90,7 +90,7 @@ for i in range(1, 300):
     cum_probability.append((np.count_nonzero(degree_list >= i)))
 
 # Create the plots
-plt.plot(xx,probability, ".")
+#plt.plot(xx,probability, ".")
 plt.plot(xx,cum_probability, ".")
 plt.yscale("log")
 plt.xscale("log")

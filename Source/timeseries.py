@@ -65,8 +65,13 @@ freq4 = get_frequencies(DIR2020 + "EU_flights_2020_04.csv")
 freq5 = get_frequencies(DIR2020 + "EU_flights_2020_05.csv")
 freq6 = get_frequencies(DIR2020 + "EU_flights_2020_06.csv")
 freq7 = get_frequencies(DIR2020 + "EU_flights_2020_07.csv")
+freq8 = get_frequencies(DIR2020 + "EU_flights_2020_08.csv")
+freq9 = get_frequencies(DIR2020 + "EU_flights_2020_09.csv")
+freq10 = get_frequencies(DIR2020 + "EU_flights_2020_10.csv")
+freq11 = get_frequencies(DIR2020 + "EU_flights_2020_11.csv")
+freq12 = get_frequencies(DIR2020 + "EU_flights_2020_12.csv")
 
-frequencies1 = freq1 + freq2 + freq3 + freq4 + freq5 + freq6 + freq7
+frequencies1 = freq1 + freq2 + freq3 + freq4 + freq5 + freq6 + freq7 + freq8 + freq9 + freq10 + freq11 + freq12
 
 # Get 2019 files
 
@@ -77,8 +82,14 @@ freq04 = get_frequencies(DIR2019 + "EU_flights_2019_04.csv")
 freq05 = get_frequencies(DIR2019 + "EU_flights_2019_05.csv")
 freq06 = get_frequencies(DIR2019 + "EU_flights_2019_06.csv")
 freq07 = get_frequencies(DIR2019 + "EU_flights_2019_07.csv")
+freq08 = get_frequencies(DIR2019 + "EU_flights_2019_08.csv")
+freq09 = get_frequencies(DIR2019 + "EU_flights_2019_09.csv")
+freq010 = get_frequencies(DIR2019 + "EU_flights_2019_10.csv")
+freq011 = get_frequencies(DIR2019 + "EU_flights_2019_11.csv")
+freq012 = get_frequencies(DIR2019 + "EU_flights_2019_12.csv")
 
-frequencies2 = freq01 + freq02 + freq03 + freq04 + freq05 + freq06 + freq07
+frequencies2 = freq01 + freq02 + freq03 + freq04 + freq05 + freq06 + freq07 + freq08 + freq09 + freq010 + freq011 + freq012
+print(freq09)
 
 #Calculate averages
 
@@ -108,8 +119,13 @@ freq14 = get_frequencies(DIR2020 + "inter_flights_2020_04.csv")
 freq15 = get_frequencies(DIR2020 + "inter_flights_2020_05.csv")
 freq16 = get_frequencies(DIR2020 + "inter_flights_2020_06.csv")
 freq17 = get_frequencies(DIR2020 + "inter_flights_2020_07.csv")
+freq18 = get_frequencies(DIR2020 + "inter_flights_2020_08.csv")
+freq19 = get_frequencies(DIR2020 + "inter_flights_2020_09.csv")
+freq110 = get_frequencies(DIR2020 + "inter_flights_2020_10.csv")
+freq111 = get_frequencies(DIR2020 + "inter_flights_2020_11.csv")
+freq112 = get_frequencies(DIR2020 + "inter_flights_2020_12.csv")
 
-frequencies3 = freq11 + freq12 + freq13 + freq14 + freq15 + freq16 + freq17
+frequencies3 = freq11 + freq12 + freq13 + freq14 + freq15 + freq16 + freq17 + freq18 + freq19 + freq110 + freq111 + freq112
 
 # Get 2019 files
 
@@ -120,8 +136,13 @@ freq24 = get_frequencies(DIR2019 + "inter_flights_2019_04.csv")
 freq25 = get_frequencies(DIR2019 + "inter_flights_2019_05.csv")
 freq26 = get_frequencies(DIR2019 + "inter_flights_2019_06.csv")
 freq27 = get_frequencies(DIR2019 + "inter_flights_2019_07.csv")
+freq28 = get_frequencies(DIR2019 + "inter_flights_2019_08.csv")
+freq29 = get_frequencies(DIR2019 + "inter_flights_2019_09.csv")
+freq210 = get_frequencies(DIR2019 + "inter_flights_2019_10.csv")
+freq211 = get_frequencies(DIR2019 + "inter_flights_2019_11.csv")
+freq212 = get_frequencies(DIR2019 + "inter_flights_2019_12.csv")
 
-frequencies4 = freq21 + freq22 + freq23 + freq24 + freq25 + freq26 + freq27
+frequencies4 = freq21 + freq22 + freq23 + freq24 + freq25 + freq26 + freq27 + freq28 + freq29 + freq210 + freq211 + freq212
 
 #Calculate averages
 
@@ -143,15 +164,13 @@ x4 = np.linspace(1,len(frequencies4),len(frequencies4))
 
 # ----- Plotting ----- #
 
-#fig, (ax1, ax2) = plt.subplots(1, 2)'
 
-plt.subplot(1, 2, 1)
 plt.plot(x2,frequencies2, alpha = 0.3, color = "darkorange", label = "2019: Daily # flights")
 plt.plot(x2,day_avg2, color = "darkorange", label = "2019: 7 day average", linewidth = 3)
 plt.plot(x,frequencies1, alpha = 0.3, color = "dodgerblue", label = "2020: Daily # flights")
 plt.plot(x,day_avg, color = "dodgerblue", label = "2020: 7 day average", linewidth = 3)
 plt.axvline(x=71, color = 'red', linestyle = '--')
-plt.xticks([0,31,59,90,120,151,181,212,241], ["January","February","March", "April","May","June","July","August"], rotation = 45)
+plt.xticks([0,31,59,90,120,151,181,212,243,273,304,334], ["January","February","March", "April","May","June","July","August", "September", "October", "November", "December"], rotation = 45)
 plt.xlim([0,len(frequencies1)])
 plt.text(75, 10000, 'March 11: WHO declared pandemic', color = 'red')
 plt.title("Daily number of European flights")
@@ -159,14 +178,15 @@ plt.title("Daily number of European flights")
 plt.ylabel("Number of flights")
 plt.legend()
 plt.grid(axis = "x", linestyle = "--")
+plt.show()
 
-plt.subplot(1, 2, 2)
+
 plt.plot(x4,frequencies4, alpha = 0.3, color = "darkorange", label = "2019: Daily # flights")
 plt.plot(x4,day_avg4, color = "darkorange", label = "2019: 7 day average", linewidth = 3)
 plt.plot(x3,frequencies3, alpha = 0.3, color = "dodgerblue", label = "2020: Daily # flights")
 plt.plot(x3,day_avg3, color = "dodgerblue", label = "2020: 7 day average", linewidth = 3)
 plt.axvline(x=71, color = 'red', linestyle = '--')
-plt.xticks([0,31,59,90,120,151,181,212,241], ["January","February","March", "April","May","June","July","August"], rotation = 45)
+plt.xticks([0,31,59,90,120,151,181,212,243,273,304,334], ["January","February","March", "April","May","June","July","August", "September", "October", "November", "December"], rotation = 45)
 plt.xlim([0,len(frequencies1)])
 plt.text(75, 1660, 'March 11: WHO declared pandemic', color = 'red')
 plt.title("Daily number of intercontinental flights")
