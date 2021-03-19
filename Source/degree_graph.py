@@ -11,7 +11,7 @@ from scipy.optimize import curve_fit
 
 from degree_function import node_degree, average_degree
 from adjacency import get_matrices
-
+from Node_strength_function import get_Node_strength
 
 # ---------- Main Program ---------- #
 # Define directories
@@ -109,6 +109,26 @@ plt.xscale("log")
 plt.title("cumulative degree distribution for " + FLIGHTFILE)
 plt.xlabel("Node degree, k")
 plt.ylabel("P(K(i)$\geqslant$k)")
+
+# Show the plots
+plt.show()
+
+
+
+#Now get the node strengths for the data
+
+in_strength, out_strength, total_strength = get_Node_strength(weight)
+
+x2 = np.arange(len(airports))
+# Create the plots
+plt.plot(x2,total_strength, ".")
+plt.yscale("linear")
+plt.xscale("linear")
+
+# Add legend and axis information
+plt.title("Node strength for the airports in " + FLIGHTFILE)
+plt.xlabel("Airport index in airport list")
+plt.ylabel("Node strength")
 
 # Show the plots
 plt.show()
