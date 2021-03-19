@@ -78,6 +78,7 @@ del (flightList[0]) # Remove legend
 startTime = time.time()
 adjacency, weight = get_matrices(flightList)
 
+# Use matrices to get the node strengths
 in_strength, out_strength, total_strength = get_Node_strength(weight)
 print(in_strength, '\n')
 print(out_strength, '\n')
