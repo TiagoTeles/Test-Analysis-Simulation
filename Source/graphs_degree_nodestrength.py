@@ -15,14 +15,14 @@ from Node_strength_function import get_Node_strength
 
 # ---------- Main Program ---------- #
 # Define directories
-GITDIR = __file__[0:-22]
+GITDIR = __file__[0:-36]
 ASSETDIR = GITDIR + "Assets/"
 DIR2019 = GITDIR + "2019_Filtered/"
 DIR2020  = GITDIR + "2020_Filtered/"
 
 # Define input file name
 AIRPORTDIR = "Airports.csv"             # .CSV containing list of EU airports
-FLIGHTFILE = "EU_flights_2020_03.csv"   # .CSV containing list of filtered flights
+FLIGHTFILE = "EU_flights_2020_08.csv"   # .CSV containing list of filtered flights
 
 # Open files
 flightsFile = open(DIR2020 + FLIGHTFILE, encoding="utf8")
@@ -67,7 +67,6 @@ print(top_10_airports)
 
 degree_list = np.array(degree_list)
 
-# Number of airports with degree zero ???
 
 # Calculate probability P(K=i)
 probability = []
@@ -116,10 +115,12 @@ plt.show()
 
 
 #Now get the node strengths for the data
-
 in_strength, out_strength, total_strength = get_Node_strength(weight)
+print('\n', total_strength)
 
 x2 = np.arange(len(airports))
+
+
 # Create the plots
 plt.plot(x2,total_strength, ".")
 plt.yscale("linear")
@@ -132,3 +133,5 @@ plt.ylabel("Node strength")
 
 # Show the plots
 plt.show()
+
+
