@@ -22,7 +22,7 @@ DIR2020  = GITDIR + "2020_Filtered/"
 
 # Define input file name
 AIRPORTDIR = "Airports.csv"             # .CSV containing list of EU airports
-FLIGHTFILE = "EU_flights_2020_08.csv"   # .CSV containing list of filtered flights
+FLIGHTFILE = "EU_flights_2020_03.csv"   # .CSV containing list of filtered flights
 
 # Open files
 flightsFile = open(DIR2020 + FLIGHTFILE, encoding="utf8")
