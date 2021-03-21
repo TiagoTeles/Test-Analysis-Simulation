@@ -3,7 +3,7 @@ This script imports the relevant data from .CSV files, converts it to lists,
 and creates directed adjacency and weight matrices from those lists.
 
 The Flights.CSV file has the following structure:
-Callsign, Origin, Destination
+Callsign, Origin, Destination, Date
 
 The Airports.CSV file has the following structure:
 Size, ICAO Code, IATA Code, Name, Latitude, Longitude, Country
@@ -31,17 +31,16 @@ def get_matrices(flight_list):
         airports (list): Sorted airport list
     """
 
-    # Create empty matrices
+    # Get list of unique airports
     used_airports = []
     for flight in flight_list:
         used_airports.append(flight[1])
         used_airports.append(flight[2])
 
-    airport_set = set(used_airports) # Convert to set
+    airports = list(set(used_airports)) # Remove duplicates
+    airports.sort() # Order alphabetically
 
-    airports = list(airport_set)
-    airports.sort()
-
+    # Create empty matrices
     n = len(airports)
     adjacency_matrix = np.zeros((n, n), int)
     weight_matrix = np.zeros((n, n), int)

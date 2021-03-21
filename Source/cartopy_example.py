@@ -14,9 +14,11 @@ from networktest import coords_lst
 # Caropy settings
 COLOUR_OCEAN = (0.0, 0.42, 0.58)
 COLOUR_LAND = (0.96, 0.96, 0.86)
-MAP_BOUNDS = (-35, 60, 25, 75)
-PROJECTION = cp.crs.Robinson()
-TRANSFORM = cp.crs.Geodetic()
+MAP_BOUNDS = (-35, 60, 25, 65)
+PROJECTION = cp.crs.PlateCarree()
+#PROJECTION = cp.crs.Mercator()
+#PROJECTION = cp.crs.Miller()
+TRANSFORM = cp.crs.Geodetic()       # Curved lines on the map
 
 
 # ---------- Function Definitions ---------- #
@@ -67,4 +69,4 @@ if __name__ == "__main__":
     #display_map(COORDS_LIST, line_width = 1)
 
     # Display map
-    display_map(coords_lst)
+    display_map(coords_lst, colour = "red")
