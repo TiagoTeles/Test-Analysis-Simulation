@@ -225,4 +225,3 @@ print("Exported a file with " + str(len(eu_flight_list)) + " entries in \"" + DI
 print("Exported a file with " + str(len(inter_flight_list)) + " entries in \"" + DIR_2019 + INTER_FLIGHT_DIR + "\"")
 print("Exported a file with " + str(len(flight_list)) + " entries in \"" + DIR_2019 + SORTED_FLIGHT_DIR + "\"")
 print("Exported a file with " + str(len(missing_list)) + " entries in \"" + DIR_2019 + MISSING_FLIGHT_DIR + "\"\n")
-

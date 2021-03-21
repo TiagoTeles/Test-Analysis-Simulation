@@ -17,18 +17,18 @@ import numpy as np
 
 ## ---------- Function Definitions ---------- ##
 def get_matrices(flight_list):
-    # ----- Defining the function to find adjacency matrix and weight matrix ----- #
-    """ Constructs directed adjacency and weight matrices from the data provided.
-        The row index corresponds to index of the origin airport, the column index
-        corresponds to the destination airport.
+    """
+    Constructs directed adjacency and weight matrices from the data provided.
+    The row index corresponds to index of the origin airport, the column index
+    corresponds to the destination airport.
 
     Arguments:
-        flightList {List} -- List of flights to be considered
+        flight_list (List): List of flights to be considered
 
     Returns:
-        ndarray -- Adjacency matrix
-        ndarray -- Weight matrix
-        list    -- Sorted airport list
+        adjacency_matrix (ndarray): Adjacency matrix
+        weight_matrix (ndarray): Weight matrix
+        airports (list): Sorted airport list
     """
 
     # Create empty matrices
@@ -60,7 +60,6 @@ def get_matrices(flight_list):
 
 
 ## ---------- Main Program ---------- ##
-# Prevents this code form running if the module is imported
 if __name__ == "__main__":
     # Define directories
     GIT_DIR = __file__[0:-19]
