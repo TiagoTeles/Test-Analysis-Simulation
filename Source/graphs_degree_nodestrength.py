@@ -47,7 +47,6 @@ out_degree_list, in_degree_list, diff_links_list, degree_list = node_degree(weig
 av_degree = average_degree(degree_list)
 
 #Get top 10
-
 degree_list = list(degree_list)
 
 degree_sorted = sorted(degree_list)
@@ -61,10 +60,11 @@ top_10_airports = []
 
 for i in top_10_index:
     top_10_airports.append(airports[i])
+print('The top 10 airports based on degree are: ', top_10_airports)
+print('With their respective degrees: ', top_10,'\n')
 
-print(top_10)
-print(top_10_airports)
 
+#Convert back to array
 degree_list = np.array(degree_list)
 
 
@@ -79,8 +79,8 @@ cum_probability = []
 for i in range(1, np.max(degree_list)):
     cum_probability.append((np.count_nonzero(degree_list >= i))/len(airports))
 
-# Create a power law curve fit
 
+# Create a power law curve fit
 degree_list = list(degree_list)
 
 def fct(x, a, b):
@@ -98,7 +98,9 @@ degree_list = np.array(degree_list)
 
 
 # Create the plots
+plt.figure()
 #plt.plot(xx,probability, ".")
+plt.subplot(211)
 plt.plot(xx,cum_probability, ".")
 plt.plot(x1,power_law, linestyle = "--")
 plt.yscale("log")
@@ -110,28 +112,49 @@ plt.xlabel("Node degree, k")
 plt.ylabel("P(K(i)$\geqslant$k)")
 
 # Show the plots
-plt.show()
+#plt.show()
 
 
 
 #Now get the node strengths for the data
 in_strength, out_strength, total_strength = get_Node_strength(weight)
-print('\n', total_strength)
+#print('\n', total_strength)
 
 x2 = np.arange(len(airports))
 
+#Get top 10
+strength_sorted = sorted(total_strength, reverse=True)
+top_10_1 = strength_sorted[0:10]
+
+top_10_index1 = []
+for i in top_10_1:
+    top_10_index1.append(total_strength.index(i))
+
+top_10_airports1 = []
+
+for i in top_10_index1:
+    top_10_airports1.append(airports[i])
+
+print('The top 10 airports based on node strength are: ', top_10_airports1)
+print('With their respective degrees: ', top_10_1)
+
+
 
 # Create the plots
-plt.plot(x2,total_strength, ".")
+# This plot shows that there are a lot of airports with a small node strength and only a few with a large node strength
+# This is equivalent to 'Weighted degree' in some definitions
+plt.subplot(212)
+plt.plot(x2,strength_sorted, ".")
 plt.yscale("linear")
 plt.xscale("linear")
 
 # Add legend and axis information
 plt.title("Node strength for the airports in " + FLIGHTFILE)
-plt.xlabel("Airport index in airport list")
+plt.xlabel("Just numbers to plot")
 plt.ylabel("Node strength")
 
 # Show the plots
+plt.tight_layout()
 plt.show()
 
 
