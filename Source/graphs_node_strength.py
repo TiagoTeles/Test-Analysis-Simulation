@@ -2,7 +2,7 @@
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
+#from scipy.optimize import curve_fit
 
 from degree_function import node_degree, average_degree
 from adjacency import get_matrices
