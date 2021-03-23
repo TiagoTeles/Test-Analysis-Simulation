@@ -149,6 +149,7 @@ plt.ylabel("P(K(i)$\geqslant$k)")
 # Show the plot
 plt.show()
 
+
 ''' Time series for average degree'''
 #2019
 
