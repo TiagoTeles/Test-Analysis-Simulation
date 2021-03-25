@@ -8,10 +8,10 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+import time
 
 from degree_function import node_degree, average_degree
 from adjacency import get_matrices
-from Node_strength_function import get_Node_strength
 
 # ---------- Function --------- #
 def get_average_degree(filename):
@@ -47,6 +47,8 @@ def get_average_degree(filename):
 
 
 # ---------- Main Program ---------- #
+
+start_time = time.time()
 # Define directories
 GITDIR = __file__[0:-23]
 ASSETDIR = GITDIR + "Assets/"
@@ -187,6 +189,7 @@ for i in files_2020:
 
 xx = np.arange(1,13)
 
+print('Runtime = ', time.time()-start_time )
 # Graph plotting
 #plt.subplot(212)
 plt.figure()
