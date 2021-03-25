@@ -30,7 +30,6 @@ def get_closeness(graph):
     Returns:
         avg_closeness (float): Average closeness of the nodes in the network
         w_avg_closeness (float): Average closeness weighted by node strength
-        nodes (List): List of all nodes and closenesses
         top_nodes (List): List of top N nodes ranked by closeness
     """
 
@@ -62,21 +61,20 @@ def get_closeness(graph):
 
     top_nodes = sorted(nodes, key = lambda node: node[1], reverse = True)[0:N]
 
-    return avg_closeness, w_avg_closeness, nodes, top_nodes
+    return avg_closeness, w_avg_closeness, top_nodes
 
 # ---------- Main Program ---------- #
+if __name__ == "__main__":
+    # Get graph
+    graph = create_graph(DIR_2020 + FLIGHT_DIR)
 
-# Get graph
-graph = create_graph(DIR_2020 + FLIGHT_DIR)
+    # Determine closeness parameters
+    closeness = get_closeness(graph)
 
-# Determine closeness parameters
-closeness = get_closeness(graph)
+    avg_closeness = closeness[0]
+    w_avg_closeness = closeness[1]
+    top_nodes = closeness[2]
 
-avg_closeness = closeness[0]
-w_avg_closeness = closeness[1]
-top_nodes = closeness[3]
-
-print(avg_closeness)
-print(w_avg_closeness)
-print(top_nodes)
-
+    print(avg_closeness)
+    print(w_avg_closeness)
+    print(top_nodes)
