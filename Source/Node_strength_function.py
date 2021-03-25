@@ -48,8 +48,30 @@ def get_Node_strength(weightMatrix):
     for i in range(len(in_node_strength)):
         total_node_strength.append(in_node_strength[i] + out_node_strength[i])
 
+
     return in_node_strength, out_node_strength, total_node_strength
 
+
+def average_node_strenght(node_strength):
+    # ----- Defining the function to find the average node strength ----- #
+    """ Constructs a value of average node strength.
+
+    Arguments:
+        node_strength {List} -- List with node strengths of nodes
+
+    Returns:
+        value -- average_strength
+    """
+
+    inclined = 0
+    total = 0
+
+    for strength in node_strength:
+        inclined = inclined + strength
+        total += 1
+
+    average_strength = inclined/total
+    return average_strength
 
 ## ---------- Main Program ---------- ##
 if __name__ == "__main__":

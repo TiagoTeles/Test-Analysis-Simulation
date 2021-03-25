@@ -3,12 +3,14 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 #from scipy.optimize import curve_fit
+import time
 
 from degree_function import node_degree, average_degree
 from adjacency import get_matrices
 from Node_strength_function import get_Node_strength
 
 # ---------- Main Program ---------- #
+start_time = time.time()
 # Define directories
 GITDIR = __file__[0:-30]
 ASSETDIR = GITDIR + "Assets/"
@@ -78,6 +80,9 @@ plt.xscale("linear")
 plt.title("Node strength for the airports in " + FLIGHTFILE)
 plt.xlabel("Just numbers to plot")
 plt.ylabel("Node strength")
+
+
+print('Runtime = ', time.time() - start_time)
 
 # Show the plot
 plt.show()
