@@ -199,5 +199,3 @@ plt.ylabel("Number of flights")
 plt.legend()
 plt.grid(axis = "x", linestyle = "--")
 plt.show()
-
-
