@@ -48,7 +48,7 @@ def get_average_degree(filename):
 
 # ---------- Main Program ---------- #
 # Define directories
-GITDIR = __file__[0:-36]
+GITDIR = __file__[0:-23]
 ASSETDIR = GITDIR + "Assets/"
 DIR2019 = GITDIR + "2019_Filtered/"
 DIR2020  = GITDIR + "2020_Filtered/"
