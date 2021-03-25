@@ -9,20 +9,21 @@ import numpy as np
 
 # ---------- Function Definitions ---------- #
 def node_degree(weight_matrix):
-    """ Determines the degrees of the network. The row index
-        corresponds to the index of the origin airport, the
-        column index corresponds to the destination airport.
-        It also determines the number of distinct edges each
-        node is connected to.
+    """
+    Determines the degrees of the network. The row index
+    corresponds to the index of the origin airport, the
+    column index corresponds to the destination airport.
+    It also determines the number of distinct edges each
+    node is connected to.
 
     Arguments:
-        weight_matrix {nd.array} -- Weight matrix of the network
+        weight_matrix (nd.array): Weight matrix of the network
 
     Returns:
-        List -- In-Degree distribution of the network
-        List -- Out-Degree distribution of the network
-        List -- Number of distinct edges connected to each node of th network
-        List -- Total degree distribuition of the network
+        out_degree_list (List): In-Degree distribution of the network
+        in_degree_list (List): Out-Degree distribution of the network
+        diff_links_list (List): Number of distinct edges connected to each node of th network
+        degree_list (List): Total degree distribuition of the network
     """
 
     # Determine the degrees
@@ -49,19 +50,19 @@ def node_degree(weight_matrix):
     return out_degree_list, in_degree_list, diff_links_list, degree_list
 
 def average_degree(degree_list):
-    """ Calculates the average degree of a network
+    """ 
+    Calculates the average degree of a network.
 
     Arguments:
-        degree_list {List} -- List of node degrees
+        degree_list (List): List of node degrees
 
     Returns:
-        Float -- Average degree of the network
+        (Float): Average degree of the network
     """
 
     return sum(degree_list)/len(degree_list)
 
 ## ---------- Main Program ---------- ##
-# Prevents this code form running if the module is imported
 if __name__ == "__main__":
     # Used for testing the function node_degree()
     test_array = np.array([

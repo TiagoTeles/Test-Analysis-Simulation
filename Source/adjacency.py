@@ -3,7 +3,7 @@ This script imports the relevant data from .CSV files, converts it to lists,
 and creates directed adjacency and weight matrices from those lists.
 
 The Flights.CSV file has the following structure:
-Callsign, Origin, Destination
+Callsign, Origin, Destination, Date
 
 The Airports.CSV file has the following structure:
 Size, ICAO Code, IATA Code, Name, Latitude, Longitude, Country
@@ -17,30 +17,30 @@ import numpy as np
 
 ## ---------- Function Definitions ---------- ##
 def get_matrices(flight_list):
-    # ----- Defining the function to find adjacency matrix and weight matrix ----- #
-    """ Constructs directed adjacency and weight matrices from the data provided.
-        The row index corresponds to index of the origin airport, the column index
-        corresponds to the destination airport.
+    """
+    Constructs directed adjacency and weight matrices from the data provided.
+    The row index corresponds to index of the origin airport, the column index
+    corresponds to the destination airport.
 
     Arguments:
-        flightList {List} -- List of flights to be considered
+        flight_list (List): List of flights to be considered
 
     Returns:
-        ndarray -- Adjacency matrix
-        ndarray -- Weight matrix
+        adjacency_matrix (ndarray): Adjacency matrix
+        weight_matrix (ndarray): Weight matrix
+        airports (list): Sorted airport list
     """
 
-    # Create empty matrices
+    # Get list of unique airports
     used_airports = []
     for flight in flight_list:
         used_airports.append(flight[1])
         used_airports.append(flight[2])
 
-    airport_set = set(used_airports) # Convert to set
+    airports = list(set(used_airports)) # Remove duplicates
+    airports.sort() # Order alphabetically
 
-    airports = list(airport_set)
-    airports.sort()
-
+    # Create empty matrices
     n = len(airports)
     adjacency_matrix = np.zeros((n, n), int)
     weight_matrix = np.zeros((n, n), int)
@@ -55,11 +55,10 @@ def get_matrices(flight_list):
         adjacency_matrix[origin_index][destination_index] = 1
         weight_matrix[origin_index][destination_index] += 1
 
-    return adjacency_matrix, weight_matrix
+    return adjacency_matrix, weight_matrix, airports
 
 
 ## ---------- Main Program ---------- ##
-# Prevents this code form running if the module is imported
 if __name__ == "__main__":
     # Define directories
     GIT_DIR = __file__[0:-19]
@@ -86,7 +85,7 @@ if __name__ == "__main__":
 
     # Calculate Matrices
     start_time = time.time()
-    adjacency, weight = get_matrices(flight_list)
+    adjacency, weight, airports = get_matrices(flight_list)
 
     # Print matricies
     print("\n")
@@ -94,6 +93,7 @@ if __name__ == "__main__":
     print("\n")
     print(weight)
     print("\n")
+    print(airports)
 
     # Print runtime
     print("Runtime:", round(time.time() - start_time, 1), "s")

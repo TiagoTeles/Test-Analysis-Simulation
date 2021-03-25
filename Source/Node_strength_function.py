@@ -51,34 +51,39 @@ def get_Node_strength(weightMatrix):
     return in_node_strength, out_node_strength, total_node_strength
 
 
-# Define directories
-GITDIR = __file__[0:-32]
-assetDir = GITDIR + "Assets/"
-dir2019 = GITDIR + "2019_Filtered/"
-dir2020  = GITDIR + "2020_Filtered/"
+## ---------- Main Program ---------- ##
+if __name__ == "__main__":
 
-# Define input file name
-flightFile = "EU_flights_2019_01.csv"   # .CSV containing list of filtered flights
+    '''  Function testing '''
+    # Define directories
+    GITDIR = __file__[0:-32]
+    assetDir = GITDIR + "Assets/"
+    dir2019 = GITDIR + "2019_Filtered/"
+    dir2020  = GITDIR + "2020_Filtered/"
 
-# Open files
-flightsFile = open(dir2019 + flightFile, encoding="utf8")
+    # Define input file name
+    flightFile = "EU_flights_2019_01.csv"   # .CSV containing list of filtered flights
 
-# Read files
-flightsCSV = csv.reader(flightsFile)
+    # Open files
+    flightsFile = open(dir2019 + flightFile, encoding="utf8")
 
-# Convert flight database from .CSV to List
-flightList = []
-for flight in flightsCSV:
-    flightList.append(flight)
+    # Read files
+    flightsCSV = csv.reader(flightsFile)
 
-del (flightList[0]) # Remove legend
+    # Convert flight database from .CSV to List
+    flightList = []
+    for flight in flightsCSV:
+       flightList.append(flight)
+
+    del (flightList[0]) # Remove legend
 
 
-# Calculate Matrices
-startTime = time.time()
-adjacency, weight = get_matrices(flightList)
+    # Calculate Matrices
+    startTime = time.time()
+    adjacency, weight, _ = get_matrices(flightList)
 
-in_strength, out_strength, total_strength = get_Node_strength(weight)
-print(in_strength)
-print(out_strength)
-print(total_strength)
+    # Use matrices to get the node strengths
+    in_strength, out_strength, total_strength = get_Node_strength(weight)
+    print('In strength', in_strength, '\n')
+    print('Out strength', out_strength, '\n')
+    print('Total strength', total_strength, '\n')
