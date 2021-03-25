@@ -5,7 +5,7 @@ This scipt provides tools to plot timeseries.
 
 # ---------- Imports ---------- #
 import matplotlib.pyplot as plt
-from centrality import get_closeness
+from centrality import get_closeness_in, get_closeness_out, get_giant_component
 from data_visualization import create_graph
 
 # ---------- Setup ---------- #
@@ -69,8 +69,8 @@ def timeseries_monthly(func, text, index = 0):
 
     # Plot values
     x_values = list(range(1, 12 +1))
-    plt.plot(x_values, values_2019, color = "darkorange", label = "2019: " + text[3], linewidth = 3)
-    plt.plot(x_values, values_2020, color = "dodgerblue", label = "2020: " + text[3], linewidth = 3)
+    plt.plot(x_values, values_2019, color = "darkorange", label = "2019", linewidth = 3)
+    plt.plot(x_values, values_2020, color = "dodgerblue", label = "2020", linewidth = 3)
 
     # Configure settings
     plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], ["January","February", "March",
@@ -91,6 +91,11 @@ def timeseries_monthly(func, text, index = 0):
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
     configs = ["Average closeness centrality per month in EU", "Month",
-    "Closeness centrality", "Closeness centrality"]
+    "Closeness centrality"]
 
-    timeseries_monthly(get_closeness, configs)
+    timeseries_monthly(get_closeness_in, configs)
+
+    # configs = ["Size of the giant component per month in EU", "Month",
+    # "Size of giant component"]
+
+    # timeseries_monthly(get_giant_component, configs)
