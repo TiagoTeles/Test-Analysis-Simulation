@@ -5,7 +5,7 @@ This scipt provides tools to plot timeseries.
 
 # ---------- Imports ---------- #
 import matplotlib.pyplot as plt
-from centrality import get_closeness_in, get_closeness_out, get_giant_component
+from centrality import get_closeness, get_clustering, get_giant_component
 from data_visualization import create_graph
 
 # ---------- Setup ---------- #
@@ -13,7 +13,7 @@ GIT_DIR = __file__[0:-28]
 
 
 # ---------- Function Definitions ---------- #
-def get_filename(git_dir, year, month, inter = False):
+def get_filename(git_dir, year, month, inter):
     """
     Determines the filename based
     on the parameters given.
@@ -22,7 +22,7 @@ def get_filename(git_dir, year, month, inter = False):
         git_dir (String): Base directory
         year (int): Year teh data was collected
         month (int): Month the data was collected
-        eu (Boolean): Whether the data is from europe or intercontinantal
+        inter (Boolean): Whether the data is from europe or intercontinantal
 
     Returns:
         filename (String): Name of the file
@@ -39,16 +39,21 @@ def get_filename(git_dir, year, month, inter = False):
     return filename
 
 
-def timeseries_monthly(func, text, index = 0):
+def timeseries_monthly(func, index, **args):
     """
     Plots a timeseries for 2019 and 2020
     using the function and parameters provided.
 
     Arguments:
         f (Function): Function used to determine the Y values
-        text (List): Visual settings of the graph
         index (int): Index of the values in the return tuple
+        **args (Dict): Optional arguments
     """
+
+    # Decode arguments
+    title = args.get("title", "")
+    x_label = args.get("x_label", "")
+    y_label = args.get("y_label", "")
 
     # Determine values
     values_2019 = []
@@ -56,33 +61,34 @@ def timeseries_monthly(func, text, index = 0):
     for month in range(1, 12 + 1):
 
         # Get filename
-        filename_2019 = get_filename(GIT_DIR, 2019, month)
-        filename_2020 = get_filename(GIT_DIR, 2020, month)
+        filename_2019 = get_filename(GIT_DIR, 2019, month, False)
+        filename_2020 = get_filename(GIT_DIR, 2020, month, False)
 
         # Get graphs
         graph_2019 = create_graph(filename_2019)
         graph_2020 = create_graph(filename_2020)
 
         # Determine value
-        values_2019.append(func(graph_2019)[index])
-        values_2020.append(func(graph_2020)[index])
+        values_2019.append(func(graph_2019, **args)[index])
+        values_2020.append(func(graph_2020, **args)[index])
 
     # Plot values
     x_values = list(range(1, 12 +1))
     plt.plot(x_values, values_2019, color = "darkorange", label = "2019", linewidth = 3)
     plt.plot(x_values, values_2020, color = "dodgerblue", label = "2020", linewidth = 3)
 
-    # Configure settings
+    # Configure plot
+    plt.xlim(1, 12)
+    plt.grid(axis = "x", linestyle = "--")
     plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], ["January","February", "March",
                 "April",  "May","June","July","August", "September", "October", "November",
                 "December"], rotation = 45)
 
-    plt.title(text[0])
-    plt.xlabel(text[1])
-    plt.ylabel(text[2])
-    plt.xlim(1, 12)
+    # Configure labels
+    plt.title(title)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
     plt.legend()
-    plt.grid(axis = "x", linestyle = "--")
 
     # Display plot
     plt.show()
@@ -90,12 +96,19 @@ def timeseries_monthly(func, text, index = 0):
 
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
-    configs = ["Average closeness centrality per month in EU", "Month",
-    "Closeness centrality"]
+    TITLE = "Average closeness centrality in europe"
+    X_LABEL = "Month"
+    Y_LABEL = "Closeness centrality"
+    timeseries_monthly(get_closeness, 0, mode = "in", weights = True,
+                       title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
-    timeseries_monthly(get_closeness_in, configs)
+    # TITLE = "Average clustering coefficient in europe"
+    # X_LABEL = "Month"
+    # Y_LABEL = "Clustering coefficient"
+    # timeseries_monthly(get_clustering, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
-    # configs = ["Size of the giant component per month in EU", "Month",
-    # "Size of giant component"]
 
-    # timeseries_monthly(get_giant_component, configs)
+    # TITLE = "Size of the giant component in europe"
+    # X_LABEL = "Month"
+    # Y_LABEL = "Size of the giant component"
+    # timeseries_monthly(get_giant_component, 1, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
