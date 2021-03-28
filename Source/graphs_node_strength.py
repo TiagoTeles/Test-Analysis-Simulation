@@ -7,7 +7,7 @@ import time
 
 from degree_function import node_degree, average_degree
 from adjacency import get_matrices
-from Node_strength_function import get_Node_strength
+from Node_strength_function import get_Node_strength, average_node_strenght
 
 # ---------- Main Program ---------- #
 start_time = time.time()
@@ -36,17 +36,17 @@ for flight in flight_csv:
 
 del flight_list[0] # Remove legend
 
+
+''' Get node strength distribution for specific month '''
 # Calculate matrices
 adjacency, weight, airports = get_matrices(flight_list)
 
 # Calculate degrees
 out_degree_list, in_degree_list, diff_links_list, degree_list = node_degree(weight)
-av_degree = average_degree(degree_list)
+# av_degree = average_degree(degree_list)
 
 #Now get the node strengths for the data
 in_strength, out_strength, total_strength = get_Node_strength(weight)
-
-#print('\n', total_strength)
 
 x2 = np.arange(len(airports))
 
@@ -85,4 +85,69 @@ plt.ylabel("Node strength")
 print('Runtime = ', time.time() - start_time)
 
 # Show the plot
+plt.show()
+
+''' Get average node strength graphs time series '''
+
+#2019
+
+files_2019 = []
+
+for i in range(1,13):
+    if i < 10:
+        name = DIR2019 + "EU_flights_2019_0" + str(i) + ".csv"
+    else:
+        name = DIR2019 + "EU_flights_2019_" + str(i) + ".csv"
+
+    files_2019.append(name)
+
+
+av_2019 = []
+
+for i in files_2019:
+    adjacency, weight, airports = get_matrices(i)
+    out_degree_list, in_degree_list, diff_links_list, degree_list = node_degree(weight)
+    # av_degree = average_degree(degree_list)
+    in_strength, out_strength, total_strength = get_Node_strength(weight)
+
+    av_2019.append(get_Node_strength(total_strength))
+
+
+#2020
+files_2020 = []
+for i in range(1,13):
+    if i < 10:
+        name = DIR2020 + "EU_flights_2020_0" + str(i) + ".csv"
+    else:
+        name = DIR2020 + "EU_flights_2020_" + str(i) + ".csv"
+
+    files_2020.append(name)
+
+av_2020 = []
+
+for i in files_2020:
+    adjacency, weight, airports = get_matrices(i)
+    out_degree_list, in_degree_list, diff_links_list, degree_list = node_degree(weight)
+    # av_degree = average_degree(degree_list)
+    in_strength, out_strength, total_strength = get_Node_strength(weight)
+
+    av_2020.append(get_Node_strength(total_strength))
+
+
+xx = np.arange(1,13)
+
+print('Runtime = ', time.time()-start_time )
+# Graph plotting
+#plt.subplot(212)
+plt.figure()
+plt.plot(xx,av_2019,  color = "darkorange", label = "2019")
+plt.plot(xx,av_2020, color = "dodgerblue", label = "2020")
+plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ["January","February","March", "April","May","June","July","August", "September", "October", "November", "December"], rotation = 45)
+plt.title("Average node degree per month")
+plt.xlabel("Month")
+plt.ylabel("Average node degree")
+plt.legend()
+plt.grid(axis = "x", linestyle = "--")
+#plt.tight_layout()
+# show plots
 plt.show()
