@@ -27,6 +27,7 @@ t_batch = time.time() - t0
 # #############################################################################
 # Plot result
 
+
 fig = plt.figure(figsize=(8, 3))
 colors = ['r', 'b', 'y', 'orange']
 
