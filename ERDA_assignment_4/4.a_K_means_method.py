@@ -30,7 +30,7 @@ print(len(Data_x))
 # xy = np.random.uniform(-10.0, 10.0, size=(600, 2))
 
 #Create KMeans object
-number = 2
+number = 7
 kmeans = KMeans(n_clusters = number)
 kmeans.fit(Data_x)
 clusters = kmeans.cluster_centers_
@@ -38,14 +38,11 @@ clusters = kmeans.cluster_centers_
 y_km = kmeans.fit_predict(Data_x)
 
 # Set up colours for plots
-colours = ['salmon', 'dodgerblue', 'forestgreen', 'orange', 'blueviolet', 'khaki']
+colours = ['salmon', 'dodgerblue', 'forestgreen', 'orange', 'blueviolet', 'khaki', 'black']
 
 # Make the plots
 for i in range(len(clusters)):
     plt.scatter(Data_x[y_km == i, 0], Data_x[y_km == i, 1], s=20, color= colours[i])
-
-
-plt.show()
 
 l0 = []
 l1 = []
@@ -53,6 +50,7 @@ l2 = []
 l3 = []
 l4 = []
 l5 = []
+l6 = []
 
 indices = []
 for i in y_km:
@@ -71,5 +69,9 @@ for i in range(len(Datapoints)):
         l4.append(Datapoints[i])
     if indices[i] == 5:
         l5.append(Datapoints[i])
+    if indices[i] == 6:
+        l6.append(Datapoints[i])
 
 print(l0), print(l1), print(l2), print(l3), print(l4), print(l5)
+
+plt.show()
