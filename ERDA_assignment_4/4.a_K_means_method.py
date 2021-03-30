@@ -1,27 +1,77 @@
-import time
 import numpy as np
 import matplotlib.pyplot as plt
-
+import csv
 from sklearn.cluster import KMeans
 
 # Get dataset
 # Make sure data is in array with shape (xxx,2)
-xy = np.random.uniform(-10.0, 10.0, size=(600, 2))
+GITDIR = __file__[0:-21]
+
+Data = open(GITDIR + 'RNAF_Fleet.csv', encoding="utf8")
+data_csv = csv.reader(Data)
+
+Datapoints = []
+filtered_data = []
+for i in data_csv:
+    Datapoints.append(i)
+
+del Datapoints[0] # Remove legend
+
+for i in range(len(Datapoints)):
+    filtered_data.append(Datapoints[i][1:3])
+    Datapoints[i] = Datapoints[i][0]
+
+for i in filtered_data:
+    for j in range(2):
+        i[j] = float(i[j])
+Data_x = np.array(filtered_data)
+print(len(Data_x))
+
+# xy = np.random.uniform(-10.0, 10.0, size=(600, 2))
 
 #Create KMeans object
-kmeans = KMeans(n_clusters = 2)
-kmeans.fit(xy)
+number = 7
+kmeans = KMeans(n_clusters = number)
+kmeans.fit(Data_x)
 clusters = kmeans.cluster_centers_
 
-y_km = kmeans.fit_predict(xy)
+y_km = kmeans.fit_predict(Data_x)
 
 # Set up colours for plots
-colours = ['salmon', 'dodgerblue', 'forestgreen', 'orange', 'blueviolet', 'khaki']
+colours = ['salmon', 'dodgerblue', 'forestgreen', 'orange', 'blueviolet', 'khaki', 'black']
 
 # Make the plots
 for i in range(len(clusters)):
-    plt.scatter(xy[y_km == i, 0], xy[y_km == i, 1], s=20, color= colours[i])
-for i in range(len(clusters)):
-    plt.scatter(clusters[i][0], clusters[i][1], marker = '*', s = 100, color = 'black')
+    plt.scatter(Data_x[y_km == i, 0], Data_x[y_km == i, 1], s=20, color= colours[i])
+
+l0 = []
+l1 = []
+l2 = []
+l3 = []
+l4 = []
+l5 = []
+l6 = []
+
+indices = []
+for i in y_km:
+    indices.append(list(set(y_km)).index(i))
+
+for i in range(len(Datapoints)):
+    if indices[i] == 0:
+        l0.append(Datapoints[i])
+    if indices[i] == 1:
+        l1.append(Datapoints[i])
+    if indices[i] == 2:
+        l2.append(Datapoints[i])
+    if indices[i] == 3:
+        l3.append(Datapoints[i])
+    if indices[i] == 4:
+        l4.append(Datapoints[i])
+    if indices[i] == 5:
+        l5.append(Datapoints[i])
+    if indices[i] == 6:
+        l6.append(Datapoints[i])
+
+print(l0), print(l1), print(l2), print(l3), print(l4), print(l5)
 
 plt.show()
