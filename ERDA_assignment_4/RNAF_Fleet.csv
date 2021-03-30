@@ -1,15 +1,15 @@
-Name,Length,Spanwidth/rotorblade diameter
-General Dynamics F-16AM/BM Fighting Falcon,15.06,9.96
-Lockheed Martin F-35A Lightning II,15.7,11
-McDonnell Douglas KC-10 Extender,55.35,50.41
-Airbus A330 Multi Role Tanker Transport,58.8,60.3
-Lockheed C-130 Hercules,29.79,40.41
-Gulfstream G650,30.41,30.56
-Gulfstream IV,26.92,23.72
-Dornier 228,16.56,16.97
-Boeing AH-64D Apache,15.5,14.63
-Boeing CH-47D/F Chinook,16,18
-Eurocopter AS532 Cougar,15.53,15.6
-NHIndustries NH90,16.13,16.3
-Pilatus PC-7 Turbo Trainer,9.78,10.4
-General Atomics MQ-9 Reaper,11,20
+Name,Length,Spanwidth/rotorblade diameter,MTOW,Range,Speed
+General Dynamics F-16AM/BM Fighting Falcon,15.06,9.96,19187,4127,2121
+Lockheed Martin F-35A Lightning II,15.7,11,31751,2800,1655
+McDonnell Douglas KC-10 Extender,55.35,50.41,268980,7100,866
+Airbus A330 Multi Role Tanker Transport,58.8,60.3,233000,14800,880
+Lockheed C-130 Hercules,29.79,40.41,70307,3800,590
+Gulfstream G650,30.41,30.56,45178,12964,856
+Gulfstream IV,26.92,23.72,33203,7815,935
+Dornier 228,16.56,16.97,6575,2363,413
+Boeing AH-64D Apache,15.5,14.63,10433,1896,293
+Boeing CH-47D/F Chinook,16,18,22680,2252,310
+Eurocopter AS532 Cougar,15.53,15.6,9000,573,249
+NHIndustries NH90,16.13,16.3,10600,1000,300
+Pilatus PC-7 Turbo Trainer,9.78,10.4,2700,2630,412
+General Atomics MQ-9 Reaper,11,20,4760,1900,482
