@@ -18,7 +18,7 @@ for i in data_csv:
 del Datapoints[0] # Remove legend
 
 for i in range(len(Datapoints)):
-    filtered_data.append(Datapoints[i][1:])
+    filtered_data.append(Datapoints[i][1:3])
     Datapoints[i] = Datapoints[i][0]
 
 for i in filtered_data:
