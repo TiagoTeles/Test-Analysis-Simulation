@@ -3,7 +3,7 @@ import numpy as np
 import csv
 
 
-#Define function
+# Define function
 def get_frequencies(filename):
     # ----- Defining the function to find the number of flights per day ----- #
     """ Constructs the number of flights per day from a data file
@@ -91,9 +91,9 @@ freq012 = get_frequencies(DIR2019 + "EU_flights_2019_12.csv")
 freq09[21] = int((freq09[20]+freq09[22])/2)
 
 frequencies2 = freq01 + freq02 + freq03 + freq04 + freq05 + freq06 + freq07 + freq08 + freq09 + freq010 + freq011 + freq012
-print(freq09)
+# print(freq09)
 
-#Calculate averages
+# Calculate averages
 
 day_avg = []
 for i in range(7):
