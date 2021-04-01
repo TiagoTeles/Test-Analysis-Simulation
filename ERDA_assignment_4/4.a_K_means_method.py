@@ -29,16 +29,12 @@ for i in filtered_data:
     for j in range(2):
         i[j] = float(i[j])
 Data_x = np.array(filtered_data)
-#print(len(Data_x))
 
-# xy = np.random.uniform(-10.0, 10.0, size=(600, 2))
-
-#Create KMeans object
+# Create KMeans object
 number = 2
 kmeans = KMeans(n_clusters = number)
 kmeans.fit(Data_x)
 clusters = kmeans.cluster_centers_
-
 y_km = kmeans.fit_predict(Data_x)
 
 # Set up colours for plots
@@ -48,10 +44,7 @@ colours = ['salmon', 'dodgerblue', 'forestgreen', 'orange', 'blueviolet', 'khaki
 for i in range(len(clusters)):
     plt.scatter(Data_x[y_km == i, 0], Data_x[y_km == i, 1], s=20, color= colours[i])
 
-#for i in range(len(clusters)):
-    #plt.scatter(clusters[i][0], clusters[i][1], marker = '*', color = 'black')
-
-#print(clusters)
+# Set up empty cluster lists
 l0 = []
 l1 = []
 l2 = []
@@ -59,12 +52,12 @@ l3 = []
 l4 = []
 l5 = []
 l6 = []
-l7 = []
 
 indices = []
 for i in y_km:
     indices.append(list(set(y_km)).index(i))
 
+# Check what elements from indices correspond to the outcomes of cluster division
 for i in range(len(Datapoints)):
     if indices[i] == 0:
         l0.append(Datapoints[i])
@@ -80,9 +73,6 @@ for i in range(len(Datapoints)):
         l5.append(Datapoints[i])
     if indices[i] == 6:
         l6.append(Datapoints[i])
-    if indices[i] == 7:
-        l7.append(Datapoints[i])
 
 print('\n\n', l0), print(l1), print(l2), print(l3), print(l4), print(l5), print(l6)
-
 plt.show()
