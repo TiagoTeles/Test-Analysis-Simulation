@@ -19,18 +19,22 @@ del Datapoints[0] # Remove legend
 
 for i in range(len(Datapoints)):
     filtered_data.append(Datapoints[i][1:3])
+
+print(np.array(Datapoints))
+
+for i in range(len(Datapoints)):
     Datapoints[i] = Datapoints[i][0]
 
 for i in filtered_data:
     for j in range(2):
         i[j] = float(i[j])
 Data_x = np.array(filtered_data)
-print(len(Data_x))
+#print(len(Data_x))
 
 # xy = np.random.uniform(-10.0, 10.0, size=(600, 2))
 
 #Create KMeans object
-number = 6
+number = 2
 kmeans = KMeans(n_clusters = number)
 kmeans.fit(Data_x)
 clusters = kmeans.cluster_centers_
@@ -44,6 +48,10 @@ colours = ['salmon', 'dodgerblue', 'forestgreen', 'orange', 'blueviolet', 'khaki
 for i in range(len(clusters)):
     plt.scatter(Data_x[y_km == i, 0], Data_x[y_km == i, 1], s=20, color= colours[i])
 
+#for i in range(len(clusters)):
+    #plt.scatter(clusters[i][0], clusters[i][1], marker = '*', color = 'black')
+
+#print(clusters)
 l0 = []
 l1 = []
 l2 = []
@@ -75,6 +83,6 @@ for i in range(len(Datapoints)):
     if indices[i] == 7:
         l7.append(Datapoints[i])
 
-print(l0), print(l1), print(l2), print(l3), print(l4), print(l5), print(l6)
+print('\n\n', l0), print(l1), print(l2), print(l3), print(l4), print(l5), print(l6)
 
 plt.show()
