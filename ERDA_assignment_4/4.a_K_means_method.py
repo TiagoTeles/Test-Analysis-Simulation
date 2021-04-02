@@ -31,7 +31,7 @@ for i in filtered_data:
 Data_x = np.array(filtered_data)
 
 # Create KMeans object
-number = 2
+number = 6
 kmeans = KMeans(n_clusters = number)
 kmeans.fit(Data_x)
 clusters = kmeans.cluster_centers_
@@ -75,4 +75,8 @@ for i in range(len(Datapoints)):
         l6.append(Datapoints[i])
 
 print('\n\n', l0), print(l1), print(l2), print(l3), print(l4), print(l5), print(l6)
+
+plt.title('6 Group data division')
+plt.xlabel('Vehicle length [m]')
+plt.ylabel('Wingspan / rotor diameter [m]')
 plt.show()
