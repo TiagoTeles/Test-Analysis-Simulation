@@ -64,13 +64,13 @@ if __name__ == "__main__":
     GIT_DIR = __file__[0:-19]
     ASSET_DIR = GIT_DIR + "Assets/"
     DIR_2019 = GIT_DIR + "2019_Filtered/"
-    DIR_2020  = GIT_DIR + "2020_Filtered/"
+    DIR_2020  = GIT_DIR + "2019_Filtered/"
 
     # Define input file name
-    FLIGHT_DIR = "EU_flights_2019_01.csv"   # .CSV containing list of filtered flights
+    FLIGHT_DIR = "EU_flights_2019_06.csv"   # .CSV containing list of filtered flights
 
     # Open files
-    flight_file = open(DIR_2019 + FLIGHT_DIR, encoding="utf8")
+    flight_file = open(DIR_2020 + FLIGHT_DIR, encoding="utf8")
 
     # Read files
     flight_csv = csv.reader(flight_file)
@@ -88,12 +88,12 @@ if __name__ == "__main__":
     adjacency, weight, airports = get_matrices(flight_list)
 
     # Print matricies
-    print("\n")
-    print(adjacency)
-    print("\n")
-    print(weight)
-    print("\n")
-    print(airports)
+    # print("\n")
+    # print(adjacency)
+    # print("\n")
+    # print(weight)
+    # print("\n")
+    print(len(airports))
 
     # Print runtime
     print("Runtime:", round(time.time() - start_time, 1), "s")
