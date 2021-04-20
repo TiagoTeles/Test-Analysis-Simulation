@@ -39,15 +39,13 @@ if __name__ == "__main__":
     DIR_2019 = GIT_DIR + "2019_Filtered/"
     DIR_2020  = GIT_DIR + "2019_Filtered/"
 
+# Define output file names
 LIST_2019 = "All_Flights_2019.csv"
 LIST_2020 = "All_Flights_2020.csv"
 
-complete_flight_numbers2019 = []
-complete_flight_numbers2020 = []
-
+# Get lists of filenames to be used
 filenames2019 = []
 filenames2020 = []
-
 for month in range(1, 12 + 1):
 
     # Get filename
@@ -57,6 +55,8 @@ for month in range(1, 12 + 1):
     filenames2019.append(filename_2019)
     filenames2020.append(filename_2020)
 
+# Open these files & add the contents to new lists
+complete_flight_numbers2019 = []
 for filename in filenames2019:
     flights = pd.read_csv(filename, low_memory=False).values    # Get all the flights
     print('Adding', int(len(flights)), 'entries')
@@ -64,25 +64,19 @@ for filename in filenames2019:
         flight = flights[i]
         complete_flight_numbers2019.append(tuple(flight[0:3]))
 
+complete_flight_numbers2020 = []
 for filename in filenames2020:
     flights = pd.read_csv(filename, low_memory=False).values    # Get all the flights
     print('Adding', int(len(flights)), 'entries')
     for i in range(len(flights)):
         flight = flights[i]
         complete_flight_numbers2020.append(tuple(flight[0:3]))
-    
-print(len(complete_flight_numbers2019))
 
+# Remove all duplicates for each year
 result2019 = list(set(complete_flight_numbers2019))
-
-print(len(result2019))
-
-print(len(complete_flight_numbers2020))
-
 result2020 = list(set(complete_flight_numbers2020))
 
-print(len(result2020))
-
+# Export the results to .csv files
 with open(ASSET_DIR + LIST_2019, 'w', newline="") as f:
     the_writer = csv.writer(f)
     for row in result2019:
