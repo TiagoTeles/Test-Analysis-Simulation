@@ -1,3 +1,9 @@
+""" This script creates a list for both years containing all unique
+    combinations of callsign - origin - destination, which is needed
+    for the OD recovery for the incomplete flights, which is executed
+    by Benjamin"""
+
+
 # ---------- Imports ---------- #
 import numpy as np
 import pandas as pd
@@ -36,8 +42,6 @@ if __name__ == "__main__":
     # Define directories
     GIT_DIR = __file__[0:-27]
     ASSET_DIR = GIT_DIR + "Assets/"
-    DIR_2019 = GIT_DIR + "2019_Filtered/"
-    DIR_2020  = GIT_DIR + "2019_Filtered/"
 
 # Define output file names
 LIST_2019 = "All_Flights_2019.csv"
@@ -48,7 +52,6 @@ filenames2019 = []
 filenames2020 = []
 for month in range(1, 12 + 1):
 
-    # Get filename
     filename_2019 = get_filename(GIT_DIR, 2019, month, False)
     filename_2020 = get_filename(GIT_DIR, 2020, month, False)
 
