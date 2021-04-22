@@ -141,15 +141,9 @@ for j in range(len(filenames)):
         thewriter.writerow(["Origin", "Destination"])
         for i in range(len(recovered)):
             thewriter.writerow([recovered[i][0], recovered[i][1]])
-
-    with open('C:\\Users\\bcsli\\Documents\\TU Delft\\Second Year\\Q3\\Project\\Missing dump\\' + missing_name, 'w',
-              newline="") as f:
-        thewriter = csv.writer(f)
-        thewriter.writerow(['callsign', 'origin', 'destination'])
-        for i in range(len(still_missing)):
-            thewriter.writerow([still_missing[i][0], still_missing[i][1], still_missing[i][2]])
+            
     end = time.time()
-    print("Finished file (" + str(j + 1) + "/7). Time for section:", end - start)
+    print("Finished file (" + str(j + 1) + f"/{len(filenames)}" +"). Time for section:", end - start)
     recovered_counter += len(recovered)
 
 print("Recovery complete")
