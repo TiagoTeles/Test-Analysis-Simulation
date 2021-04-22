@@ -125,7 +125,7 @@ def get_clustering(graph, airports, **args):
 
     return num/den, nodes
 
-
+# TODO: Direction not working
 def get_degree(graph, airports, **args):
     """
     This function determines the degree of each node in the
@@ -144,7 +144,7 @@ def get_degree(graph, airports, **args):
     mode = args.get("mode", "all")
 
     # Determine degree for each node
-    degree = graph.degree(mode = mode)
+    degree = graph.vs.degree(mode = mode)
 
     # Detemine average degree
     avg = sum(degree)/len(degree)
@@ -158,7 +158,7 @@ def get_degree(graph, airports, **args):
     return avg, nodes
 
 
-def get_giant(graph, **args):
+def get_giant(graph, airports, **args):
     """
     This function determines the giant component
     of the graph, as well as its size.
@@ -189,7 +189,7 @@ if __name__ == "__main__":
     closeness_flights = get_closeness(graph_flights, [])
     clustering_flights = get_clustering(graph_flights, [])
     degree_flights = get_degree(graph_flights, [])
-    giant_flights = get_giant(graph_flights)
+    giant_flights = get_giant(graph_flights, [])
 
     # Print results
     print("Average Betweenness: " + str(betweenness_flights[0]))

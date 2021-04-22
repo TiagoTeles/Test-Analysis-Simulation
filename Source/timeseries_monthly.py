@@ -169,9 +169,9 @@ if __name__ == "__main__":
     TITLE = "Average closeness centrality in Europe"
     X_LABEL = "Month"
     Y_LABEL = "Closeness centrality"
-    timeseries_average(get_closeness, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    timeseries_average(get_giant, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
-    TITLE = "Closeness centrality of the top five airports in Europe"
-    X_LABEL = "Month"
-    Y_LABEL = "Closeness centrality"
-    timeseries_airports(get_closeness, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    # TITLE = "Closeness centrality of the top five airports in Europe"
+    # X_LABEL = "Month"
+    # Y_LABEL = "Closeness centrality"
+    # timeseries_airports(get_closeness, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
