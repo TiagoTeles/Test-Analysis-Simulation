@@ -107,7 +107,11 @@ for j in range(len(filenames)):
                         try:
                             port_index = airports.index(missing[index][1])
                         except ValueError:
-                            port_index = airports.index(missing[index][2])
+                            try:
+                                port_index = airports.index(missing[index][2])
+                            except ValueError:
+                                exceptions += 1
+                                continue
 
                         if port_index == 0:  # Edge flight
                             add_index = 1
