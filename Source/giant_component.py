@@ -26,7 +26,7 @@ def get_giantcomponent1(flightlist):
             weight_matrix (ndarray): Weight matrix
             airports (list): Sorted airport list
         """
-    adjacency_matrix, airports = get_matrices(flightlist)
+    adjacency_matrix, _, airports = get_matrices(flightlist)
     giant_component = []
 
 
@@ -58,7 +58,7 @@ def get_giantcomponent2(flightlist):
                weight_matrix (ndarray): Weight matrix
                airports (list): Sorted airport list
            """
-    adjacency_matrix, airports = get_matrices(flightlist)
+    adjacency_matrix, _, airports = get_matrices(flightlist)
 
     giant_component = []
 
