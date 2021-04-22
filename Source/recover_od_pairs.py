@@ -51,7 +51,7 @@ missing_counter = 0
 len_direct_flights = []
 
 ## --- Start of recovery loop --- ##
-for j in range(1):
+for j in range(len(filenames)):
     missing = pd.read_csv(filenames[j]).values
 
     missing_flight_numbers = np.array([missing[i][0] for i in range(len(missing))])
