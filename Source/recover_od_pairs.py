@@ -16,7 +16,7 @@ import random
 
 ## --- Enter your own filepaths here
 missing_filepath = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Missing data'  # Filepath to folder containing missing flights
-database_path = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Recovery dump\database.csv'  # r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\All_Flights_2019.csv' # Filepath to database file
+database_path = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Recovery dump\database.csv'  # Filepath to database file
 save_filepath = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Recovery dump'  # Filepath where recovered files and log file get saved
 eu_ports_filepath = r'C:\Users\bcsli\Downloads\Test-Analysis-Simulation-main\Test-Analysis-Simulation-main\Airports.csv'  # Filepath of list of airports as on GitHub
 
