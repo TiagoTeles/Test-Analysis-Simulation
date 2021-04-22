@@ -158,26 +158,6 @@ def get_degree(graph, airports, **args):
     return avg, nodes
 
 
-def get_giant(graph, airports, **args):
-    """
-    This function determines the giant component
-    of the graph, as well as its size.
-
-    Arguments:
-        graph (Graph): Graph of the network
-        **args (Dict): Optional arguments
-
-    Returns:
-        len(giant) (int): Size of the giant component of the graph
-        giant (Graph): Giant component of the graph
-    """
-
-    # Determine giant component
-    giant = graph.components().giant().vs["name"]
-
-    return len(giant), giant
-
-
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
 
@@ -189,11 +169,9 @@ if __name__ == "__main__":
     closeness_flights = get_closeness(graph_flights, [])
     clustering_flights = get_clustering(graph_flights, [])
     degree_flights = get_degree(graph_flights, [])
-    giant_flights = get_giant(graph_flights, [])
 
     # Print results
     print("Average Betweenness: " + str(betweenness_flights[0]))
     print("Average Closeness: " + str(closeness_flights[0]))
     print("Average Clustering Coefficient: " + str(clustering_flights[0]))
     print("Average Degree: " + str(degree_flights[0]))
-    print("Size of the Giant Component: " + str(giant_flights[0]))
