@@ -18,7 +18,7 @@ GIT_DIR = __file__[0:-28]
 ASSET_DIR = GIT_DIR + "Assets/"
 DIR_2019 = GIT_DIR + "2019_Filtered/"
 DIR_2020  = GIT_DIR + "2020_Filtered/"
-FLIGHT_DIR = "EU_flights_2020_01.csv"
+FLIGHT_DIR = "EU_flights_2019_04.csv"
 AIRPORT_DIR = "Airports.csv"
 
 # Caropy settings
@@ -141,7 +141,6 @@ def display_map(graph, coords, line_width = 0.01, marker_size = 1, colour = "Bla
     axes.text(0.5, -0.05, "Longitude, [Deg]", size = 12, va = "bottom", ha = "center",
               rotation = "horizontal", rotation_mode = "anchor", transform = axes.transAxes)
 
-
     # Add flights
     for edge in graph.es:
         # Coordinates
@@ -198,8 +197,10 @@ def display_network(graph, coords):
 
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
-    graph = create_graph(DIR_2020 + FLIGHT_DIR)
+    graph = create_graph(DIR_2019 + FLIGHT_DIR)
     coordinates = get_coordinates(ASSET_DIR + AIRPORT_DIR)
 
     display_map(graph, coordinates, colour = "red")
-    display_network(graph, coordinates)
+    #display_network(graph, coordinates)
+
+# TODO: Fix ULLI: ^.*ULLI.*$\n
