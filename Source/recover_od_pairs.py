@@ -144,10 +144,11 @@ for j in range(len(filenames)):
     missing_name = "missing" + filenames[j][-12:]
 
     with open(save_filepath + recovered_name, 'w', newline="") as f:
-        thewriter = csv.writer(f)
-        thewriter.writerow(["Origin", "Destination"])
-        for i in range(len(recovered)):
-            thewriter.writerow([recovered[i][0], recovered[i][1]])
+    thewriter = csv.writer(f)
+    thewriter.writerow(["Callsign", "Origin", "Destination", "Day"])
+    for i in range(len(recovered)):
+        day = missing[i][3]+' '
+        thewriter.writerow([flight_number, recovered[i][0], recovered[i][1], day])
 
     end = time.time()
     print("Finished file (" + str(j + 1) + f"/{len(filenames)}" + "). Time for section:", end - start)
