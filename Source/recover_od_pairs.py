@@ -15,10 +15,10 @@ import pandas as pd
 import random
 
 ## --- Enter your own filepaths here
-missing_filepath = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Missing data'  # Filepath to folder containing missing flights
-database_path = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Recovery dump\database.csv'  # r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\All_Flights_2019.csv' # Filepath to database file
+missing_filepath = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Missing data\My months'  # Filepath to folder containing missing flights
+database_path = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\union_database.csv'  # r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\All_Flights_2019.csv' # Filepath to database file
 save_filepath = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Recovery dump'  # Filepath where recovered files and log file get saved
-eu_ports_filepath = r'C:\Users\bcsli\Downloads\Test-Analysis-Simulation-main\Test-Analysis-Simulation-main\Airports.csv'  # Filepath of list of airports as on GitHub
+eu_ports_filepath =  r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Airports.csv'  # Filepath of list of airports as on GitHub
 
 ## --- Move .csv files into lists
 complete = pd.read_csv(database_path).values
@@ -49,6 +49,7 @@ for filename in glob.glob(os.path.join(path, '*.csv')):
 recovered_counter = 0
 missing_counter = 0
 len_direct_flights = []
+ports = []
 
 ## --- Start of recovery loop --- ##
 for j in range(len(filenames)):
@@ -68,7 +69,9 @@ for j in range(len(filenames)):
     for i in range(len(missing)):
         if sieve[i]:  # The sieve in action
             flight_number = missing[i][0]
-
+            if '00000' in flight_number:
+                exceptions += 1
+                continue
             # Finds the first occurrence of the flight number in the complete flights.
             # Try block is necessary because sometimes flight numbers may not occur
             # in the correct flights.
@@ -107,7 +110,11 @@ for j in range(len(filenames)):
                         try:
                             port_index = airports.index(missing[index][1])
                         except ValueError:
-                            port_index = airports.index(missing[index][2])
+                            try:
+                                port_index = airports.index(missing[index][2])
+                            except ValueError:
+                                exceptions += 1
+                                continue
 
                         if port_index == 0:  # Edge flight
                             add_index = 1
@@ -137,19 +144,14 @@ for j in range(len(filenames)):
     missing_name = "missing" + filenames[j][-12:]
 
     with open(save_filepath + recovered_name, 'w', newline="") as f:
-        thewriter = csv.writer(f)
-        thewriter.writerow(["Origin", "Destination"])
-        for i in range(len(recovered)):
-            thewriter.writerow([recovered[i][0], recovered[i][1]])
+    thewriter = csv.writer(f)
+    thewriter.writerow(["Callsign", "Origin", "Destination", "Day"])
+    for i in range(len(recovered)):
+        day = missing[i][3]+' '
+        thewriter.writerow([flight_number, recovered[i][0], recovered[i][1], day])
 
-    with open('C:\\Users\\bcsli\\Documents\\TU Delft\\Second Year\\Q3\\Project\\Missing dump\\' + missing_name, 'w',
-              newline="") as f:
-        thewriter = csv.writer(f)
-        thewriter.writerow(['callsign', 'origin', 'destination'])
-        for i in range(len(still_missing)):
-            thewriter.writerow([still_missing[i][0], still_missing[i][1], still_missing[i][2]])
     end = time.time()
-    print("Finished file (" + str(j + 1) + "/7). Time for section:", end - start)
+    print("Finished file (" + str(j + 1) + f"/{len(filenames)}" + "). Time for section:", end - start)
     recovered_counter += len(recovered)
 
 print("Recovery complete")
@@ -158,7 +160,9 @@ print("Percentage of flights recovered:", str(recovered_counter / missing_counte
 
 ## --- Write log file
 date = str(datetime.date.today()) + '_' + str(time.strftime("%H:%M:%S"))
-file = open(save_filepath + '\Recover_OD_Log_' + date + '.txt', 'w')
+len_direct_flights = list(filter(lambda stat: stat < 16, len_direct_flights))
+
+file = open(save_filepath + '\Recover_OD_Log_' + date.replace(':', '-') + '.txt', 'w')
 file.write('Recover_OD log file:\n \n')
 file.write('Date:' + date + '\n \n')
 file.write('Recovered files: \n')
