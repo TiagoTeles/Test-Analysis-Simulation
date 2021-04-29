@@ -26,7 +26,7 @@ def get_betweenness(graph, airports, **args):
 
     # Decode arguments
     directed = args.get("directed", True)
-    weighted = args.get("weighted", False)
+    weighted = args.get("weighted", True)
 
     # Determine closeness for each node
     if weighted:
@@ -37,7 +37,6 @@ def get_betweenness(graph, airports, **args):
     # Detemine average closeness
     num, den = 0, 0
     for i in range(len(graph.vs)):
-        #if graph.degree(graph.vs[i], mode = mode) != 0:
         num += betweeness[i]
         den += 1
 
@@ -66,7 +65,7 @@ def get_closeness(graph, airports, **args):
 
     # Decode arguments
     mode = args.get("mode", "all")
-    weighted = args.get("weighted", False)
+    weighted = args.get("weighted", True)
     normalized = args.get("normalized", True)
 
     # Determine closeness for each node
