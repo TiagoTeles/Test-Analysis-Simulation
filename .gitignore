@@ -1,3 +1,15 @@
+# Github
+.gitignore
 
+# Visual Studio Code
+*.vscode
+
+# General
+*.json
+*.pyc
+.gitignore
+
+
+# Wouter's Stuff
 Source/comunity_detectio2.py
 Source/comunity_detection.py
