@@ -85,7 +85,7 @@ def plot(graph, filename, membership=None):
     coords = []
 
     """"Reading the coördinates of the airports for the layout"""
-    with open("C:\\Users\\phili\\PycharmProjects\\Test-Analysis-Simulation\\Assets\\Airports.csv",
+    with open(ASSET_DIR + "Airports.csv",
               encoding="mbcs") as file:
         reader = csv.reader(file, delimiter=",")
         i = 0
@@ -206,7 +206,7 @@ if __name__ == "__main__":
 
             filename = f"EU_flights_{years[i]}_{months[j]}"
             print(f"EU_flights_{years[i]}_{months[j]}")
-            path = f'C:\\Users\\phili\\PycharmProjects\\Test-Analysis-Simulation\\{years[i]}_Filtered\\{filename}.csv'
+            path = GIT_DIR + years[i] + '_Filtered\\' + filename + '.csv'
 
             """Creating a graph from data"""
             data = pd.read_csv(path, usecols=[1, 2])

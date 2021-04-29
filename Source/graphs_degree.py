@@ -57,7 +57,7 @@ DIR2020  = GITDIR + "2020_Filtered/"
 
 # Define input file name
 AIRPORTDIR = "Airports.csv"             # .CSV containing list of EU airports
-FLIGHTFILE = "EU_flights_2020_08.csv"   # .CSV containing list of filtered flights
+FLIGHTFILE = "EU_flights_2020_04.csv"   # .CSV containing list of filtered flights
 
 # Open files
 airportFile = open(ASSETDIR + AIRPORTDIR, encoding="utf8")
@@ -144,14 +144,16 @@ plt.yscale("log")
 plt.xscale("log")
 
 # Add legend and axis information
-plt.title("cumulative degree distribution for " + FLIGHTFILE)
-plt.xlabel("Node degree, k")
-plt.ylabel("P(K(i)$\geqslant$k)")
+plt.title("Cumulative degree distribution for the April 2020 network")
+# plt.title("cumulative degree distribution for " + FLIGHTFILE)
+plt.xlabel("Node degree, " + r"$k$")
+#plt.ylabel("P(K(i)$\geqslant$k)")
+plt.ylabel(r"$P(K(i)\geqslant k$")
 
 # Show the plot
 plt.show()
 
-
+"""
 ''' Time series for average degree'''
 #2019
 
@@ -205,5 +207,5 @@ plt.grid(axis = "x", linestyle = "--")
 # show plots
 plt.show()
 
-
+"""
 

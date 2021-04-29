@@ -105,12 +105,26 @@ for i in range(1,13):
 av_2019 = []
 
 for i in files_2019:
-    adjacency, weight, airports = get_matrices(i)
+
+    # Open files
+    flight_file = open(i, encoding="utf8")
+
+    # Read files
+    flight_csv = csv.reader(flight_file)
+
+    # Convert flight database from .CSV to List
+    flight_list = []
+    for flight in flight_csv:
+        flight_list.append(flight)
+
+    del flight_list[0]  # Remove legend
+
+    adjacency, weight, airports = get_matrices(flight_list)
     out_degree_list, in_degree_list, diff_links_list, degree_list = node_degree(weight)
     # av_degree = average_degree(degree_list)
     in_strength, out_strength, total_strength = get_Node_strength(weight)
 
-    av_2019.append(get_Node_strength(total_strength))
+    av_2019.append(average_node_strenght(total_strength))
 
 
 #2020
@@ -126,12 +140,26 @@ for i in range(1,13):
 av_2020 = []
 
 for i in files_2020:
-    adjacency, weight, airports = get_matrices(i)
+
+    # Open files
+    flight_file = open(i, encoding="utf8")
+
+    # Read files
+    flight_csv = csv.reader(flight_file)
+
+    # Convert flight database from .CSV to List
+    flight_list = []
+    for flight in flight_csv:
+        flight_list.append(flight)
+
+    del flight_list[0]  # Remove legend
+
+    adjacency, weight, airports = get_matrices(flight_list)
     out_degree_list, in_degree_list, diff_links_list, degree_list = node_degree(weight)
     # av_degree = average_degree(degree_list)
     in_strength, out_strength, total_strength = get_Node_strength(weight)
 
-    av_2020.append(get_Node_strength(total_strength))
+    av_2020.append(average_node_strenght(total_strength))
 
 
 xx = np.arange(1,13)
@@ -143,9 +171,9 @@ plt.figure()
 plt.plot(xx,av_2019,  color = "darkorange", label = "2019")
 plt.plot(xx,av_2020, color = "dodgerblue", label = "2020")
 plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ["January","February","March", "April","May","June","July","August", "September", "October", "November", "December"], rotation = 45)
-plt.title("Average node degree per month")
+plt.title("Average node strength per month")
 plt.xlabel("Month")
-plt.ylabel("Average node degree")
+plt.ylabel("Average node strength")
 plt.legend()
 plt.grid(axis = "x", linestyle = "--")
 #plt.tight_layout()
