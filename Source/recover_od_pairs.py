@@ -15,10 +15,10 @@ import pandas as pd
 import random
 
 ## --- Enter your own filepaths here
-missing_filepath = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Missing data\My months'  # Filepath to folder containing missing flights
-database_path = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\union_database.csv'  # r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\All_Flights_2019.csv' # Filepath to database file
-save_filepath = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Recovery dump'  # Filepath where recovered files and log file get saved
-eu_ports_filepath =  r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Airports.csv'  # Filepath of list of airports as on GitHub
+missing_filepath = r'C:\Users\mathi\OneDrive\Bureaublad\filtered'  # Filepath to folder containing missing flights
+database_path = r'C:\Users\mathi\PycharmProjects\Test-Analysis-Simulation\Assets\union_database.csv'  # r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\All_Flights_2019.csv' # Filepath to database file
+save_filepath = r'C:\Users\mathi\OneDrive\Bureaublad\Mathieu_files'  # Filepath where recovered files and log file get saved
+eu_ports_filepath =  r'C:\Users\mathi\PycharmProjects\Test-Analysis-Simulation\Assets\Airports.csv'  # Filepath of list of airports as on GitHub
 
 ## --- Move .csv files into lists
 complete = pd.read_csv(database_path).values
@@ -144,11 +144,11 @@ for j in range(len(filenames)):
     missing_name = "missing" + filenames[j][-12:]
 
     with open(save_filepath + recovered_name, 'w', newline="") as f:
-    thewriter = csv.writer(f)
-    thewriter.writerow(["Callsign", "Origin", "Destination", "Day"])
-    for i in range(len(recovered)):
-        day = missing[i][3]+' '
-        thewriter.writerow([flight_number, recovered[i][0], recovered[i][1], day])
+        thewriter = csv.writer(f)
+        thewriter.writerow(["Callsign", "Origin", "Destination", "Day"])
+        for i in range(len(recovered)):
+            day = missing[i][3]+' '
+            thewriter.writerow([flight_number, recovered[i][0], recovered[i][1], day])
 
     end = time.time()
     print("Finished file (" + str(j + 1) + f"/{len(filenames)}" + "). Time for section:", end - start)
