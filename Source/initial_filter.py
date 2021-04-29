@@ -66,16 +66,16 @@ DIR_2020 = GIT_DIR + "2020_Filtered/"
 MIS_DIR = GIT_DIR + "Missing_Flights/"
 
 # Define input file names
-FLIGHT_DIR = "C:/Users/mathi/OneDrive/Bureaublad/Project2/2020/flightlist_20201201_20201231.csv"
+FLIGHT_DIR = "C:/Users/mathi/OneDrive/Bureaublad/Project2/2019/flightlist_20190101_20190131.csv"
 # FLIGHT_DIR = "C:/Users/TeleT/Downloads/Flight Data/2019/flightlist_20190101_20190131.csv"   # Tiago
 AIRPORT_DIR = "Airports.csv"     # .CSV containing list of EU airports
 CARGO_DIR = "Cargo.csv"          # .CSV containing list of cargo airlines
 
 # Define output file names (Change month and year of outputfile name)
-EUROPEAN_FLIGHT_DIR = "EU_flights_2020_12.csv"
-INTER_FLIGHT_DIR = "Inter_flights_2020_12.csv"
-SORTED_FLIGHT_DIR = "Sorted_flights_2020_12.csv"
-MISSING_FLIGHT_DIR = "Missing_flights_2020_12.csv"
+EUROPEAN_FLIGHT_DIR = "EU_flights_2019_01.csv"
+INTER_FLIGHT_DIR = "Inter_flights_2019_01.csv"
+SORTED_FLIGHT_DIR = "Sorted_flights_2019_01.csv"
+MISSING_FLIGHT_DIR = "Missing_flights_2019_01.csv"
 
 # Open files
 flight_file = open(FLIGHT_DIR, encoding="utf8")
@@ -193,21 +193,21 @@ for flight in flight_list:
         inter_flight_list.append(flight)
 
 # Create .CSV with European flights
-with open(DIR_2020 + EUROPEAN_FLIGHT_DIR, 'w', newline="") as f:
+with open(DIR_2019 + EUROPEAN_FLIGHT_DIR, 'w', newline="") as f:
     the_writer = csv.writer(f)
     the_writer.writerow(["Callsign", " Origin", " Destination", "Day"])
     for row in eu_flight_list:
         the_writer.writerow(row)
 
 # Create .CSV with intercontinental flights
-with open(DIR_2020 + INTER_FLIGHT_DIR, 'w', newline="") as g:
+with open(DIR_2019 + INTER_FLIGHT_DIR, 'w', newline="") as g:
     the_writer = csv.writer(g)
     the_writer.writerow(["Callsign", " Origin", " Destination", "Day"])
     for row in inter_flight_list:
         the_writer.writerow(row)
 
 # Create .CSV with all filtered flights
-with open(DIR_2020 + SORTED_FLIGHT_DIR, 'w', newline="") as h:
+with open(DIR_2019 + SORTED_FLIGHT_DIR, 'w', newline="") as h:
     the_writer = csv.writer(h)
     the_writer.writerow(["Callsign", " Origin", " Destination", "Day"])
     for row in flight_list:
