@@ -202,5 +202,3 @@ if __name__ == "__main__":
 
     display_map(graph, coordinates, colour = "red")
     #display_network(graph, coordinates)
-
-# TODO: Fix ULLI: ^.*ULLI.*$\n
