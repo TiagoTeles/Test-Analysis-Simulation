@@ -86,6 +86,7 @@ def timeseries_average(func, index, **args):
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.legend()
+    plt.tight_layout()
 
     # Display plot
     plt.show()
@@ -159,6 +160,7 @@ def timeseries_airports(func, index, airports, **args):
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.legend()
+    plt.tight_layout()
 
     # Display plot
     plt.show()

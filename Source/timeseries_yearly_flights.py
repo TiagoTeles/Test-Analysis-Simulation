@@ -178,10 +178,11 @@ plt.xticks([0,31,59,90,120,151,181,212,243,273,304,334], ["January","February","
 plt.xlim([0,len(frequencies1)])
 plt.text(75, 10000, 'March 11: WHO declared pandemic', color = 'red')
 plt.title("Daily number of European flights")
-#plt.xlabel("Date")
+plt.xlabel("Month")
 plt.ylabel("Number of flights")
 plt.legend()
 plt.grid(axis = "x", linestyle = "--")
+plt.tight_layout()
 plt.show()
 
 
@@ -194,8 +195,9 @@ plt.xticks([0,31,59,90,120,151,181,212,243,273,304,334], ["January","February","
 plt.xlim([0,len(frequencies1)])
 plt.text(75, 1660, 'March 11: WHO declared pandemic', color = 'red')
 plt.title("Daily number of intercontinental flights")
-#plt.xlabel("Date")
+plt.xlabel("Motnh")
 plt.ylabel("Number of flights")
 plt.legend()
 plt.grid(axis = "x", linestyle = "--")
+plt.tight_layout()
 plt.show()

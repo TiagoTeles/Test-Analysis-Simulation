@@ -154,11 +154,12 @@ plt.xlabel("Node degree, " + r"$k$")
 # plt.ylabel("P(K(i)$\geqslant$k)")
 plt.ylabel(r"$P(K(i)\geqslant k)$")
 plt.legend()
+plt.tight_layout()
 
 # Show the plot
 plt.show()
 
-"""
+
 ''' Time series for average degree'''
 #2019
 
@@ -212,5 +213,5 @@ plt.grid(axis = "x", linestyle = "--")
 # show plots
 plt.show()
 
-"""
+
 
