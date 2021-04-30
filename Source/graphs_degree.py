@@ -133,6 +133,8 @@ power_law = fct(x1,a,b)
 
 degree_list = np.array(degree_list)
 
+equation = 'y = ' + 'x^(-' + str(round(a,4)) + ') * exp(-x/' + str(round(b,4))
+
 
 # Create the plots
 plt.figure()
@@ -140,6 +142,8 @@ plt.figure()
 #plt.subplot(211)
 plt.plot(xx,cum_probability, ".")
 plt.plot(x1,power_law, linestyle = "--")
+# plt.text(50, 50, equation, color = 'black')
+# plt.text(75, 10000, 'March 11: WHO declared pandemic', color = 'red')
 plt.yscale("log")
 plt.xscale("log")
 
@@ -147,7 +151,7 @@ plt.xscale("log")
 plt.title("Cumulative degree distribution for the April 2020 network")
 # plt.title("cumulative degree distribution for " + FLIGHTFILE)
 plt.xlabel("Node degree, " + r"$k$")
-#plt.ylabel("P(K(i)$\geqslant$k)")
+# plt.ylabel("P(K(i)$\geqslant$k)")
 plt.ylabel(r"$P(K(i)\geqslant k$")
 
 # Show the plot
