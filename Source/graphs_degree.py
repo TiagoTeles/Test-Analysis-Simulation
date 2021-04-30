@@ -133,26 +133,27 @@ power_law = fct(x1,a,b)
 
 degree_list = np.array(degree_list)
 
-equation = 'y = ' + 'x^(-' + str(round(a,4)) + ') * exp(-x/' + str(round(b,4))
+equation = r"$P(K(i)\geqslant k)$ = " + 'k^(-' + str(round(a,3)) + ') * exp(-k/' + str(round(b,3)) +')'
 
 
 # Create the plots
 plt.figure()
 #plt.plot(xx,probability, ".")
 #plt.subplot(211)
-plt.plot(xx,cum_probability, ".")
-plt.plot(x1,power_law, linestyle = "--")
+plt.plot(xx,cum_probability, ".", label = r"$P(K(i)\geqslant k)$")
+plt.plot(x1,power_law, linestyle = "--", label = "Power law approximation\n" + equation)
 # plt.text(50, 50, equation, color = 'black')
 # plt.text(75, 10000, 'March 11: WHO declared pandemic', color = 'red')
 plt.yscale("log")
 plt.xscale("log")
 
 # Add legend and axis information
-plt.title("Cumulative degree distribution for the April 2020 network")
+plt.title("Cumulative degree distribution for the april 2020 network")
 # plt.title("cumulative degree distribution for " + FLIGHTFILE)
 plt.xlabel("Node degree, " + r"$k$")
 # plt.ylabel("P(K(i)$\geqslant$k)")
-plt.ylabel(r"$P(K(i)\geqslant k$")
+plt.ylabel(r"$P(K(i)\geqslant k)$")
+plt.legend()
 
 # Show the plot
 plt.show()
