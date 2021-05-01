@@ -133,15 +133,14 @@ power_law = fct(x1,a,b)
 
 degree_list = np.array(degree_list)
 
-equation = r"$P(K(i)\geqslant k)$ = " + 'k^(-' + str(round(a,3)) + ') * exp(-k/' + str(round(b,3)) +')'
+equation = r"$P(K(i)\geqslant k)$ = " + '$k^{-' + str(round(a,3)) + '}$ * $e^{-k/' + str(round(b,3)) +'}$'
 
 
 # Create the plots
-plt.figure()
 #plt.plot(xx,probability, ".")
 #plt.subplot(211)
-plt.plot(xx,cum_probability, ".", label = r"$P(K(i)\geqslant k)$")
-plt.plot(x1,power_law, linestyle = "--", label = "Power law approximation\n" + equation)
+plt.plot(xx,cum_probability, ".", color = 'darkorange', label = r"$P(K(i)\geqslant k)$")
+plt.plot(x1,power_law, linestyle = "--", color = 'black', label = "Power law approximation")
 # plt.text(50, 50, equation, color = 'black')
 # plt.text(75, 10000, 'March 11: WHO declared pandemic', color = 'red')
 plt.yscale("log")
@@ -153,6 +152,7 @@ plt.title("Cumulative degree distribution for the april 2020 network")
 plt.xlabel("Node degree, " + r"$k$")
 # plt.ylabel("P(K(i)$\geqslant$k)")
 plt.ylabel(r"$P(K(i)\geqslant k)$")
+plt.text(1, 0.2, equation, color = 'black')
 plt.legend()
 plt.tight_layout()
 
@@ -161,6 +161,7 @@ plt.show()
 
 
 ''' Time series for average degree'''
+'''
 #2019
 
 files_2019 = []
@@ -199,19 +200,18 @@ xx = np.arange(1,13)
 
 print('Runtime = ', time.time()-start_time )
 # Graph plotting
-#plt.subplot(212)
-plt.figure()
-plt.plot(xx,av_2019,  color = "darkorange", label = "2019")
-plt.plot(xx,av_2020, color = "dodgerblue", label = "2020")
+# plt.figure()
+plt.plot(xx,av_2019,  color = "darkorange", label = "2019", marker = '*')
+plt.plot(xx,av_2020, color = "dodgerblue", label = "2020", marker = 'x')
 plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ["January","February","March", "April","May","June","July","August", "September", "October", "November", "December"], rotation = 45)
 plt.title("Average node degree per month")
 plt.xlabel("Month")
 plt.ylabel("Average node degree")
 plt.legend()
 plt.grid(axis = "x", linestyle = "--")
-#plt.tight_layout()
+plt.tight_layout()
 # show plots
 plt.show()
 
 
-
+'''
