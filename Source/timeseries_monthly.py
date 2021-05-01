@@ -74,7 +74,7 @@ def timeseries_average(func, index, **args):
     # Plot values
     x_values = list(range(1, 13))
     plt.plot(x_values, values_2019, color = "darkorange", label = "2019", linewidth = 3,  marker = "o")
-    plt.plot(x_values, values_2020, color = "dodgerblue", label = "2020", linewidth = 3,  marker = "o")
+    plt.plot(x_values, values_2020, color = "dodgerblue", label = "2020", linewidth = 3,  marker = "D")
 
     # Configure plot
     plt.xlim(1, 12)
@@ -108,6 +108,9 @@ def timeseries_airports(func, index, airports, **args):
     x_label = args.get("x_label", "")
     y_label = args.get("y_label", "")
 
+    # Make markers list
+    markers = ["o", "D", "v", "s", "X"]
+
     # Determine values
     values_2019 = []
     values_2020 = []
@@ -128,10 +131,14 @@ def timeseries_airports(func, index, airports, **args):
     x_values = list(range(1, 13))
 
     # Plot for 2019
-    axis_2019 = plt.subplot(1, 2, 1)
+    # axis_2019 = plt.subplot(1, 2, 1)
+    g = 0
+
     for i, icao in enumerate(airports):
         y_values = np.array(values_2019).transpose()[i]
-        axis_2019.plot(x_values, y_values, label = icao, linewidth = 3, marker = "o")
+        # axis_2019.plot(x_values, y_values, label = icao, linewidth = 2, marker = markers[g])
+        plt.plot(x_values, y_values, label=icao, linewidth=2, marker=markers[g])
+        g += 1
 
     # Configure plot
     plt.xlim(1, 12)
@@ -143,12 +150,17 @@ def timeseries_airports(func, index, airports, **args):
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.legend()
+    plt.tight_layout()
+    plt.show()
 
     # Plot for 2020
-    axis_2020 = plt.subplot(1, 2, 2, sharey = axis_2019)
+    # axis_2020 = plt.subplot(1, 2, 2, sharey = axis_2019)
+    g = 0
     for i, icao in enumerate(airports):
         y_values = np.array(values_2020).transpose()[i]
-        axis_2020.plot(x_values, y_values, label = icao, linewidth = 3, marker = "o")
+        # axis_2020.plot(x_values, y_values, label = icao, linewidth = 2, marker = markers[g])
+        plt.plot(x_values, y_values, label=icao, linewidth=2, marker=markers[g])
+        g += 1
 
     # Configure plot
     plt.xlim(1, 12)

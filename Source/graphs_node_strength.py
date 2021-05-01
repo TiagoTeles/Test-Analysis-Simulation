@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 #from scipy.optimize import curve_fit
 import time
 
-from degree_function import node_degree, average_degree
+from degree_function import node_degree
 from adjacency import get_matrices
 from Node_strength_function import get_Node_strength, average_node_strenght
 
@@ -68,24 +68,24 @@ strength_sorted = sorted(total_strength, reverse=True)
 
 
 
-# Create the plots
-# This plot shows that there are a lot of airports with a small node strength and only a few with a large node strength
-# This is equivalent to 'Weighted degree' in some definitions
-plt.figure()
-plt.plot(x2,strength_sorted, ".")
-plt.yscale("linear")
-plt.xscale("linear")
-
-# Add legend and axis information
-plt.title("Node strength for the airports in " + FLIGHTFILE)
-plt.xlabel("Just numbers to plot")
-plt.ylabel("Node strength")
-
-
-print('Runtime = ', time.time() - start_time)
-
-# Show the plot
-plt.show()
+# # Create the plots
+# # This plot shows that there are a lot of airports with a small node strength and only a few with a large node strength
+# # This is equivalent to 'Weighted degree' in some definitions
+# plt.figure()
+# plt.plot(x2,strength_sorted, ".")
+# plt.yscale("linear")
+# plt.xscale("linear")
+#
+# # Add legend and axis information
+# plt.title("Node strength for the airports in " + FLIGHTFILE)
+# plt.xlabel("Just numbers to plot")
+# plt.ylabel("Node strength")
+#
+#
+# print('Runtime = ', time.time() - start_time)
+#
+# # Show the plot
+# plt.show()
 
 ''' Get average node strength graphs time series '''
 
@@ -164,18 +164,19 @@ for i in files_2020:
 
 xx = np.arange(1,13)
 
-print('Runtime = ', time.time()-start_time )
+print('EndRuntime = ', time.time()-start_time )
 # Graph plotting
 #plt.subplot(212)
 plt.figure()
-plt.plot(xx,av_2019,  color = "darkorange", label = "2019")
-plt.plot(xx,av_2020, color = "dodgerblue", label = "2020")
-plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ["January","February","March", "April","May","June","July","August", "September", "October", "November", "December"], rotation = 45)
+plt.plot(xx,av_2019,  color ="darkorange", marker ='o', linewidth = '3', label ="2019")
+plt.plot(xx,av_2020, color ="dodgerblue", marker ='D', linestyle ='-', linewidth = '3', label ="2020")
+plt.xlim(1, 12)
+plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], ["January","February","March", "April","May","June","July","August", "September", "October", "November", "December"], rotation = 45)
 plt.title("Average node strength per month")
 plt.xlabel("Month")
 plt.ylabel("Average node strength")
 plt.legend()
-plt.grid(axis = "x", linestyle = "--")
+plt.grid(axis ="x", linestyle ="--")
 plt.tight_layout()
 # show plots
 plt.show()
