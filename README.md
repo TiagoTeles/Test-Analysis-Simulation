@@ -1,7 +1,7 @@
 # Test, Analysis & Simulation
 
 ## About
-This repository contains the source code used by Group D03 while performing research for the course AE2221-I, Test, Analysis and Simulation, at the faculty of Aerospace Engineering at TU Delft.
+This repository contains the source code used by Group D03 while performing research for the course AE2223-I, Test, Analysis and Simulation, at the faculty of Aerospace Engineering at TU Delft.
 
 ## Authors
 The following people have contributed to this project:
