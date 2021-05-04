@@ -195,7 +195,7 @@ plt.xticks([0,31,59,90,120,151,181,212,243,273,304,334], ["January 01","February
 plt.xlim([0,len(frequencies1)])
 plt.text(75, 1660, 'March 11, 2020: WHO declared pandemic', color = 'red', fontsize=16)
 plt.title("Daily number of intercontinental flights", fontsize=18)
-plt.xlabel("Motnh", fontsize=16)
+plt.xlabel("Month", fontsize=16)
 plt.ylabel("Number of flights", fontsize=16)
 plt.legend(loc='lower left')
 plt.grid(axis = "x", linestyle = "--")
