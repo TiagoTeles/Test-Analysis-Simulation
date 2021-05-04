@@ -10,6 +10,26 @@ TEST_DIR = __file__[0:-20] + "2020_Filtered/EU_flights_2020_01.csv"
 
 
 # ---------- Function Definitions ---------- #
+def get_assortativity(graph, airports, **args):
+    """
+    This function determines the assortativity of the graph
+
+    Arguments:
+        graph (Graph): Graph of the network
+        **args (Dict): Optional arguments
+
+    Returns:
+        avg (float): Graph assortatibity
+    """
+
+    # Decode arguments
+    directed = args.get("directed", True)
+
+    # Determine assortativity
+    assorativity = graph.assortativity_degree(directed = directed)
+
+    return assorativity, None
+
 def get_betweenness(graph, airports, **args):
     """
     This function determines the betweenness centrality of each node in
@@ -124,7 +144,6 @@ def get_clustering(graph, airports, **args):
 
     return num/den, nodes
 
-# TODO: Direction not working
 def get_degree(graph, airports, **args):
     """
     This function determines the degree of each node in the
@@ -164,12 +183,16 @@ if __name__ == "__main__":
     graph_flights = create_graph(TEST_DIR)
 
     # Determine parameters
+    assortatvity_flights = get_assortativity(graph_flights, [])
     betweenness_flights = get_betweenness(graph_flights, [])
     closeness_flights = get_closeness(graph_flights, [])
-    clustering_flights = get_clustering(graph_flights, [])
     degree_flights = get_degree(graph_flights, [])
 
+    # Do this last as it messes up the graph
+    clustering_flights = get_clustering(graph_flights, [])
+
     # Print results
+    print("Average Assortativity: " + str(assortatvity_flights[0]))
     print("Average Betweenness: " + str(betweenness_flights[0]))
     print("Average Closeness: " + str(closeness_flights[0]))
     print("Average Clustering Coefficient: " + str(clustering_flights[0]))
