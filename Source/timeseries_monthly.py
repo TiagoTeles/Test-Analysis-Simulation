@@ -71,10 +71,12 @@ def timeseries_average(func, index, **args):
         values_2019.append(func(graph_2019, [], **args)[index])
         values_2020.append(func(graph_2020, [], **args)[index])
 
+    plt.rcParams['font.size'] = '13'
+
     # Plot values
     x_values = list(range(1, 13))
-    plt.plot(x_values, values_2019, color = "darkorange", label = "2019", linewidth = 3,  marker = "o")
-    plt.plot(x_values, values_2020, color = "mediumblue", label = "2020", linewidth = 3,  marker = "D")
+    plt.plot(x_values, values_2019, color = "darkorange", label = "2019", linewidth = 2,  marker = "*")
+    plt.plot(x_values, values_2020, color = "mediumblue", label = "2020", linewidth = 2,  marker = "x")
 
     # Configure plot
     plt.xlim(1, 12)
@@ -82,9 +84,9 @@ def timeseries_average(func, index, **args):
     plt.xticks(x_values, MONTHS, rotation = 45)
 
     # Configure labels
-    plt.title(title)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
+    plt.title(title, fontsize=18)
+    plt.xlabel(x_label, fontsize=16)
+    plt.ylabel(y_label, fontsize=16)
     plt.legend()
     plt.tight_layout()
 
