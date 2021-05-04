@@ -57,11 +57,11 @@ DIR2020  = GITDIR + "2020_Filtered/"
 
 # Define input file name
 AIRPORTDIR = "Airports.csv"             # .CSV containing list of EU airports
-FLIGHTFILE = "EU_flights_2020_04.csv"   # .CSV containing list of filtered flights
+FLIGHTFILE = "EU_flights_2019_04.csv"   # .CSV containing list of filtered flights
 
 # Open files
 airportFile = open(ASSETDIR + AIRPORTDIR, encoding="utf8")
-flightsFile = open(DIR2020 + FLIGHTFILE, encoding="utf8")
+flightsFile = open(DIR2019 + FLIGHTFILE, encoding="utf8")
 
 # Read files
 airport_csv = csv.reader(airportFile)
@@ -135,7 +135,7 @@ degree_list = np.array(degree_list)
 
 equation = r"$P(K(i)\geqslant k)$ = " + '$k^{-' + str(round(a,3)) + '}$ * $e^{-k/' + str(round(b,3)) +'}$'
 
-
+plt.rcParams['font.size'] = '13'
 # Create the plots
 #plt.plot(xx,probability, ".")
 #plt.subplot(211)
@@ -147,13 +147,13 @@ plt.yscale("log")
 plt.xscale("log")
 
 # Add legend and axis information
-plt.title("Cumulative degree distribution for the april 2020 network")
+plt.title("Cumulative degree distribution for the april 2019 network", fontsize='15')
 # plt.title("cumulative degree distribution for " + FLIGHTFILE)
 plt.xlabel("Node degree, " + r"$k$")
 # plt.ylabel("P(K(i)$\geqslant$k)")
 plt.ylabel(r"$P(K(i)\geqslant k)$")
 plt.text(1, 0.2, equation, color = 'black')
-plt.legend()
+plt.legend(loc='lower left')
 plt.tight_layout()
 
 # Show the plot
@@ -161,7 +161,7 @@ plt.show()
 
 
 ''' Time series for average degree'''
-'''
+
 #2019
 
 files_2019 = []
@@ -202,7 +202,7 @@ print('Runtime = ', time.time()-start_time )
 # Graph plotting
 # plt.figure()
 plt.plot(xx,av_2019,  color = "darkorange", label = "2019", marker = '*')
-plt.plot(xx,av_2020, color = "dodgerblue", label = "2020", marker = 'x')
+plt.plot(xx,av_2020, color = "mediumblue", label = "2020", marker = 'x')
 plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ["January","February","March", "April","May","June","July","August", "September", "October", "November", "December"], rotation = 45)
 plt.title("Average node degree per month")
 plt.xlabel("Month")
@@ -214,4 +214,4 @@ plt.tight_layout()
 plt.show()
 
 
-'''
+
