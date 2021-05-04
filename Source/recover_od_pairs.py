@@ -15,10 +15,10 @@ import pandas as pd
 import random
 
 ## --- Enter your own filepaths here
-missing_filepath = r'C:\Users\mathi\OneDrive\Bureaublad\filtered'  # Filepath to folder containing missing flights
-database_path = r'C:\Users\mathi\PycharmProjects\Test-Analysis-Simulation\Assets\union_database.csv'  # r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\All_Flights_2019.csv' # Filepath to database file
-save_filepath = r'C:\Users\mathi\OneDrive\Bureaublad\Mathieu_files'  # Filepath where recovered files and log file get saved
-eu_ports_filepath =  r'C:\Users\mathi\PycharmProjects\Test-Analysis-Simulation\Assets\Airports.csv'  # Filepath of list of airports as on GitHub
+missing_filepath = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Missing data\My months'  # Filepath to folder containing missing flights
+database_path = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\union_database.csv'  # r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\All_Flights_2019.csv' # Filepath to database file
+save_filepath = r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Recovery dump'  # Filepath where recovered files and log file get saved
+eu_ports_filepath =  r'C:\Users\bcsli\Documents\TU Delft\Second Year\Q3\Project\Airports.csv'  # Filepath of list of airports as on GitHub
 
 ## --- Move .csv files into lists
 complete = pd.read_csv(database_path).values
@@ -69,6 +69,7 @@ for j in range(len(filenames)):
     for i in range(len(missing)):
         if sieve[i]:  # The sieve in action
             flight_number = missing[i][0]
+            day = missing[i][3]
             if '00000' in flight_number:
                 exceptions += 1
                 continue
@@ -125,9 +126,11 @@ for j in range(len(filenames)):
 
                         origin, destination = airports[add_index], airports[port_index]
                         if origin == missing[index][1] or destination == missing[index][2]:
-                            recovered.append([origin, destination])
+                            row = [flight_number, origin, destination, day]
+                            recovered.append(row)
                         else:
-                            recovered.append([destination, origin])
+                            row = [flight_number, destination, origin, day]
+                            recovered.append(row)
 
                     # Update the sieve
                     sieve[index] = False
@@ -147,8 +150,8 @@ for j in range(len(filenames)):
         thewriter = csv.writer(f)
         thewriter.writerow(["Callsign", "Origin", "Destination", "Day"])
         for i in range(len(recovered)):
-            day = missing[i][3]+' '
-            thewriter.writerow([flight_number, recovered[i][0], recovered[i][1], day])
+            row = recovered[i]
+            thewriter.writerow(row)
 
     end = time.time()
     print("Finished file (" + str(j + 1) + f"/{len(filenames)}" + "). Time for section:", end - start)
