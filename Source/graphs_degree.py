@@ -208,7 +208,7 @@ plt.title("Average node degree per month")
 plt.xlabel("Month")
 plt.ylabel("Average node degree")
 plt.legend()
-plt.grid(axis = "x", linestyle = "--")
+plt.grid(axis="x", linestyle="--")
 plt.tight_layout()
 # show plots
 plt.show()
