@@ -190,12 +190,12 @@ def timeseries_airports(func, index, airports, **args):
 
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
-    TITLE = "Average closeness per month"
+    TITLE = "Average clustering coefficient per month"
     X_LABEL = "Month"
-    Y_LABEL = "Closeness"
-    timeseries_average(get_closeness, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Clustering coefficient"
+    timeseries_average(get_degree, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
-    TITLE = "Closeness of the top five airports in Europe"
+    TITLE = "Clustering coefficient of the top five airports in Europe"
     X_LABEL = "Month"
-    Y_LABEL = "Closeness"
-    timeseries_airports(get_closeness, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Clustering coefficient"
+    timeseries_airports(get_degree, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
