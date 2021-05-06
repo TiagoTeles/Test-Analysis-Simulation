@@ -258,14 +258,3 @@ if __name__ == "__main__":
     display_map(graph, coordinates, colour = "red")
     #display_airports(coordinates, colour = "red")
     #display_network(graph, coordinates)
-
-
-
-# TODO create a legend for the colour depth of the edges
-# We might change our code to have an 'alpha' gradual change
-# For the frequency of a certain edge
-
-# Available code to be implemented below:
-# https://www.youtube.com/watch?v=I3N7HShN5Z8
-# legend = fig.colorbar(input, ax= axes, shrink= 0.4)
-# legend.set_label('Frequency of flown link')
