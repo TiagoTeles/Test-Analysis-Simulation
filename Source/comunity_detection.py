@@ -60,9 +60,14 @@ def commmunities(graph, method):
 
     return v
 
+def intersection(lst1, lst2):
+    lst3 = [value for value in lst1 if value in lst2]
+    return lst3
 
-def plot(graph, filename, membership=None):
+def plot(graph, filename, clusters):
     """"This function gives identical styling to each node within one community and it makes the edges between communities gray in color"""
+    membership = clusters.membership
+
     if membership is not None:
         gcopy = graph.copy()
         edges = []
@@ -74,10 +79,8 @@ def plot(graph, filename, membership=None):
             else:
                 edges_colors.append("red")
         gcopy.delete_edges(edges)
-        layout = gcopy.layout(None)
         graph.es["color"] = edges_colors
     else:
-        layout = g.layout(None)
         graph.es["color"] = "gray"
 
     """"Creating empty lists for the layout of the visualization"""
@@ -109,14 +112,140 @@ def plot(graph, filename, membership=None):
     visual_style["edge_label"] = graph.es["weight"]
     g.vs["label"] = g.vs["name"]
 
+
+    index_0 = ['EGGW', 'EGSS', 'EGLL', 'EGMC', 'EGKK', 'EGVN', 'EGBB', 'EPRZ', 'EPKK', 'EPWR', 'EPMO', 'LEAL', 'LEMG']
+    index_1 = ['LEJR', 'LEPA', 'EDDM', 'EDDS', 'LOWL', 'LOWG', 'LIPB', 'LOWW', 'EDDF', 'EDFH', 'EDKK', 'EDDL', 'EDDB', 'EDDM', 'LBSF', 'LWSK', 'BKPR']
+    index_2 = ['LIRF', 'LIRA', 'LIBD', 'LIBR', 'LIEO', 'LIEA', 'LIMC', 'LIML', 'LIPZ', 'LFPO', 'EBCI', 'EBLG', 'EBBR', 'EHEH', 'LROP', 'LMML']
+    index_3 = ['LHBP', 'EPKT', 'EPWA', 'EPGD', 'ESMS', 'EKCH', 'EKBI', 'EKSB', 'EKEB', 'EKYS', 'EKAH', 'ESTA', 'ESMX', 'ESSA', 'ESSB', 'ESOE', 'ENVA']
+    index_4 = ['LGOI', 'LGAV', 'LGSM', 'LGSR', 'LGKO', 'LGRP', 'LGAL', 'LGKV', 'LGIR']
+    index_5 = ['LIPX', 'LIPO', 'URRP', 'URWA', 'UUOB', 'UUOO', 'UUOL', 'URWA', 'UUEE', 'UUMO', 'UUDD', 'UUBW', 'UWGG', 'UWUU']
+    index_6 = ['LGMK', 'LEBL', 'LEZG', 'LEMD', 'LEAB', 'LEIB', 'LEVC', 'LEJR' ]
+
+    indices = []
+    for cluster_number in range(ig.clustering.VertexClustering.__len__(clusters)):
+        index = []
+        for node in clusters[cluster_number]:
+            index.append(g.vs["name"][node])
+        indices.append(index)
+
+    best_fit_overall = []
+    colors = ['Tomato', 'Orange', 'DodgerBlue', 'MediumSeaGreen', 'SlateBlue', "Violet", "#FF3399", "#9CCC65",
+              "#00838F", "#795548"]
+
+    com_indices = []
+    for cluster in indices:
+        best_fit = []
+        best_fit.append(len(intersection(cluster, index_0)))
+        best_fit.append(len(intersection(cluster, index_1)))
+        best_fit.append(len(intersection(cluster, index_2)))
+        best_fit.append(len(intersection(cluster, index_3)))
+        best_fit.append(len(intersection(cluster, index_4)))
+        best_fit.append(len(intersection(cluster, index_5)))
+        best_fit.append(len(intersection(cluster, index_6)))
+        best_fit_overall.append(best_fit)
+
+        com_index = best_fit.index(max(best_fit))
+        com_indices.append(com_index)
+
+    pos = 0
+    for index in membership:
+        if index == 0:
+            membership[pos] = com_indices[0]
+        elif index == 1:
+            membership[pos] = com_indices[1]
+        elif index == 2:
+            membership[pos] = com_indices[2]
+        elif index == 3:
+            membership[pos] = com_indices[3]
+        elif index == 4:
+            membership[pos] = com_indices[4]
+        elif index == 5:
+            membership[pos] = com_indices[5]
+        elif index == 6:
+            membership[pos] = com_indices[6]
+        else:
+            pass
+        pos += 1
+
     if membership is not None:
-        colors = ['Tomato','Orange', 'DodgerBlue', 'MediumSeaGreen', 'SlateBlue', "Violet", "#FF3399", "#9CCC65", "#00838F", "#795548"]
+        colors = ['Tomato', 'Orange', 'DodgerBlue', 'MediumSeaGreen', 'SlateBlue', "Violet", "#FF3399", "#9CCC65", "#00838F", "#795548"]
         for vertex in graph.vs():
             vertex["color"] = colors[membership[vertex.index]]
         visual_style["vertex_color"] = graph.vs["color"]
-    # ig.plot(graph, f'{filename}.png', autocurve= False, **visual_style)
-    ig.plot(graph, autocurve= False, **visual_style)
-    return graph, visual_style
+    #ig.plot(graph, f'{filename}.png', autocurve= False, **visual_style)
+    #ig.plot(graph, autocurve= False, **visual_style)
+    return graph, visual_style, membership
+
+
+def timeseries(membership):
+
+    a = membership.count(0)
+    b = membership.count(1)
+    c = membership.count(2)
+    d = membership.count(3)
+    e = membership.count(4)
+    f = membership.count(5)
+    g = membership.count(6)
+
+    return [a,b,c,d,f,g]
+
+def plot_time_series(list):
+    plt.figure()
+    xx = []
+    list_0 = []
+    list_1 = []
+    list_2 = []
+    list_3 = []
+    list_4 = []
+    list_5 = []
+    list_6 = []
+
+
+    for i in range(len(list)):
+        xx.append(i)
+        list_0.append(list[i][0])
+        list_1.append(list[i][1])
+        list_2.append(list[i][2])
+        list_3.append(list[i][3])
+        list_4.append(list[i][4])
+        try:
+            list_5.append(list[i][5])
+        except:
+            pass
+        try:
+            list_6.append(list[i][6])
+        except:
+            pass
+
+    print(list_0)
+
+    plt.plot(xx, list_0, color="Tomato", marker='o', linewidth='3')
+    plt.plot(xx, list_1, color="Orange", marker='D', linestyle='-', linewidth='3')
+    plt.plot(xx, list_2, color="DodgerBlue", marker='v', linestyle='-', linewidth='3')
+    plt.plot(xx, list_3, color="MediumSeaGreen", marker='^', linestyle='-', linewidth='3')
+    plt.plot(xx, list_4, color="SlateBlue", marker='s', linestyle='-', linewidth='3')
+    try:
+        plt.plot(xx, list_5, color="Violet", marker='p', linestyle='-', linewidth='3')
+    except:
+        pass
+    try:
+        plt.plot(xx, list_6, color="#FF3399", marker='X', linestyle='-', linewidth='3')
+    except:
+        pass
+
+    plt.xlim(1, 24)
+    plt.xticks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24],
+               ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+                "November", "December","January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+                "November", "December"], rotation=45)
+    plt.title("Size of communities per month")
+    plt.xlabel("Month")
+    plt.ylabel("Number of nodes within the community")
+    # plt.legend()
+    plt.grid(axis="x", linestyle="--")
+    plt.tight_layout()
+    # show plots
+    plt.show()
 
 # def display_map(graph, coords, membership, line_width = 0.01, marker_size = 1, colour = "Black"):
 #     """
@@ -194,12 +323,9 @@ def plot(graph, filename, membership=None):
 if __name__ == "__main__":
     """"Runtime"""
     start_time = time.time()
-
-    community_timeline = []
-    community_strength = []
-
+    time_series = []
     """"Specifying the filename and location"""
-    years = ['2019', '2020']
+    years = ['2019','2020']
     months = ['01','02','03','04','05','06','07','08','09','10','11','12'] #'02','03','04','05','06','07','08','09','10','11','12'
     for i in range(len(years)):
         for j in range(len(months)):
@@ -221,20 +347,20 @@ if __name__ == "__main__":
             """"Presenting options for which type of community detection algorithm should be used"""
             methods = ["edge_betweenness", "infomap", "fast_greedy", "multilevel", "walktrap", "leiden"]
             clusters = commmunities(g, methods[3]) #According to the research presented in the method section of the paper, we should use the multilevel algorithm
-            print(clusters.modularity) #This number gives a representation of how good the communities have been formed, if this number is close to 0, then the communities which have been found are not good communities
-            print(clusters) #Printing the actual communities
+            # print(clusters.modularity) #This number gives a representation of how good the communities have been formed, if this number is close to 0, then the communities which have been found are not good communities
+            # print(clusters) #Printing the actual communities
+            # print(ig.clustering.VertexClustering.sizes(clusters))
 
-            community_timeline.append(clusters)
+            graph, visual_style, membership = plot(g, filename, clusters)
 
-            membership = clusters.membership
-            graph, visual_style = plot(g, filename, membership)
+            time_series.append(timeseries(membership))
+
             coords = get_coordinates(ASSET_DIR + AIRPORT_DIR)
             # display_map(graph, coords, membership)
+    plot_time_series(time_series)
 
 
-    # def intersection(lst1, lst2):
-    #     lst3 = [value for value in lst1 if value in lst2]
-    #     return lst3
+
     # 
     # for i in range(len(years)*len(months)):
     #     best_intersection_list = []

@@ -31,6 +31,8 @@ TRANSFORM = cp.crs.Geodetic()
 # IGraph settings
 AS = 0.5
 RES = (5760, 5760/1.8)
+FONT_SIZE = 16
+LW = 0.5
 
 
 # ---------- Function Definitions ---------- #
@@ -92,7 +94,7 @@ def get_coordinates(dir):
     return coordinates
 
 
-def display_map(graph, coords, line_width = 0.01, marker_size = 1, colour = "Black"):
+def display_map(graph, coords, marker_size = 2, colour = "Black"):
     """
     Displays a map with the provided data using
     matplotlib using the provided settings.
@@ -127,18 +129,18 @@ def display_map(graph, coords, line_width = 0.01, marker_size = 1, colour = "Bla
     axes.add_feature(cp.feature.LAKES, facecolor=COLOUR_OCEAN)
 
     # Plot features
-    grid.xlabel_style = {"size": 12}
-    grid.ylabel_style = {"size": 12}
+    grid.xlabel_style = {"size": FONT_SIZE}
+    grid.ylabel_style = {"size": FONT_SIZE}
     grid.xformatter = cp.mpl.gridliner.LONGITUDE_FORMATTER
     grid.yformatter = cp.mpl.gridliner.LATITUDE_FORMATTER
     grid.bottom_labels = False
     grid.left_labels = False
 
     # Add labels
-    axes.text(-0.01, 0.5, "Latitude, [Deg]", size = 12, va = "bottom", ha = "center",
+    axes.text(-0.01, 0.5, "Latitude, [Deg]", size = FONT_SIZE, va = "bottom", ha = "center",
               rotation = "vertical", rotation_mode = "anchor", transform = axes.transAxes)
 
-    axes.text(0.5, -0.05, "Longitude, [Deg]", size = 12, va = "bottom", ha = "center",
+    axes.text(0.5, -0.05, "Longitude, [Deg]", size = FONT_SIZE, va = "bottom", ha = "center",
               rotation = "horizontal", rotation_mode = "anchor", transform = axes.transAxes)
 
     # Add flights
@@ -152,8 +154,61 @@ def display_map(graph, coords, line_width = 0.01, marker_size = 1, colour = "Bla
         longitudes = (origin[1], destination[1])
 
         # Plot
-        plt.plot(longitudes, latitudes, c = colour, lw = line_width,
+        plt.plot(longitudes, latitudes, c = colour, lw = LW * edge["weight"] / max(graph.es["weight"]),
                  ms = marker_size, ls = "-", marker = ".", transform = TRANSFORM)
+
+    # Display map
+    plt.show()
+
+
+def display_airports(coords, marker_size = 5, colour = "Black"):
+    """
+    Displays a map with the provided data using
+    matplotlib using the provided settings.
+
+    Arguments:
+        coordinates (List): List of airport coordinates
+        marker_size (float): Marker size
+        colour (Tuple): Line and marker colour
+    """
+
+    # Determine list of used airports
+
+    # Set projection
+    axes = plt.axes(projection = PROJECTION)
+
+    # Map settings
+    grid = axes.gridlines(draw_labels = True)
+    axes.coastlines(resolution="50m")
+    axes.set_extent(MAP_BOUNDS)
+
+    # Map features
+    axes.add_feature(cp.feature.BORDERS, linestyle='--', alpha=1)
+    axes.add_feature(cp.feature.LAND, facecolor=COLOUR_LAND)
+    axes.add_feature(cp.feature.OCEAN, facecolor=COLOUR_OCEAN)
+    axes.add_feature(cp.feature.LAKES, facecolor=COLOUR_OCEAN)
+
+    # Plot features
+    grid.xlabel_style = {"fontsize": FONT_SIZE}
+    grid.ylabel_style = {"fontsize": FONT_SIZE}
+    grid.xformatter = cp.mpl.gridliner.LONGITUDE_FORMATTER
+    grid.yformatter = cp.mpl.gridliner.LATITUDE_FORMATTER
+    grid.bottom_labels = False
+    grid.left_labels = False
+
+    # Add labels
+    axes.text(-0.01, 0.5, "Latitude, [Deg]", size = FONT_SIZE, va = "bottom", ha = "center",
+              rotation = "vertical", rotation_mode = "anchor", transform = axes.transAxes)
+
+    axes.text(0.5, -0.05, "Longitude, [Deg]", size = FONT_SIZE, va = "bottom", ha = "center",
+              rotation = "horizontal", rotation_mode = "anchor", transform = axes.transAxes)
+
+    # Add airports
+    latitudes = list(zip(*coords))[1]
+    longitudes = list(zip(*coords))[2]
+
+    # Plot
+    plt.plot(longitudes, latitudes, c = colour, lw = 0,  ms = marker_size, marker = ".", transform = TRANSFORM)
 
     # Display map
     plt.show()
@@ -201,13 +256,5 @@ if __name__ == "__main__":
     coordinates = get_coordinates(ASSET_DIR + AIRPORT_DIR)
 
     display_map(graph, coordinates, colour = "red")
+    #display_airports(coordinates, colour = "red")
     #display_network(graph, coordinates)
-
-# TODO create a legend for the colour depth of the edges
-# We might change our code to have an 'alpha' gradual change
-# For the frequency of a certain edge
-
-# Available code to be implemented below:
-# https://www.youtube.com/watch?v=I3N7HShN5Z8
-# legend = fig.colorbar(input, ax= axes, shrink= 0.4)
-# legend.set_label('Frequency of flown link')
