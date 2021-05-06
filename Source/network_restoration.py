@@ -37,17 +37,17 @@ del airports[0]
 
 
 # ---------- Function Definitions ---------- #
-def betweenness(graph):
-    # Determine betweenness of each node
-    betweeness = graph.vs.betweenness(weights = graph.es["weight"])
+# def betweenness(graph):
+#     Determine betweenness of each node
+#     betweeness = graph.vs.betweenness(weights = graph.es["weight"])
 
-    # Detemine average closeness
-    num, den = 0, 0
-    for i in range(len(graph.vs)):
-        num += betweeness[i]
-        den += 1
+#     # Detemine average closeness
+#     num, den = 0, 0
+#     for i in range(len(graph.vs)):
+#         num += betweeness[i]
+#         den += 1
         
-    return num/den
+#     return num/den
 
 def closeness(graph):
     # Determine closeness of each node
@@ -145,7 +145,7 @@ for icao_main in airports:
     # Normalize & Scale average node weight
     if n_flights != 0:
         measure_normalized = (measure_virtual - measure_2020) / (measure_2019 - measure_2020)
-        measure_specific = measure_normalized / n_flights
+        measure_specific = measure_normalized #/ n_flights
         efficiency.append((icao_main, measure_specific))
 
     # Reset graph
