@@ -1,0 +1,11 @@
+Recover_OD log file:
+ 
+Date:2021-04-29_17:26:11
+ 
+Recovered files: 
+ - Missing_flights_2019_05.csv
+ - Missing_flights_2019_06.csv
+ - Missing_flights_2019_07.csv
+Success rate: 19.1%(742608/3879597)
+Percentage direct flights w/ mult. stops: 20.0%(776297/3879597)
+Average length direct flights w/ mult. stops: 4.789543177417921
