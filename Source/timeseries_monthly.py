@@ -193,9 +193,9 @@ if __name__ == "__main__":
     TITLE = "Average clustering coefficient per month"
     X_LABEL = "Month"
     Y_LABEL = "Clustering coefficient"
-    timeseries_average(get_degree, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    timeseries_average(get_clustering, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
     TITLE = "Clustering coefficient of the top five airports in Europe"
     X_LABEL = "Month"
     Y_LABEL = "Clustering coefficient"
-    timeseries_airports(get_degree, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    timeseries_airports(get_clustering, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
