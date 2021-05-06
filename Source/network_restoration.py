@@ -90,7 +90,7 @@ efficiency = []
 for icao_main in airports:
 
     # Initialize variables
-    d_flights = 0
+    n_flights = 0
     
     # Get vertex ID from ICAO code
     vertex_main_2019 = graph_2019.vs.select(name = icao_main)
@@ -119,7 +119,7 @@ for icao_main in airports:
             edge_2020["weight"] = weight_2019
 
             # Get additional flights
-            d_flights += abs(weight_2019 - weight_2020)
+            n_flights += abs(weight_2019 - weight_2020)
 
     # Get arrivals to main in 2019
     for edge_2020 in edges_dep_2020:
@@ -136,16 +136,16 @@ for icao_main in airports:
             edge_2020["weight"] = weight_2019
 
             # Get additional flights
-            d_flights += abs(weight_2019 - weight_2020)
+            n_flights += abs(weight_2019 - weight_2020)
 
 
     # Get updated measure
     measure_virtual = weighted_degree(graph_2020)
 
     # Normalize & Scale average node weight
-    if d_flights != 0:
+    if n_flights != 0:
         measure_normalized = (measure_virtual - measure_2020) / (measure_2019 - measure_2020)
-        measure_specific = measure_normalized #/ d_flights
+        measure_specific = measure_normalized / n_flights
         efficiency.append((icao_main, measure_specific))
 
     # Reset graph

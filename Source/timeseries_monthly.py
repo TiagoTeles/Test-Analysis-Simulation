@@ -4,7 +4,7 @@
 # ---------- Imports ---------- #
 import matplotlib.pyplot as plt
 import numpy as np
-from centrality import get_betweenness, get_closeness, get_clustering, get_degree
+from centrality import get_assortativity, get_betweenness, get_closeness, get_clustering, get_degree
 from data_visualization import create_graph
 
 # ---------- Setup ---------- #
@@ -71,10 +71,12 @@ def timeseries_average(func, index, **args):
         values_2019.append(func(graph_2019, [], **args)[index])
         values_2020.append(func(graph_2020, [], **args)[index])
 
+    plt.rcParams['font.size'] = '13'
+
     # Plot values
     x_values = list(range(1, 13))
-    plt.plot(x_values, values_2019, color = "darkorange", label = "2019", linewidth = 3,  marker = "o")
-    plt.plot(x_values, values_2020, color = "dodgerblue", label = "2020", linewidth = 3,  marker = "D")
+    plt.plot(x_values, values_2019, color = "darkorange", label = "2019", linewidth = 2,  marker = "*")
+    plt.plot(x_values, values_2020, color = "mediumblue", label = "2020", linewidth = 2,  marker = "x")
 
     # Configure plot
     plt.xlim(1, 12)
@@ -82,9 +84,9 @@ def timeseries_average(func, index, **args):
     plt.xticks(x_values, MONTHS, rotation = 45)
 
     # Configure labels
-    plt.title(title)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
+    plt.title(title, fontsize=18)
+    plt.xlabel(x_label, fontsize=16)
+    plt.ylabel(y_label, fontsize=16)
     plt.legend()
     plt.tight_layout()
 
@@ -109,7 +111,13 @@ def timeseries_airports(func, index, airports, **args):
     y_label = args.get("y_label", "")
 
     # Make markers list
-    markers = ["o", "D", "v", "s", "X"]
+    markers = ["o", "D", "v", "s", "P"]
+
+    # Make colour list
+    colours = ['darkred', 'indianred', 'orangered', 'darkorange', 'orange']
+
+    # Make opacity list
+    opacity = [1, 0.8, 0.6, 0.4, 0.2]
 
     # Determine values
     values_2019 = []
@@ -134,10 +142,12 @@ def timeseries_airports(func, index, airports, **args):
     # axis_2019 = plt.subplot(1, 2, 1)
     g = 0
 
+    plt.rcParams['font.size'] = '13'
+
     for i, icao in enumerate(airports):
         y_values = np.array(values_2019).transpose()[i]
         # axis_2019.plot(x_values, y_values, label = icao, linewidth = 2, marker = markers[g])
-        plt.plot(x_values, y_values, label=icao, linewidth=2, marker=markers[g])
+        plt.plot(x_values, y_values, color=colours[g], label=icao, linewidth=2, marker=markers[g], markeredgecolor='black')
         g += 1
 
     # Configure plot
@@ -146,9 +156,9 @@ def timeseries_airports(func, index, airports, **args):
     plt.xticks(x_values, MONTHS, rotation = 45)
 
     # Configure labels
-    plt.title(title  + str(": 2019"))
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
+    plt.title(title  + str(": 2019"), fontsize=18)
+    plt.xlabel(x_label, fontsize=16)
+    plt.ylabel(y_label, fontsize=16)
     plt.legend()
     plt.tight_layout()
     plt.show()
@@ -159,7 +169,7 @@ def timeseries_airports(func, index, airports, **args):
     for i, icao in enumerate(airports):
         y_values = np.array(values_2020).transpose()[i]
         # axis_2020.plot(x_values, y_values, label = icao, linewidth = 2, marker = markers[g])
-        plt.plot(x_values, y_values, label=icao, linewidth=2, marker=markers[g])
+        plt.plot(x_values, y_values, color=colours[g], label=icao, linewidth=2, marker=markers[g], markeredgecolor='black')
         g += 1
 
     # Configure plot
@@ -168,9 +178,9 @@ def timeseries_airports(func, index, airports, **args):
     plt.xticks(x_values, MONTHS, rotation = 45)
 
     # Configure labels
-    plt.title(title  + str(": 2020"))
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
+    plt.title(title  + str(": 2020"), fontsize=18)
+    plt.xlabel(x_label, fontsize=16)
+    plt.ylabel(y_label, fontsize=16)
     plt.legend()
     plt.tight_layout()
 
@@ -180,12 +190,12 @@ def timeseries_airports(func, index, airports, **args):
 
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
-    # TITLE = "Average closeness centrality in Europe"
-    # X_LABEL = "Month"
-    # Y_LABEL = "Closeness centrality"
-    # timeseries_average(get_closeness, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
-
-    TITLE = "Closeness centrality of the top five airports in Europe"
+    TITLE = "Average clustering coefficient per month"
     X_LABEL = "Month"
-    Y_LABEL = "Closeness centrality"
-    timeseries_airports(get_closeness, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Clustering coefficient"
+    timeseries_average(get_degree, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+
+    TITLE = "Clustering coefficient of the top five airports in Europe"
+    X_LABEL = "Month"
+    Y_LABEL = "Clustering coefficient"
+    timeseries_airports(get_degree, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
