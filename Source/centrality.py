@@ -183,17 +183,30 @@ if __name__ == "__main__":
     graph_flights = create_graph(TEST_DIR)
 
     # Determine parameters
-    assortatvity_flights = get_assortativity(graph_flights, [])
-    betweenness_flights = get_betweenness(graph_flights, [])
-    closeness_flights = get_closeness(graph_flights, [])
-    degree_flights = get_degree(graph_flights, [])
+    # assortatvity_flights = get_assortativity(graph_flights, [])
+    betweenness_flights = get_betweenness(graph_flights, [], weighted = False)
+    # closeness_flights = get_closeness(graph_flights, [])
+    # degree_flights = get_degree(graph_flights, [])
 
-    # Do this last as it messes up the graph
-    clustering_flights = get_clustering(graph_flights, [])
+    # # Do this last as it messes up the graph
+    # clustering_flights = get_clustering(graph_flights, [])
 
-    # Print results
-    print("Average Assortativity: " + str(assortatvity_flights[0]))
-    print("Average Betweenness: " + str(betweenness_flights[0]))
-    print("Average Closeness: " + str(closeness_flights[0]))
-    print("Average Clustering Coefficient: " + str(clustering_flights[0]))
-    print("Average Degree: " + str(degree_flights[0]))
+    # # Print results
+    # print("Average Assortativity: " + str(assortatvity_flights[0]))
+    # print("Average Betweenness: " + str(betweenness_flights[0]))
+    # print("Average Closeness: " + str(closeness_flights[0]))
+    # print("Average Clustering Coefficient: " + str(clustering_flights[0]))
+    # print("Average Degree: " + str(degree_flights[0]))
+
+    # Determine closeness for each node
+    betweeness = graph_flights.vs.betweenness(directed = True, weights = graph_flights.es["weight"])
+
+    # Create list for the selected airports
+    nodes = []
+    for i in range(len(graph_flights.vs)):
+        nodes.append((graph_flights.vs["name"][i], betweeness[i]))
+
+    nodes.sort(key=lambda x: x[1], reverse=True)
+
+    for i in nodes:
+        print(i)
