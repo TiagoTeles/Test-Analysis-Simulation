@@ -168,6 +168,7 @@ x4 = np.linspace(1,len(frequencies4),len(frequencies4))
 
 # ----- Plotting ----- #
 plt.rcParams['font.size'] = '13'
+plt.rcParams['legend.framealpha'] = '0.4'
 
 plt.plot(x2,frequencies2, alpha = 0.3, color = "darkorange", label = "2019: Daily # flights")
 plt.plot(x2,day_avg2, color = "darkorange", linestyle = '-', label = "2019: 7 day average", linewidth = 3)

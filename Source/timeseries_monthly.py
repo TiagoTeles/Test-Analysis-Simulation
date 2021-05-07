@@ -72,6 +72,7 @@ def timeseries_average(func, index, **args):
         values_2020.append(func(graph_2020, [], **args)[index])
 
     plt.rcParams['font.size'] = '13'
+    plt.rcParams['legend.framealpha'] = '0.4'
 
     # Plot values
     x_values = list(range(1, 13))
@@ -143,6 +144,7 @@ def timeseries_airports(func, index, airports, **args):
     g = 0
 
     plt.rcParams['font.size'] = '13'
+    plt.rcParams['legend.framealpha'] = '0.4'
 
     for i, icao in enumerate(airports):
         y_values = np.array(values_2019).transpose()[i]
