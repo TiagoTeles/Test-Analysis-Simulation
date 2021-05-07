@@ -202,3 +202,11 @@ plt.legend(loc='lower left')
 plt.grid(axis = "x", linestyle = "--")
 plt.tight_layout()
 plt.show()
+
+
+# percentage comparison
+EU_comp = 1 - sum(freq4)/sum(freq04)
+Int_comp = 1 - sum(freq14)/sum(freq24)
+
+print(EU_comp)
+print(Int_comp)
