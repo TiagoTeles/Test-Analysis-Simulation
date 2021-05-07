@@ -57,6 +57,7 @@ def timeseries_average(func, index, **args):
     # Determine values
     values_2019 = []
     values_2020 = []
+    percentages_difference = []
     for month in range(1, 13):
 
         # Get filename
@@ -70,6 +71,10 @@ def timeseries_average(func, index, **args):
         # Determine value
         values_2019.append(func(graph_2019, [], **args)[index])
         values_2020.append(func(graph_2020, [], **args)[index])
+
+        #Difference analysis
+        percentages_difference.append(float(1-values_2020[month-1]/values_2019[month-1]))
+    print(percentages_difference)
 
     plt.rcParams['font.size'] = '13'
     plt.rcParams['legend.framealpha'] = '0.4'
@@ -197,7 +202,7 @@ if __name__ == "__main__":
     Y_LABEL = "Clustering coefficient"
     timeseries_average(get_clustering, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
-    TITLE = "Clustering coefficient of the top five airports in Europe"
+    TITLE = "Degree of the top five airports in Europe"
     X_LABEL = "Month"
-    Y_LABEL = "Clustering coefficient"
-    timeseries_airports(get_clustering, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Degree"
+    timeseries_airports(get_degree, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
