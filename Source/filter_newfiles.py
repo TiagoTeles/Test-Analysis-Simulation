@@ -11,12 +11,10 @@ DIR_2019 = GIT_DIR + "Combined_2019/"
 DIR_2020 = GIT_DIR + "Combined_2020/"
 
 # Define input file names
-FLIGHT_DIR = DIR_2019
+FLIGHT_DIR = DIR_2019 + 'Combined_2019_01.csv'
 # FLIGHT_DIR = "C:/Users/TeleT/Downloads/Flight Data/2019/flightlist_20190101_20190131.csv"   # Tiago
 AIRPORT_DIR = "Airports.csv"     # .CSV containing list of EU airports
 
-# Define output file names (Change month and year of outputfile name)
-EUROPEAN_FLIGHT_DIR = "Combined_2019_01.csv"
 
 # Open files
 flight_file = open(FLIGHT_DIR, encoding="utf8")
@@ -32,3 +30,25 @@ for flight in flight_csv:
     flight_list.append(flight)
 
 del flight_list[0]       # Remove legend
+
+# Convert airport codes from .CSV to List
+airport_list = []
+for airport in airport_csv:
+    airport_list.append(airport[1])
+
+del airport_list[0]              # Remove legend
+airportSet = set(airport_list)   # Convert to Set
+
+print("Total number of flights before sorting: ", len(flight_list), "\n")
+
+# Filter 2 - Check if airports are distinct and in Europe
+result_list = []
+deleted = []
+for flight in flight_list:
+    if (flight[1] in airportSet and flight[2] in airportSet) and (flight[1] != flight[2]):
+        result_list.append(flight)
+    else:
+        deleted.append(flight)
+
+print("Filter 2:", len(flight_list) - len(result_list), " flights had no airport in Europe")
+flight_list = result_list     # Reset process
