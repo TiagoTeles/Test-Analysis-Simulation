@@ -16,9 +16,9 @@ import pandas as pd
 # General settings
 GIT_DIR = __file__[0:-28]
 ASSET_DIR = GIT_DIR + "Assets/"
-DIR_2019 = GIT_DIR + "2019_Filtered/"
-DIR_2020  = GIT_DIR + "2020_Filtered/"
-FLIGHT_DIR = "EU_flights_2020_04.csv"
+DIR_2019 = GIT_DIR + "Combined_2019/"
+DIR_2020  = GIT_DIR + "Combined_2020/"
+FLIGHT_DIR = "Combined_2020_04.csv"
 AIRPORT_DIR = "Airports.csv"
 
 # Caropy settings
