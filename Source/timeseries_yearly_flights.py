@@ -53,40 +53,44 @@ def get_frequencies(filename):
 
 # ----- European flights ----- #
 # Create directories
-DIR2019 = __file__[0:-35] + "2019_Filtered/"
-DIR2020 = __file__[0:-35] + "2020_Filtered/"
+DIR2019 = __file__[0:-35] + "Combined_2019/"
+DIR2020 = __file__[0:-35] + "Combined_2020/"
+
+DIR2020_I = __file__[0:-35] + "2020_filtered/"
+DIR2019_I = __file__[0:-35] + "2019_filtered/"
+
 
 # Get the 2020 files  
 
-freq1 = get_frequencies(DIR2020 + "EU_flights_2020_01.csv")
-freq2 = get_frequencies(DIR2020 + "EU_flights_2020_02.csv")
-freq3 = get_frequencies(DIR2020 + "EU_flights_2020_03.csv")
-freq4 = get_frequencies(DIR2020 + "EU_flights_2020_04.csv")
-freq5 = get_frequencies(DIR2020 + "EU_flights_2020_05.csv")
-freq6 = get_frequencies(DIR2020 + "EU_flights_2020_06.csv")
-freq7 = get_frequencies(DIR2020 + "EU_flights_2020_07.csv")
-freq8 = get_frequencies(DIR2020 + "EU_flights_2020_08.csv")
-freq9 = get_frequencies(DIR2020 + "EU_flights_2020_09.csv")
-freq10 = get_frequencies(DIR2020 + "EU_flights_2020_10.csv")
-freq11 = get_frequencies(DIR2020 + "EU_flights_2020_11.csv")
-freq12 = get_frequencies(DIR2020 + "EU_flights_2020_12.csv")
+freq1 = get_frequencies(DIR2020 + "Combined_2020_01.csv")
+freq2 = get_frequencies(DIR2020 + "Combined_2020_02.csv")
+freq3 = get_frequencies(DIR2020 + "Combined_2020_03.csv")
+freq4 = get_frequencies(DIR2020 + "Combined_2020_04.csv")
+freq5 = get_frequencies(DIR2020 + "Combined_2020_05.csv")
+freq6 = get_frequencies(DIR2020 + "Combined_2020_06.csv")
+freq7 = get_frequencies(DIR2020 + "Combined_2020_07.csv")
+freq8 = get_frequencies(DIR2020 + "Combined_2020_08.csv")
+freq9 = get_frequencies(DIR2020 + "Combined_2020_09.csv")
+freq10 = get_frequencies(DIR2020 + "Combined_2020_10.csv")
+freq11 = get_frequencies(DIR2020 + "Combined_2020_11.csv")
+freq12 = get_frequencies(DIR2020 + "Combined_2020_12.csv")
 
 frequencies1 = freq1 + freq2 + freq3 + freq4 + freq5 + freq6 + freq7 + freq8 + freq9 + freq10 + freq11 + freq12
 
 # Get 2019 files
 
-freq01 = get_frequencies(DIR2019 + "EU_flights_2019_01.csv")
-freq02 = get_frequencies(DIR2019 + "EU_flights_2019_02.csv")
-freq03 = get_frequencies(DIR2019 + "EU_flights_2019_03.csv")
-freq04 = get_frequencies(DIR2019 + "EU_flights_2019_04.csv")
-freq05 = get_frequencies(DIR2019 + "EU_flights_2019_05.csv")
-freq06 = get_frequencies(DIR2019 + "EU_flights_2019_06.csv")
-freq07 = get_frequencies(DIR2019 + "EU_flights_2019_07.csv")
-freq08 = get_frequencies(DIR2019 + "EU_flights_2019_08.csv")
-freq09 = get_frequencies(DIR2019 + "EU_flights_2019_09.csv")
-freq010 = get_frequencies(DIR2019 + "EU_flights_2019_10.csv")
-freq011 = get_frequencies(DIR2019 + "EU_flights_2019_11.csv")
-freq012 = get_frequencies(DIR2019 + "EU_flights_2019_12.csv")
+freq01 = get_frequencies(DIR2019 + "Combined_2019_01.csv")
+freq02 = get_frequencies(DIR2019 + "Combined_2019_02.csv")
+freq03 = get_frequencies(DIR2019 + "Combined_2019_03.csv")
+freq04 = get_frequencies(DIR2019 + "Combined_2019_04.csv")
+freq05 = get_frequencies(DIR2019 + "Combined_2019_05.csv")
+freq06 = get_frequencies(DIR2019 + "Combined_2019_06.csv")
+freq07 = get_frequencies(DIR2019 + "Combined_2019_07.csv")
+freq08 = get_frequencies(DIR2019 + "Combined_2019_08.csv")
+freq09 = get_frequencies(DIR2019 + "Combined_2019_09.csv")
+freq010 = get_frequencies(DIR2019 + "Combined_2019_10.csv")
+freq011 = get_frequencies(DIR2019 + "Combined_2019_11.csv")
+freq012 = get_frequencies(DIR2019 + "Combined_2019_12.csv")
 
 freq09[21] = int((freq09[20]+freq09[22])/2)
 
@@ -114,35 +118,35 @@ x2 = np.linspace(1,len(frequencies2),len(frequencies2))
 # ----- Intercontinental flights ----- #
 # Get the 2020 files  
 
-freq11 = get_frequencies(DIR2020 + "inter_flights_2020_01.csv")
-freq12 = get_frequencies(DIR2020 + "inter_flights_2020_02.csv")
-freq13 = get_frequencies(DIR2020 + "inter_flights_2020_03.csv")
-freq14 = get_frequencies(DIR2020 + "inter_flights_2020_04.csv")
-freq15 = get_frequencies(DIR2020 + "inter_flights_2020_05.csv")
-freq16 = get_frequencies(DIR2020 + "inter_flights_2020_06.csv")
-freq17 = get_frequencies(DIR2020 + "inter_flights_2020_07.csv")
-freq18 = get_frequencies(DIR2020 + "inter_flights_2020_08.csv")
-freq19 = get_frequencies(DIR2020 + "inter_flights_2020_09.csv")
-freq110 = get_frequencies(DIR2020 + "inter_flights_2020_10.csv")
-freq111 = get_frequencies(DIR2020 + "inter_flights_2020_11.csv")
-freq112 = get_frequencies(DIR2020 + "inter_flights_2020_12.csv")
+freq11 = get_frequencies(DIR2020_I + "inter_flights_2020_01.csv")
+freq12 = get_frequencies(DIR2020_I + "inter_flights_2020_02.csv")
+freq13 = get_frequencies(DIR2020_I + "inter_flights_2020_03.csv")
+freq14 = get_frequencies(DIR2020_I + "inter_flights_2020_04.csv")
+freq15 = get_frequencies(DIR2020_I + "inter_flights_2020_05.csv")
+freq16 = get_frequencies(DIR2020_I + "inter_flights_2020_06.csv")
+freq17 = get_frequencies(DIR2020_I + "inter_flights_2020_07.csv")
+freq18 = get_frequencies(DIR2020_I + "inter_flights_2020_08.csv")
+freq19 = get_frequencies(DIR2020_I + "inter_flights_2020_09.csv")
+freq110 = get_frequencies(DIR2020_I + "inter_flights_2020_10.csv")
+freq111 = get_frequencies(DIR2020_I + "inter_flights_2020_11.csv")
+freq112 = get_frequencies(DIR2020_I + "inter_flights_2020_12.csv")
 
 frequencies3 = freq11 + freq12 + freq13 + freq14 + freq15 + freq16 + freq17 + freq18 + freq19 + freq110 + freq111 + freq112
 
 # Get 2019 files
 
-freq21 = get_frequencies(DIR2019 + "inter_flights_2019_01.csv")
-freq22 = get_frequencies(DIR2019 + "inter_flights_2019_02.csv")
-freq23 = get_frequencies(DIR2019 + "inter_flights_2019_03.csv")
-freq24 = get_frequencies(DIR2019 + "inter_flights_2019_04.csv")
-freq25 = get_frequencies(DIR2019 + "inter_flights_2019_05.csv")
-freq26 = get_frequencies(DIR2019 + "inter_flights_2019_06.csv")
-freq27 = get_frequencies(DIR2019 + "inter_flights_2019_07.csv")
-freq28 = get_frequencies(DIR2019 + "inter_flights_2019_08.csv")
-freq29 = get_frequencies(DIR2019 + "inter_flights_2019_09.csv")
-freq210 = get_frequencies(DIR2019 + "inter_flights_2019_10.csv")
-freq211 = get_frequencies(DIR2019 + "inter_flights_2019_11.csv")
-freq212 = get_frequencies(DIR2019 + "inter_flights_2019_12.csv")
+freq21 = get_frequencies(DIR2019_I + "inter_flights_2019_01.csv")
+freq22 = get_frequencies(DIR2019_I + "inter_flights_2019_02.csv")
+freq23 = get_frequencies(DIR2019_I + "inter_flights_2019_03.csv")
+freq24 = get_frequencies(DIR2019_I + "inter_flights_2019_04.csv")
+freq25 = get_frequencies(DIR2019_I + "inter_flights_2019_05.csv")
+freq26 = get_frequencies(DIR2019_I + "inter_flights_2019_06.csv")
+freq27 = get_frequencies(DIR2019_I + "inter_flights_2019_07.csv")
+freq28 = get_frequencies(DIR2019_I + "inter_flights_2019_08.csv")
+freq29 = get_frequencies(DIR2019_I + "inter_flights_2019_09.csv")
+freq210 = get_frequencies(DIR2019_I + "inter_flights_2019_10.csv")
+freq211 = get_frequencies(DIR2019_I + "inter_flights_2019_11.csv")
+freq212 = get_frequencies(DIR2019_I + "inter_flights_2019_12.csv")
 
 freq29[21] = int((freq29[20]+freq29[22])/2)
 
@@ -168,6 +172,7 @@ x4 = np.linspace(1,len(frequencies4),len(frequencies4))
 
 # ----- Plotting ----- #
 plt.rcParams['font.size'] = '13'
+plt.rcParams['legend.framealpha'] = '0.4'
 
 plt.plot(x2,frequencies2, alpha = 0.3, color = "darkorange", label = "2019: Daily # flights")
 plt.plot(x2,day_avg2, color = "darkorange", linestyle = '-', label = "2019: 7 day average", linewidth = 3)
@@ -176,7 +181,7 @@ plt.plot(x,day_avg, color = "mediumblue", linestyle = '-', label = "2020: 7 day 
 plt.axvline(x=71, color = 'red', linestyle = '--')
 plt.xticks([0,31,59,90,120,151,181,212,243,273,304,334], ["January 1st","February 1st","March 1st", "April 1st","May 1st", "June 1st", "July 1st", "August 1st", "September 1st", "October 1st", "November 1st", "December 1st"], rotation = 50)
 plt.xlim([0,len(frequencies1)])
-plt.text(75, 10000, 'March 11, 2020: WHO declared pandemic', color = 'red', fontsize=16)
+plt.text(75, 15500, 'March 11, 2020: WHO declared pandemic', color = 'red', fontsize=16)
 plt.title("Daily number of European flights", fontsize=18)
 plt.xlabel("Day", fontsize=16)
 plt.ylabel("Number of flights", fontsize=16)
@@ -201,3 +206,11 @@ plt.legend(loc='lower left')
 plt.grid(axis = "x", linestyle = "--")
 plt.tight_layout()
 plt.show()
+
+
+# percentage comparison
+EU_comp = sum(freq8)/sum(freq08)
+Int_comp = 1 - sum(freq14)/sum(freq24)
+
+print(EU_comp)
+print(Int_comp)

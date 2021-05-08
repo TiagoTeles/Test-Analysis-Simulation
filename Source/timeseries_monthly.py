@@ -8,7 +8,7 @@ from centrality import get_assortativity, get_betweenness, get_closeness, get_cl
 from data_visualization import create_graph
 
 # ---------- Setup ---------- #
-GIT_DIR = __file__[0:-28]
+GIT_DIR = __file__[0:-28] + 'Combined_'
 TOP_AIRPORTS = ["EGLL", "LFPG", "EDDF", "EHAM", "LEMD"]
 MONTHS = ["January", "February", "March", "April",  "May", "June", "July",
           "August", "September", "October", "November", "December"]
@@ -32,9 +32,9 @@ def get_filename(git_dir, year, month, european = True):
     year_str = str(year)
 
     if european:
-        filename = "{0}{1}_Filtered//EU_flights_{1}_{2}.csv".format(git_dir, year_str, month_str)
+        filename = "{0}{1}//Combined_{1}_{2}.csv".format(git_dir, year_str, month_str)
     else:
-        filename = "{0}{1}_Filtered//Inter_flights_{1}_{2}.csv".format(git_dir, year_str, month_str)
+        filename = "{0}{1}//Combined_{1}_{2}.csv".format(git_dir, year_str, month_str)
 
     return filename
 
@@ -57,6 +57,7 @@ def timeseries_average(func, index, **args):
     # Determine values
     values_2019 = []
     values_2020 = []
+    percentages_difference = []
     for month in range(1, 13):
 
         # Get filename
@@ -71,7 +72,13 @@ def timeseries_average(func, index, **args):
         values_2019.append(func(graph_2019, [], **args)[index])
         values_2020.append(func(graph_2020, [], **args)[index])
 
+        #Difference analysis
+        percentages_difference.append(float(1-values_2020[month-1]/values_2019[month-1]))
+    print(percentages_difference)
+
     plt.rcParams['font.size'] = '13'
+    plt.rcParams['legend.framealpha'] = '0.4'
+    plt.rcParams['figure.figsize'] = 9.3, 6.5
 
     # Plot values
     x_values = list(range(1, 13))
@@ -143,6 +150,8 @@ def timeseries_airports(func, index, airports, **args):
     g = 0
 
     plt.rcParams['font.size'] = '13'
+    plt.rcParams['legend.framealpha'] = '0.4'
+    plt.rcParams['figure.figsize'] = 9.3, 6.5
 
     for i, icao in enumerate(airports):
         y_values = np.array(values_2019).transpose()[i]
@@ -190,12 +199,12 @@ def timeseries_airports(func, index, airports, **args):
 
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
-    TITLE = "Average clustering coefficient per month"
+    TITLE = "Assortativity per month"
     X_LABEL = "Month"
-    Y_LABEL = "Clustering coefficient"
-    timeseries_average(get_clustering, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Assortativity"
+    timeseries_average(get_assortativity, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
-    TITLE = "Clustering coefficient of the top five airports in Europe"
+    TITLE = "Closeness of the top five airports in Europe"
     X_LABEL = "Month"
-    Y_LABEL = "Clustering coefficient"
-    timeseries_airports(get_clustering, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Closeness"
+    timeseries_airports(get_closeness, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)

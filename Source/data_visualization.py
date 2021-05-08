@@ -16,9 +16,9 @@ import pandas as pd
 # General settings
 GIT_DIR = __file__[0:-28]
 ASSET_DIR = GIT_DIR + "Assets/"
-DIR_2019 = GIT_DIR + "2019_Filtered/"
-DIR_2020  = GIT_DIR + "2020_Filtered/"
-FLIGHT_DIR = "EU_flights_2019_04.csv"
+DIR_2019 = GIT_DIR + "Combined_2019/"
+DIR_2020  = GIT_DIR + "Combined_2020/"
+FLIGHT_DIR = "Combined_2020_04.csv"
 AIRPORT_DIR = "Airports.csv"
 
 # Caropy settings
@@ -155,7 +155,9 @@ def display_map(graph, coords, marker_size = 2, colour = "Black"):
 
         # Plot
         plt.plot(longitudes, latitudes, c = colour, lw = LW * edge["weight"] / max(graph.es["weight"]),
-                 ms = marker_size, ls = "-", marker = ".", transform = TRANSFORM)
+                 ls = "-", transform = TRANSFORM)
+        plt.plot(longitudes, latitudes, c='mediumblue', lw=0,
+                 ms=marker_size, marker=".", transform=TRANSFORM)
 
     # Display map
     plt.show()
@@ -252,9 +254,9 @@ def display_network(graph, coords):
 
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
-    graph = create_graph(DIR_2019 + FLIGHT_DIR)
+    graph = create_graph(DIR_2020 + FLIGHT_DIR)
     coordinates = get_coordinates(ASSET_DIR + AIRPORT_DIR)
 
     display_map(graph, coordinates, colour = "red")
-    #display_airports(coordinates, colour = "red")
+    # display_airports(coordinates, colour = "mediumblue")
     #display_network(graph, coordinates)
