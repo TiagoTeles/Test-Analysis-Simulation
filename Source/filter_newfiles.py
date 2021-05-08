@@ -52,3 +52,10 @@ for flight in flight_list:
 
 print("Filter 2:", len(flight_list) - len(result_list), " flights had no airport in Europe")
 flight_list = result_list     # Reset process
+
+# Create .CSV with European flights
+with open(GIT_DIR + "Combined_2019_new/", 'w', newline="") as f:
+    the_writer = csv.writer(f)
+    the_writer.writerow(["Callsign", " Origin", " Destination", "Day"])
+    for row in result_list:
+        the_writer.writerow(row)
