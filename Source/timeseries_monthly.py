@@ -32,9 +32,9 @@ def get_filename(git_dir, year, month, european = True):
     year_str = str(year)
 
     if european:
-        filename = "{0}{1}_Filtered//EU_flights_{1}_{2}.csv".format(git_dir, year_str, month_str)
+        filename = "Combined {0}{1}//Combined_{1}_{2}.csv".format(git_dir, year_str, month_str)
     else:
-        filename = "{0}{1}_Filtered//Inter_flights_{1}_{2}.csv".format(git_dir, year_str, month_str)
+        filename = "Combined {0}{1}//Combined_{1}_{2}.csv".format(git_dir, year_str, month_str)
 
     return filename
 
@@ -202,7 +202,7 @@ if __name__ == "__main__":
     Y_LABEL = "Clustering coefficient"
     timeseries_average(get_clustering, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
-    TITLE = "Degree of the top five airports in Europe"
+    TITLE = "Clustering coefficient of the top five airports in Europe"
     X_LABEL = "Month"
-    Y_LABEL = "Degree"
-    timeseries_airports(get_degree, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Clustering coefficient"
+    timeseries_airports(get_clustering, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
