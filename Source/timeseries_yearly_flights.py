@@ -53,8 +53,8 @@ def get_frequencies(filename):
 
 # ----- European flights ----- #
 # Create directories
-DIR2019 = __file__[0:-35] + "Combined_2019/"
-DIR2020 = __file__[0:-35] + "Combined_2020/"
+DIR2019 = __file__[0:-35] + "Combined_2019_new/"
+DIR2020 = __file__[0:-35] + "Combined_2020_new/"
 
 DIR2020_I = __file__[0:-35] + "2020_filtered/"
 DIR2019_I = __file__[0:-35] + "2019_filtered/"
@@ -62,35 +62,35 @@ DIR2019_I = __file__[0:-35] + "2019_filtered/"
 
 # Get the 2020 files  
 
-freq1 = get_frequencies(DIR2020 + "Combined_2020_01.csv")
-freq2 = get_frequencies(DIR2020 + "Combined_2020_02.csv")
-freq3 = get_frequencies(DIR2020 + "Combined_2020_03.csv")
-freq4 = get_frequencies(DIR2020 + "Combined_2020_04.csv")
-freq5 = get_frequencies(DIR2020 + "Combined_2020_05.csv")
-freq6 = get_frequencies(DIR2020 + "Combined_2020_06.csv")
-freq7 = get_frequencies(DIR2020 + "Combined_2020_07.csv")
-freq8 = get_frequencies(DIR2020 + "Combined_2020_08.csv")
-freq9 = get_frequencies(DIR2020 + "Combined_2020_09.csv")
-freq10 = get_frequencies(DIR2020 + "Combined_2020_10.csv")
-freq11 = get_frequencies(DIR2020 + "Combined_2020_11.csv")
-freq12 = get_frequencies(DIR2020 + "Combined_2020_12.csv")
+freq1 = get_frequencies(DIR2020 + "Combined_2020_01_b.csv")
+freq2 = get_frequencies(DIR2020 + "Combined_2020_02_b.csv")
+freq3 = get_frequencies(DIR2020 + "Combined_2020_03_b.csv")
+freq4 = get_frequencies(DIR2020 + "Combined_2020_04_b.csv")
+freq5 = get_frequencies(DIR2020 + "Combined_2020_05_b.csv")
+freq6 = get_frequencies(DIR2020 + "Combined_2020_06_b.csv")
+freq7 = get_frequencies(DIR2020 + "Combined_2020_07_b.csv")
+freq8 = get_frequencies(DIR2020 + "Combined_2020_08_b.csv")
+freq9 = get_frequencies(DIR2020 + "Combined_2020_09_b.csv")
+freq10 = get_frequencies(DIR2020 + "Combined_2020_10_b.csv")
+freq11 = get_frequencies(DIR2020 + "Combined_2020_11_b.csv")
+freq12 = get_frequencies(DIR2020 + "Combined_2020_12_b.csv")
 
 frequencies1 = freq1 + freq2 + freq3 + freq4 + freq5 + freq6 + freq7 + freq8 + freq9 + freq10 + freq11 + freq12
 
 # Get 2019 files
 
-freq01 = get_frequencies(DIR2019 + "Combined_2019_01.csv")
-freq02 = get_frequencies(DIR2019 + "Combined_2019_02.csv")
-freq03 = get_frequencies(DIR2019 + "Combined_2019_03.csv")
-freq04 = get_frequencies(DIR2019 + "Combined_2019_04.csv")
-freq05 = get_frequencies(DIR2019 + "Combined_2019_05.csv")
-freq06 = get_frequencies(DIR2019 + "Combined_2019_06.csv")
-freq07 = get_frequencies(DIR2019 + "Combined_2019_07.csv")
-freq08 = get_frequencies(DIR2019 + "Combined_2019_08.csv")
-freq09 = get_frequencies(DIR2019 + "Combined_2019_09.csv")
-freq010 = get_frequencies(DIR2019 + "Combined_2019_10.csv")
-freq011 = get_frequencies(DIR2019 + "Combined_2019_11.csv")
-freq012 = get_frequencies(DIR2019 + "Combined_2019_12.csv")
+freq01 = get_frequencies(DIR2019 + "Combined_2019_01_b.csv")
+freq02 = get_frequencies(DIR2019 + "Combined_2019_02_b.csv")
+freq03 = get_frequencies(DIR2019 + "Combined_2019_03_b.csv")
+freq04 = get_frequencies(DIR2019 + "Combined_2019_04_b.csv")
+freq05 = get_frequencies(DIR2019 + "Combined_2019_05_b.csv")
+freq06 = get_frequencies(DIR2019 + "Combined_2019_06_b.csv")
+freq07 = get_frequencies(DIR2019 + "Combined_2019_07_b.csv")
+freq08 = get_frequencies(DIR2019 + "Combined_2019_08_b.csv")
+freq09 = get_frequencies(DIR2019 + "Combined_2019_09_b.csv")
+freq010 = get_frequencies(DIR2019 + "Combined_2019_10_b.csv")
+freq011 = get_frequencies(DIR2019 + "Combined_2019_11_b.csv")
+freq012 = get_frequencies(DIR2019 + "Combined_2019_12_b.csv")
 
 freq09[21] = int((freq09[20]+freq09[22])/2)
 
@@ -209,7 +209,7 @@ plt.show()
 
 
 # percentage comparison
-EU_comp = sum(freq8)/sum(freq08)
+EU_comp = 1 - sum(freq4)/sum(freq04)
 Int_comp = 1 - sum(freq14)/sum(freq24)
 
 print(EU_comp)
