@@ -11,7 +11,7 @@ DIR_2019 = GIT_DIR + "Combined_2019/"
 DIR_2020 = GIT_DIR + "Combined_2020/"
 
 # Define input file names
-FLIGHT_DIR = DIR_2020 + 'Combined_2020_01.csv'
+FLIGHT_DIR = DIR_2019 + 'Combined_2019_01.csv'
 # FLIGHT_DIR = "C:/Users/TeleT/Downloads/Flight Data/2019/flightlist_20190101_20190131.csv"   # Tiago
 AIRPORT_DIR = "Airports.csv"     # .CSV containing list of EU airports
 
@@ -54,7 +54,7 @@ print("Filter 2:", len(flight_list) - len(result_list), " flights had no airport
 flight_list = result_list     # Reset process
 
 # Create .CSV with European flights
-with open(GIT_DIR + "Combined_2020_new/Combined_2020_01_b", 'w', newline="") as f:
+with open(GIT_DIR + "Combined_2019_new/Combined_2019_01_b.csv", 'w', newline="") as f:
     the_writer = csv.writer(f)
     the_writer.writerow(["Callsign", " Origin", " Destination", "Day"])
     for row in result_list:
