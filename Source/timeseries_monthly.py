@@ -32,9 +32,9 @@ def get_filename(git_dir, year, month, european = True):
     year_str = str(year)
 
     if european:
-        filename = "Combined {0}{1}//Combined_{1}_{2}.csv".format(git_dir, year_str, month_str)
+        filename = "Combined_{0}{1}//Combined_{1}_{2}.csv".format(git_dir, year_str, month_str)
     else:
-        filename = "Combined {0}{1}//Combined_{1}_{2}.csv".format(git_dir, year_str, month_str)
+        filename = "Combined_{0}{1}//Combined_{1}_{2}.csv".format(git_dir, year_str, month_str)
 
     return filename
 

@@ -53,8 +53,8 @@ def get_frequencies(filename):
 
 # ----- European flights ----- #
 # Create directories
-DIR2019 = __file__[0:-35] + "Combined 2019/"
-DIR2020 = __file__[0:-35] + "Combined 2020/"
+DIR2019 = __file__[0:-35] + "Combined_2019/"
+DIR2020 = __file__[0:-35] + "Combined_2020/"
 
 DIR2020_I = __file__[0:-35] + "2020_filtered/"
 DIR2019_I = __file__[0:-35] + "2019_filtered/"
