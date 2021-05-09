@@ -9,12 +9,14 @@ from data_visualization import create_graph
 
 # ---------- Setup ---------- #
 GIT_DIR = __file__[0:-28] + 'Combined_'
-TOP_AIRPORTS = ["EGLL", "LFPG", "EDDF", "EHAM", "LEMD"]
+TOP_AIRPORTS = ["EGLL", "LFPG", "EHAM", "EDDF", "LEMD"]
 MONTHS = ["January", "February", "March", "April",  "May", "June", "July",
           "August", "September", "October", "November", "December"]
 
 # ---------- Function Definitions ---------- #
-def get_filename(git_dir, year, month, european = True):
+
+
+def get_filename(git_dir, year, month, european=True):
     """
     Determines the filename based on the parameters given.
 
@@ -32,9 +34,11 @@ def get_filename(git_dir, year, month, european = True):
     year_str = str(year)
 
     if european:
-        filename = "{0}{1}_new//Combined_{1}_{2}_b.csv".format(git_dir, year_str, month_str)
+        filename = "{0}{1}_new//Combined_{1}_{2}_b.csv".format(
+            git_dir, year_str, month_str)
     else:
-        filename = "{0}{1}_new//Combined_{1}_{2}_b.csv".format(git_dir, year_str, month_str)
+        filename = "{0}{1}_new//Combined_{1}_{2}_b.csv".format(
+            git_dir, year_str, month_str)
 
     return filename
 
@@ -72,7 +76,7 @@ def timeseries_average(func, index, **args):
         values_2019.append(func(graph_2019, [], **args)[index])
         values_2020.append(func(graph_2020, [], **args)[index])
 
-        #Difference analysis
+        # Difference analysis
         percentages_difference.append(float(1-values_2020[month-1]/values_2019[month-1]))
     print(percentages_difference)
 
@@ -82,13 +86,15 @@ def timeseries_average(func, index, **args):
 
     # Plot values
     x_values = list(range(1, 13))
-    plt.plot(x_values, values_2019, color = "darkorange", label = "2019", linewidth = 2,  marker = "*")
-    plt.plot(x_values, values_2020, color = "mediumblue", label = "2020", linewidth = 2,  marker = "x")
+    plt.plot(x_values, values_2019, color="darkorange",
+             label="2019", linewidth=2,  marker="*")
+    plt.plot(x_values, values_2020, color="mediumblue",
+             label="2020", linewidth=2,  marker="x")
 
     # Configure plot
     plt.xlim(1, 12)
-    plt.grid(axis = "x", linestyle = "--")
-    plt.xticks(x_values, MONTHS, rotation = 45)
+    plt.grid(axis="x", linestyle="--")
+    plt.xticks(x_values, MONTHS, rotation=45)
 
     # Configure labels
     plt.title(title, fontsize=18)
@@ -122,9 +128,6 @@ def timeseries_airports(func, index, airports, **args):
 
     # Make colour list
     colours = ['darkred', 'indianred', 'orangered', 'darkorange', 'orange']
-
-    # Make opacity list
-    opacity = [1, 0.8, 0.6, 0.4, 0.2]
 
     # Determine values
     values_2019 = []
@@ -161,11 +164,11 @@ def timeseries_airports(func, index, airports, **args):
 
     # Configure plot
     plt.xlim(1, 12)
-    plt.grid(axis = "x", linestyle = "--")
-    plt.xticks(x_values, MONTHS, rotation = 45)
+    plt.grid(axis="x", linestyle="--")
+    plt.xticks(x_values, MONTHS, rotation=45)
 
     # Configure labels
-    plt.title(title  + str(": 2019"), fontsize=18)
+    plt.title(title + str(": 2019"), fontsize=18)
     plt.xlabel(x_label, fontsize=16)
     plt.ylabel(y_label, fontsize=16)
     plt.legend()
@@ -183,11 +186,11 @@ def timeseries_airports(func, index, airports, **args):
 
     # Configure plot
     plt.xlim(1, 12)
-    plt.grid(axis = "x", linestyle = "--")
-    plt.xticks(x_values, MONTHS, rotation = 45)
+    plt.grid(axis="x", linestyle="--")
+    plt.xticks(x_values, MONTHS, rotation=45)
 
     # Configure labels
-    plt.title(title  + str(": 2020"), fontsize=18)
+    plt.title(title + str(": 2020"), fontsize=18)
     plt.xlabel(x_label, fontsize=16)
     plt.ylabel(y_label, fontsize=16)
     plt.legend()
@@ -199,12 +202,12 @@ def timeseries_airports(func, index, airports, **args):
 
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
-    TITLE = "Average clustering coefficient per month"
+    TITLE = "Average Betweenness per month"
     X_LABEL = "Month"
-    Y_LABEL = "Clustering coefficient"
-    timeseries_average(get_clustering, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Betweenness"
+    timeseries_average(get_betweenness, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
-    TITLE = "Clustering coefficient of the top five airports in Europe"
+    TITLE = "Betweenness of the top five airports in Europe"
     X_LABEL = "Month"
-    Y_LABEL = "Clustering coefficient"
-    timeseries_airports(get_clustering, 1, TOP_AIRPORTS, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Betweenness"
+    timeseries_airports(get_betweenness, 1, TOP_AIRPORTS, title=TITLE, x_label=X_LABEL, y_label=Y_LABEL)
