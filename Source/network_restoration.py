@@ -37,17 +37,17 @@ del airports[0]
 
 
 # ---------- Function Definitions ---------- #
-# def betweenness(graph):
-#     Determine betweenness of each node
-#     betweeness = graph.vs.betweenness(weights = graph.es["weight"])
+def betweenness(graph):
+    # Determine betweenness of each node
+    betweeness = graph.vs.betweenness(weights = [1/w for w in graph.es["weight"]])
 
-#     # Detemine average closeness
-#     num, den = 0, 0
-#     for i in range(len(graph.vs)):
-#         num += betweeness[i]
-#         den += 1
+    # Detemine average closeness
+    num, den = 0, 0
+    for i in range(len(graph.vs)):
+        num += betweeness[i]
+        den += 1
         
-#     return num/den
+    return num/den
 
 def closeness(graph):
     # Determine closeness of each node
@@ -80,8 +80,8 @@ graph_2019 = create_graph(FLIGHT_DIR_2019)
 graph_2020 = create_graph(FLIGHT_DIR_2020)
 
 # Get target & starting measures
-measure_2019 = weighted_degree(graph_2019)
-measure_2020 = weighted_degree(graph_2020)
+measure_2019 = closeness(graph_2019)
+measure_2020 = closeness(graph_2020)
 
 # Store results
 efficiency = []
@@ -140,7 +140,7 @@ for icao_main in airports:
 
 
     # Get updated measure
-    measure_virtual = weighted_degree(graph_2020)
+    measure_virtual = closeness(graph_2020)
 
     # Normalize & Scale average node weight
     if n_flights != 0:
@@ -157,7 +157,7 @@ print("Process time: " + str(time.time() - start_time) + " [s]\n")
 # Sort result
 efficiency.sort(key=lambda x: x[1], reverse=True)
 
-# Select top N
+# Select top 10
 efficiency = efficiency[0:10]
 
 # Plot result

@@ -26,9 +26,10 @@ def get_assortativity(graph, airports, **args):
     directed = args.get("directed", True)
 
     # Determine assortativity
-    assorativity = graph.assortativity_degree(directed = directed)
+    assorativity = graph.assortativity_degree(directed=directed)
 
     return assorativity, None
+
 
 def get_betweenness(graph, airports, **args):
     """
@@ -50,9 +51,10 @@ def get_betweenness(graph, airports, **args):
 
     # Determine closeness for each node
     if weighted:
-        betweeness = graph.vs.betweenness(directed = directed, weights = graph.es["weight"])
+        weights = [1/w for w in graph.es["weight"]]
+        betweeness = graph.vs.betweenness(directed=directed, weights=weights)
     else:
-        betweeness = graph.vs.betweenness(directed = directed, weights = None)
+        betweeness = graph.vs.betweenness(directed=directed, weights=None)
 
     # Detemine average closeness
     num, den = 0, 0
@@ -90,14 +92,16 @@ def get_closeness(graph, airports, **args):
 
     # Determine closeness for each node
     if weighted:
-        closeness = graph.vs.closeness(mode = mode, weights = graph.es["weight"], normalized = normalized)
+        closeness = graph.vs.closeness(
+            mode=mode, weights=graph.es["weight"], normalized=normalized)
     else:
-        closeness = graph.vs.closeness(mode = mode, weights = None, normalized = normalized)
+        closeness = graph.vs.closeness(
+            mode=mode, weights=None, normalized=normalized)
 
     # Detemine average closeness
     num, den = 0, 0
     for i in range(len(graph.vs)):
-        if graph.degree(graph.vs[i], mode = mode) != 0:
+        if graph.degree(graph.vs[i], mode=mode) != 0:
             num += closeness[i]
             den += 1
 
@@ -128,7 +132,6 @@ def get_clustering(graph, airports, **args):
     graph.to_undirected()
     clustering = graph.transitivity_local_undirected()
 
-
     # Detemine average clustering coefficients
     num, den = 0, 0
     for i in range(len(graph.vs)):
@@ -143,6 +146,7 @@ def get_clustering(graph, airports, **args):
             nodes.append(clustering[i])
 
     return num/den, nodes
+
 
 def get_degree(graph, airports, **args):
     """
@@ -162,7 +166,7 @@ def get_degree(graph, airports, **args):
     mode = args.get("mode", "all")
 
     # Determine degree for each node
-    degree = graph.vs.degree(mode = mode)
+    degree = graph.vs.degree(mode=mode)
 
     # Detemine average degree
     avg = sum(degree)/len(degree)
@@ -184,7 +188,7 @@ if __name__ == "__main__":
 
     # Determine parameters
     # assortatvity_flights = get_assortativity(graph_flights, [])
-    betweenness_flights = get_betweenness(graph_flights, [], weighted = False)
+    betweenness_flights = get_betweenness(graph_flights, [], weighted=True)
     # closeness_flights = get_closeness(graph_flights, [])
     # degree_flights = get_degree(graph_flights, [])
 
@@ -193,20 +197,7 @@ if __name__ == "__main__":
 
     # # Print results
     # print("Average Assortativity: " + str(assortatvity_flights[0]))
-    # print("Average Betweenness: " + str(betweenness_flights[0]))
+    print("Average Betweenness: " + str(betweenness_flights[1]))
     # print("Average Closeness: " + str(closeness_flights[0]))
     # print("Average Clustering Coefficient: " + str(clustering_flights[0]))
     # print("Average Degree: " + str(degree_flights[0]))
-
-    # Determine closeness for each node
-    betweeness = graph_flights.vs.betweenness(directed = True, weights = graph_flights.es["weight"])
-
-    # Create list for the selected airports
-    nodes = []
-    for i in range(len(graph_flights.vs)):
-        nodes.append((graph_flights.vs["name"][i], betweeness[i]))
-
-    nodes.sort(key=lambda x: x[1], reverse=True)
-
-    for i in nodes:
-        print(i)
