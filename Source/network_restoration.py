@@ -19,8 +19,8 @@ import csv
 # ---------- Setup --------- #
 # Define directories
 GIT_DIR = __file__[0:-29]
-FLIGHT_DIR_2019 = GIT_DIR + "2019_Filtered/EU_flights_2019_04.csv"
-FLIGHT_DIR_2020 = GIT_DIR + "2020_Filtered/EU_flights_2020_04.csv"
+FLIGHT_DIR_2019 = GIT_DIR + "Combined_2019_new/Combined_2019_04_b.csv"
+FLIGHT_DIR_2020 = GIT_DIR + "Combined_2020_new/Combined_2020_04_b.csv"
 AIRPORT_DIR = GIT_DIR + "Assets/Airports.csv"
 
 # List of airports to try restoration
@@ -37,21 +37,27 @@ del airports[0]
 
 
 # ---------- Function Definitions ---------- #
-# def betweenness(graph):
-#     Determine betweenness of each node
-#     betweeness = graph.vs.betweenness(weights = graph.es["weight"])
+def betweenness(graph):
+    # Determine betweenness of each node
+    betweeness = graph.vs.betweenness(
+        weights=[1/w for w in graph.es["weight"]])
 
-#     # Detemine average closeness
-#     num, den = 0, 0
-#     for i in range(len(graph.vs)):
-#         num += betweeness[i]
-#         den += 1
-        
-#     return num/den
+    # Normalize
+    N = len(graph.vs)
+    betweeness = [i/((N-1)*(N-2)) for i in betweeness]
+
+    # Detemine average closeness
+    num, den = 0, 0
+    for i in range(len(graph.vs)):
+        num += betweeness[i]
+        den += 1
+
+    return num/den
+
 
 def closeness(graph):
     # Determine closeness of each node
-    closeness = graph.vs.closeness(weights = graph.es["weight"])
+    closeness = graph.vs.closeness(weights=graph.es["weight"])
 
     # Detemine average closeness
     num, den = 0, 0
@@ -62,11 +68,12 @@ def closeness(graph):
 
     return num/den
 
+
 def weighted_degree(graph):
     # Detemine average closeness
     num = 0
     for vertex in graph.vs:
-        num += sum(graph.es.select(_incident = [vertex])["weight"])
+        num += sum(graph.es.select(_incident=[vertex])["weight"])
 
     return num/len(graph.vs)
 
@@ -80,8 +87,8 @@ graph_2019 = create_graph(FLIGHT_DIR_2019)
 graph_2020 = create_graph(FLIGHT_DIR_2020)
 
 # Get target & starting measures
-measure_2019 = weighted_degree(graph_2019)
-measure_2020 = weighted_degree(graph_2020)
+measure_2019 = betweenness(graph_2019)
+measure_2020 = betweenness(graph_2020)
 
 # Store results
 efficiency = []
@@ -91,24 +98,24 @@ for icao_main in airports:
 
     # Initialize variables
     n_flights = 0
-    
+
     # Get vertex ID from ICAO code
-    vertex_main_2019 = graph_2019.vs.select(name = icao_main)
-    vertex_main_2020 = graph_2020.vs.select(name = icao_main)
+    vertex_main_2019 = graph_2019.vs.select(name=icao_main)
+    vertex_main_2020 = graph_2020.vs.select(name=icao_main)
 
     # Get edges connected to main from 2019
-    edges_dep_2019 = graph_2019.es.select(_from_in = vertex_main_2019)
-    edges_arr_2019 = graph_2019.es.select(_to_in = vertex_main_2019)
+    edges_dep_2019 = graph_2019.es.select(_from_in=vertex_main_2019)
+    edges_arr_2019 = graph_2019.es.select(_to_in=vertex_main_2019)
 
     # Get edges connected to main from 2020
-    edges_dep_2020 = graph_2020.es.select(_from_in = vertex_main_2020)
-    edges_arr_2020 = graph_2020.es.select(_to_in = vertex_main_2020)
+    edges_dep_2020 = graph_2020.es.select(_from_in=vertex_main_2020)
+    edges_arr_2020 = graph_2020.es.select(_to_in=vertex_main_2020)
 
     # Get departures from main in 2019
     for edge_2020 in edges_dep_2020:
         icao_sub = graph_2020.vs["name"][edge_2020.target]
-        vertex_sub_2019 = graph_2019.vs.select(name = icao_sub)
-        edge_2019 = edges_dep_2019.select(_to_in = vertex_sub_2019)
+        vertex_sub_2019 = graph_2019.vs.select(name=icao_sub)
+        edge_2019 = edges_dep_2019.select(_to_in=vertex_sub_2019)
 
         if len(edge_2019) != 0:
             # Get weights
@@ -124,8 +131,8 @@ for icao_main in airports:
     # Get arrivals to main in 2019
     for edge_2020 in edges_dep_2020:
         icao_sub = graph_2020.vs["name"][edge_2020.source]
-        vertex_sub_2019 = graph_2019.vs.select(name = icao_sub)
-        edge_2019 = edges_arr_2019.select(_from_in = vertex_sub_2019)
+        vertex_sub_2019 = graph_2019.vs.select(name=icao_sub)
+        edge_2019 = edges_arr_2019.select(_from_in=vertex_sub_2019)
 
         if len(edge_2019) != 0:
             # Get weights
@@ -135,18 +142,14 @@ for icao_main in airports:
             # Update weight
             edge_2020["weight"] = weight_2019
 
-            # Get additional flights
-            n_flights += abs(weight_2019 - weight_2020)
-
-
     # Get updated measure
-    measure_virtual = weighted_degree(graph_2020)
+    measure_virtual = betweenness(graph_2020)
 
     # Normalize & Scale average node weight
     if n_flights != 0:
-        measure_normalized = (measure_virtual - measure_2020) / (measure_2019 - measure_2020)
-        measure_specific = measure_normalized #/ n_flights
-        efficiency.append((icao_main, measure_specific))
+        measure_normalized = (measure_virtual - measure_2020) / \
+            (measure_2019 - measure_2020)
+        efficiency.append((icao_main, measure_normalized))
 
     # Reset graph
     graph_2020 = create_graph(FLIGHT_DIR_2020)
@@ -157,12 +160,17 @@ print("Process time: " + str(time.time() - start_time) + " [s]\n")
 # Sort result
 efficiency.sort(key=lambda x: x[1], reverse=True)
 
-# Select top N
+# Select top 10
 efficiency = efficiency[0:10]
 
+# Setting up the results
+plt.rcParams['font.size'] = '13'
+plt.rcParams['legend.framealpha'] = '0.4'
+plt.rcParams['figure.figsize'] = 9.3, 6.5
+
 # Plot result
-plt.title("Network Restoration")
-plt.ylabel("Restoration Efficiency")
+plt.ylabel("Restoration Efficiency", fontsize=16)
+plt.tight_layout()
 plt.bar(*zip(*efficiency))
 
 # Show plot

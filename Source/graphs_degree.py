@@ -52,12 +52,12 @@ start_time = time.time()
 # Define directories
 GITDIR = __file__[0:-23]
 ASSETDIR = GITDIR + "Assets/"
-DIR2019 = GITDIR + "2019_Filtered/"
-DIR2020  = GITDIR + "2020_Filtered/"
+DIR2019 = GITDIR + "Combined_2019_new/"
+DIR2020  = GITDIR + "Combined_2020_new/"
 
 # Define input file name
 AIRPORTDIR = "Airports.csv"             # .CSV containing list of EU airports
-FLIGHTFILE = "EU_flights_2019_04.csv"   # .CSV containing list of filtered flights
+FLIGHTFILE = "Combined_2019_04_b.csv"   # .CSV containing list of filtered flights
 
 # Open files
 airportFile = open(ASSETDIR + AIRPORTDIR, encoding="utf8")
@@ -136,6 +136,8 @@ degree_list = np.array(degree_list)
 equation = r"$P(K(i)\geqslant k)$ = " + '$k^{-' + str(round(a,3)) + '}$ * $e^{-k/' + str(round(b,3)) +'}$'
 
 plt.rcParams['font.size'] = '13'
+plt.rcParams['figure.figsize'] = 7, 5
+
 # Create the plots
 #plt.plot(xx,probability, ".")
 #plt.subplot(211)
@@ -147,7 +149,7 @@ plt.yscale("log")
 plt.xscale("log")
 
 # Add legend and axis information
-plt.title("Cumulative degree distribution for the april 2019 network", fontsize='15')
+# plt.title("Cumulative degree distribution for the april 2020 network", fontsize='15')
 # plt.title("cumulative degree distribution for " + FLIGHTFILE)
 plt.xlabel("Node degree, " + r"$k$")
 # plt.ylabel("P(K(i)$\geqslant$k)")
@@ -160,58 +162,58 @@ plt.tight_layout()
 plt.show()
 
 
-''' Time series for average degree'''
-
-#2019
-
-files_2019 = []
-for i in range(1,13):
-    if i < 10:
-        name = DIR2019 + "EU_flights_2019_0" + str(i) + ".csv"
-    else:
-        name = DIR2019 + "EU_flights_2019_" + str(i) + ".csv"
-
-    files_2019.append(name)
-
-
-av_2019 = []
-
-for i in files_2019:
-    av_2019.append(get_average_degree(i))
-
-
-#2020
-files_2020 = []
-for i in range(1,13):
-    if i < 10:
-        name = DIR2020 + "EU_flights_2020_0" + str(i) + ".csv"
-    else:
-        name = DIR2020 + "EU_flights_2020_" + str(i) + ".csv"
-
-    files_2020.append(name)
-
-av_2020 = []
-
-for i in files_2020:
-    av_2020.append(get_average_degree(i))
-
-
-xx = np.arange(1,13)
-
-print('Runtime = ', time.time()-start_time )
-# Graph plotting
-# plt.figure()
-plt.plot(xx,av_2019,  color = "darkorange", label = "2019", marker = '*')
-plt.plot(xx,av_2020, color = "mediumblue", label = "2020", marker = 'x')
-plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ["January","February","March", "April","May","June","July","August", "September", "October", "November", "December"], rotation = 45)
-plt.title("Average node degree per month")
-plt.xlabel("Month")
-plt.ylabel("Average node degree")
-plt.legend()
-plt.grid(axis="x", linestyle="--")
-plt.tight_layout()
-# show plots
-plt.show()
+# ''' Time series for average degree'''
+#
+# #2019
+#
+# files_2019 = []
+# for i in range(1,13):
+#     if i < 10:
+#         name = DIR2019 + "Combined_2019_0" + str(i) + "_b.csv"
+#     else:
+#         name = DIR2019 + "Combined_2019_" + str(i) + "_b.csv"
+#
+#     files_2019.append(name)
+#
+#
+# av_2019 = []
+#
+# for i in files_2019:
+#     av_2019.append(get_average_degree(i))
+#
+#
+# #2020
+# files_2020 = []
+# for i in range(1,13):
+#     if i < 10:
+#         name = DIR2020 + "Combined_2020_0" + str(i) + "_b.csv"
+#     else:
+#         name = DIR2020 + "Combined_2020_" + str(i) + "_b.csv"
+#
+#     files_2020.append(name)
+#
+# av_2020 = []
+#
+# for i in files_2020:
+#     av_2020.append(get_average_degree(i))
+#
+#
+# xx = np.arange(1,13)
+#
+# print('Runtime = ', time.time()-start_time )
+# # Graph plotting
+# # plt.figure()
+# plt.plot(xx,av_2019,  color = "darkorange", label = "2019", marker = '*')
+# plt.plot(xx,av_2020, color = "mediumblue", label = "2020", marker = 'x')
+# plt.xticks([1,2,3,4,5,6,7,8,9,10,11,12], ["January","February","March", "April","May","June","July","August", "September", "October", "November", "December"], rotation = 45)
+# plt.title("Average node degree per month")
+# plt.xlabel("Month")
+# plt.ylabel("Average node degree")
+# plt.legend()
+# plt.grid(axis="x", linestyle="--")
+# plt.tight_layout()
+# # show plots
+# plt.show()
 
 
 

@@ -18,7 +18,7 @@ GIT_DIR = __file__[0:-28]
 ASSET_DIR = GIT_DIR + "Assets/"
 DIR_2019 = GIT_DIR + "Combined_2019_new/"
 DIR_2020  = GIT_DIR + "Combined_2020_new/"
-FLIGHT_DIR = "Combined_2020_04_b.csv"
+FLIGHT_DIR = "Combined_2019_04_b.csv"
 AIRPORT_DIR = "Airports.csv"
 
 # Caropy settings
@@ -140,7 +140,7 @@ def display_map(graph, coords, marker_size = 2, colour = "Black"):
     axes.text(-0.01, 0.5, "Latitude, [Deg]", size = FONT_SIZE, va = "bottom", ha = "center",
               rotation = "vertical", rotation_mode = "anchor", transform = axes.transAxes)
 
-    axes.text(0.5, -0.05, "Longitude, [Deg]", size = FONT_SIZE, va = "bottom", ha = "center",
+    axes.text(0.5, -0.1, "Longitude, [Deg]", size = FONT_SIZE, va = "bottom", ha = "center",
               rotation = "horizontal", rotation_mode = "anchor", transform = axes.transAxes)
 
     # Add flights
@@ -157,7 +157,7 @@ def display_map(graph, coords, marker_size = 2, colour = "Black"):
         plt.plot(longitudes, latitudes, c = colour, lw = LW * edge["weight"] / max(graph.es["weight"]),
                  ls = "-", transform = TRANSFORM)
         plt.plot(longitudes, latitudes, c='mediumblue', lw=0,
-                 ms=marker_size, marker=".", transform=TRANSFORM)
+                 ms=marker_size, marker="<", transform=TRANSFORM)
 
     # Display map
     plt.show()
@@ -210,7 +210,7 @@ def display_airports(coords, marker_size = 5, colour = "Black"):
     longitudes = list(zip(*coords))[2]
 
     # Plot
-    plt.plot(longitudes, latitudes, c = colour, lw = 0,  ms = marker_size, marker = ".", transform = TRANSFORM)
+    plt.plot(longitudes, latitudes, c = colour, lw = 0,  ms = marker_size, marker = "<", transform = TRANSFORM)
 
     # Display map
     plt.show()
@@ -254,9 +254,9 @@ def display_network(graph, coords):
 
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
-    graph = create_graph(DIR_2020 + FLIGHT_DIR)
+    graph = create_graph(DIR_2019 + FLIGHT_DIR)
     coordinates = get_coordinates(ASSET_DIR + AIRPORT_DIR)
 
-    display_map(graph, coordinates, colour = "red")
-    # display_airports(coordinates, colour = "mediumblue")
+    # display_map(graph, coordinates, colour = "red")
+    display_airports(coordinates, colour = "mediumblue")
     #display_network(graph, coordinates)
