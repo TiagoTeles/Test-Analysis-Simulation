@@ -97,7 +97,7 @@ def timeseries_average(func, index, **args):
     plt.xticks(x_values, MONTHS, rotation=45)
 
     # Configure labels
-    plt.title(title, fontsize=18)
+    # plt.title(title, fontsize=18)
     plt.xlabel(x_label, fontsize=16)
     plt.ylabel(y_label, fontsize=16)
     plt.legend()
@@ -168,7 +168,7 @@ def timeseries_airports(func, index, airports, **args):
     plt.xticks(x_values, MONTHS, rotation=45)
 
     # Configure labels
-    plt.title(title + str(": 2019"), fontsize=18)
+    # plt.title(title + str(": 2019"), fontsize=18)
     plt.xlabel(x_label, fontsize=16)
     plt.ylabel(y_label, fontsize=16)
     plt.legend()
@@ -190,7 +190,7 @@ def timeseries_airports(func, index, airports, **args):
     plt.xticks(x_values, MONTHS, rotation=45)
 
     # Configure labels
-    plt.title(title + str(": 2020"), fontsize=18)
+    # plt.title(title + str(": 2020"), fontsize=18)
     plt.xlabel(x_label, fontsize=16)
     plt.ylabel(y_label, fontsize=16)
     plt.legend()
@@ -204,10 +204,10 @@ def timeseries_airports(func, index, airports, **args):
 if __name__ == "__main__":
     TITLE = "Average Betweenness per month"
     X_LABEL = "Month"
-    Y_LABEL = "Betweenness"
-    timeseries_average(get_betweenness, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Degree"
+    timeseries_average(get_degree, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
-    TITLE = "Betweenness of the top five airports in Europe"
+    TITLE = "Clustering coefficient of the top five airports in Europe"
     X_LABEL = "Month"
-    Y_LABEL = "Betweenness"
-    timeseries_airports(get_betweenness, 1, TOP_AIRPORTS, title=TITLE, x_label=X_LABEL, y_label=Y_LABEL)
+    Y_LABEL = "Degree"
+    timeseries_airports(get_degree, 1, TOP_AIRPORTS, title=TITLE, x_label=X_LABEL, y_label=Y_LABEL)
