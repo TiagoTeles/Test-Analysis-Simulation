@@ -163,8 +163,14 @@ efficiency.sort(key=lambda x: x[1], reverse=True)
 # Select top 10
 efficiency = efficiency[0:10]
 
+# Setting up the results
+plt.rcParams['font.size'] = '13'
+plt.rcParams['legend.framealpha'] = '0.4'
+plt.rcParams['figure.figsize'] = 9.3, 6.5
+
 # Plot result
-plt.ylabel("Restoration Efficiency")
+plt.ylabel("Restoration Efficiency", fontsize=16)
+plt.tight_layout()
 plt.bar(*zip(*efficiency))
 
 # Show plot
