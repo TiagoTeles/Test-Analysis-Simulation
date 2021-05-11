@@ -57,11 +57,11 @@ DIR2020  = GITDIR + "Combined_2020_new/"
 
 # Define input file name
 AIRPORTDIR = "Airports.csv"             # .CSV containing list of EU airports
-FLIGHTFILE = "Combined_2020_04_b.csv"   # .CSV containing list of filtered flights
+FLIGHTFILE = "Combined_2019_04_b.csv"   # .CSV containing list of filtered flights
 
 # Open files
 airportFile = open(ASSETDIR + AIRPORTDIR, encoding="utf8")
-flightsFile = open(DIR2020 + FLIGHTFILE, encoding="utf8")
+flightsFile = open(DIR2019 + FLIGHTFILE, encoding="utf8")
 
 # Read files
 airport_csv = csv.reader(airportFile)
@@ -149,7 +149,7 @@ plt.yscale("log")
 plt.xscale("log")
 
 # Add legend and axis information
-plt.title("Cumulative degree distribution for the april 2020 network", fontsize='15')
+# plt.title("Cumulative degree distribution for the april 2020 network", fontsize='15')
 # plt.title("cumulative degree distribution for " + FLIGHTFILE)
 plt.xlabel("Node degree, " + r"$k$")
 # plt.ylabel("P(K(i)$\geqslant$k)")

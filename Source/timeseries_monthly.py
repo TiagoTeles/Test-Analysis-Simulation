@@ -171,7 +171,8 @@ def timeseries_airports(func, index, airports, **args):
     # plt.title(title + str(": 2019"), fontsize=18)
     plt.xlabel(x_label, fontsize=16)
     plt.ylabel(y_label, fontsize=16)
-    plt.legend()
+    plt.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",
+                mode="expand", borderaxespad=0, ncol=5)
     plt.tight_layout()
     plt.show()
 
@@ -193,7 +194,8 @@ def timeseries_airports(func, index, airports, **args):
     # plt.title(title + str(": 2020"), fontsize=18)
     plt.xlabel(x_label, fontsize=16)
     plt.ylabel(y_label, fontsize=16)
-    plt.legend()
+    plt.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",
+                mode="expand", borderaxespad=0, ncol=5)
     plt.tight_layout()
 
     # Display plot
@@ -204,10 +206,10 @@ def timeseries_airports(func, index, airports, **args):
 if __name__ == "__main__":
     TITLE = "Average Betweenness per month"
     X_LABEL = "Month"
-    Y_LABEL = "Degree"
-    timeseries_average(get_degree, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    Y_LABEL = "Clustering coefficient"
+    timeseries_average(get_betweenness, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
     TITLE = "Clustering coefficient of the top five airports in Europe"
     X_LABEL = "Month"
-    Y_LABEL = "Degree"
-    timeseries_airports(get_degree, 1, TOP_AIRPORTS, title=TITLE, x_label=X_LABEL, y_label=Y_LABEL)
+    Y_LABEL = "Clustering coefficient"
+    timeseries_airports(get_clustering, 1, TOP_AIRPORTS, title=TITLE, x_label=X_LABEL, y_label=Y_LABEL)
