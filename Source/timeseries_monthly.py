@@ -159,7 +159,7 @@ def timeseries_airports(func, index, airports, **args):
     for i, icao in enumerate(airports):
         y_values = np.array(values_2019).transpose()[i]
         # axis_2019.plot(x_values, y_values, label = icao, linewidth = 2, marker = markers[g])
-        plt.plot(x_values, y_values, color=colours[g], label=icao, linewidth=2, marker=markers[g], markeredgecolor='black')
+        plt.plot(x_values, y_values, color=colours[g], label=icao, linewidth=2, marker=markers[g], markeredgecolor='black', markersize=10)
         g += 1
 
     # Configure plot
@@ -182,7 +182,7 @@ def timeseries_airports(func, index, airports, **args):
     for i, icao in enumerate(airports):
         y_values = np.array(values_2020).transpose()[i]
         # axis_2020.plot(x_values, y_values, label = icao, linewidth = 2, marker = markers[g])
-        plt.plot(x_values, y_values, color=colours[g], label=icao, linewidth=2, marker=markers[g], markeredgecolor='black')
+        plt.plot(x_values, y_values, color=colours[g], label=icao, linewidth=2, marker=markers[g], markeredgecolor='black', markersize=10)
         g += 1
 
     # Configure plot
@@ -204,12 +204,12 @@ def timeseries_airports(func, index, airports, **args):
 
 # ---------- Main Program ---------- #
 if __name__ == "__main__":
-    TITLE = "Average Betweenness per month"
-    X_LABEL = "Month"
-    Y_LABEL = "Clustering coefficient"
-    timeseries_average(get_betweenness, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
+    # TITLE = "Average Betweenness per month"
+    # X_LABEL = "Month"
+    # Y_LABEL = "Clustering coefficient"
+    # timeseries_average(get_betweenness, 0, title = TITLE, x_label = X_LABEL, y_label = Y_LABEL)
 
-    TITLE = "Clustering coefficient of the top five airports in Europe"
+    TITLE = "Degree of the top five airports in Europe"
     X_LABEL = "Month"
-    Y_LABEL = "Clustering coefficient"
-    timeseries_airports(get_clustering, 1, TOP_AIRPORTS, title=TITLE, x_label=X_LABEL, y_label=Y_LABEL)
+    Y_LABEL = "Degree"
+    timeseries_airports(get_degree, 1, TOP_AIRPORTS, title=TITLE, x_label=X_LABEL, y_label=Y_LABEL)
