@@ -1,22 +1,4 @@
-#Test for incomplete data
-
 import csv
-import time
-
-
-def is_military_eu(icao_code, letter_set, airport_database):
-    """ Checks if ICAO code is from an European military airport
-
-    Arguments:
-        icaoCode {String} -- ICAO code of the airport to be checked
-        letterSet {List} -- First letter of the airports to consider
-        airportDatabase {List} -- List of civilian airports
-
-    Returns:
-        Boolean -- True if the airport is military and in Europe
-    """
-
-    return (icao_code[0] in letter_set) and (icao_code not in airport_database)
 
 
 flight_file = open('C:/Users/mathi/OneDrive/Documenten/GitHub/Test-Analysis-Simulation/Missing_Flights/Missing_flights_2019_01.csv', encoding="utf8")
@@ -61,26 +43,14 @@ print("Total number of flights before sorting: ", len(flight_list), "\n")
 result_list = []
 
 for flight in flight_list:
-        
     if (flight[1] in airportSet or flight[2] in airportSet) and (flight[1] != flight[2]):
         result_list.append(flight)
 
 print("Filter 2:", len(flight_list) - len(result_list), " flights had no airport in Europe")
 flight_list = result_list     # Reset process
 
-### Filter 3 - Check if not military
-##result_list = []
-##
-##
-##for flight in flight_list:
-##    if (is_military_eu(flight[1], ['B', 'E', 'L'], airportSet) is False and
-##            is_military_eu(flight[2], ['B', 'E', 'L'], airportSet) is False):
-##        result_list.append(flight)
-##
-##print("Filter 3:", len(flight_list) - len(result_list), " flights were from a military base in europe")
-##flight_list = result_list     # Reset process
 
-# Filter 5 - Check if flight is from a cargo airline
+# Filter 3 - Check if flight is from a cargo airline
 result_list = []
 
 for flight in flight_list:
@@ -92,4 +62,3 @@ print("Filter 5:", len(flight_list) - len(result_list), " flights were from a ca
 flight_list = result_list     # Reset process
 
 print("\nNumber of incomplete flights with Origin/Destination in Europe:", len(flight_list))
-
