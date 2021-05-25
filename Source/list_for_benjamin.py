@@ -89,4 +89,3 @@ with open(ASSET_DIR + LIST_2020, 'w', newline="") as f:
     the_writer = csv.writer(f)
     for row in result2020:
         the_writer.writerow(list(row))
-

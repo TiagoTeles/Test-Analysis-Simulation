@@ -214,6 +214,3 @@ plt.show()
 # plt.tight_layout()
 # # show plots
 # plt.show()
-
-
-
