@@ -1,6 +1,7 @@
 import csv
 import math
 import time
+import cartopy.crs as ccrs
 import cartopy as cp
 import igraph as ig
 import matplotlib.pyplot as plt
@@ -76,9 +77,9 @@ def plot(graph, filename, clusters):
         for edge in graph.es():
             if membership[edge.tuple[0]] != membership[edge.tuple[1]]:
                 edges.append(edge)
-                edges_colors.append('green')
+                edges_colors.append('Gray')
             else:
-                edges_colors.append("red")
+                edges_colors.append("Black")
         gcopy.delete_edges(edges)
         graph.es["color"] = edges_colors
     else:
@@ -94,7 +95,7 @@ def plot(graph, filename, clusters):
         reader = csv.reader(file, delimiter=",")
         i = 0
         for row in reader:
-            for name in g.vs["name"]:
+            for name in graph.vs["name"]:
                 if row[1] == name:
                     airports.append(row[1])
                     coords.append((float(row[-2]), -float(row[-3])))
@@ -224,7 +225,7 @@ def plot(graph, filename, clusters):
     # ig.plot(graph, f'{filename}.png', autocurve= False, **visual_style)
     plt.show()
 
-    return graph, visual_style, membership
+    return graph, coords, membership
 
 
 def timeseries(membership):
@@ -401,6 +402,22 @@ def histogram_time_series(list, filename):
 #     plt.show()
 
 
+def map_projection(membership, coords, clusters):
+    ax = plt.axes(projection=ccrs.PlateCarree())
+    ax.set_extent(MAP_BOUNDS, ccrs.PlateCarree())
+    ax.coastlines(resolution='50m')
+
+    colors = ['Tomato', 'Orange', 'DodgerBlue', 'MediumSeaGreen', 'SlateBlue', "Violet", "#FF3399", "#9CCC65",
+              "#00838F", "#795548", 'sandybrown', 'skyblue']
+
+    for vertex in graph.vs():
+        print(vertex.index)
+        print(colors[membership[vertex.index]])
+        print(coords[vertex.index][0],coords[vertex.index][1])
+        plt.plot(coords[vertex.index][0], coords[vertex.index][1], markersize=2, marker='o', color=colors[membership[vertex.index]])
+
+    plt.show()
+
 if __name__ == "__main__":
     """"Runtime"""
     start_time = time.time()
@@ -437,9 +454,11 @@ if __name__ == "__main__":
             print(ig.clustering.VertexClustering.sizes(clusters), sum(ig.clustering.VertexClustering.sizes(clusters)))
 
             """"Appending data to create the time series"""
-            graph, visual_style, membership = plot(g, filename, clusters)
+            graph, coords, membership = plot(g, filename, clusters)
             histogram_time_series(timeseries(membership),filename)
             # time_series.append(timeseries(membership))
+
+            map_projection(membership, coords, clusters)
 
     """"Plotting the time series"""
     plot_time_series(time_series)
